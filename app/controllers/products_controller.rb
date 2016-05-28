@@ -39,27 +39,27 @@ class ProductsController < ApplicationController
 
   def migrate_new_products
     begin
-      readed_file = File.open(params[:filename], 'r')
+      readed_file = File.open(params[:filename_path], 'r')
       # doc = readed_file.read
-      hash = eval(readed_file.read)
+      products = eval(readed_file.read)
       readed_file.close
 
-      hash.each do |barcode, product_name|
+      products.each do |barcode, product_name|
         #se crea cada producto solo si no existe anteriormente uno con el mismo codigo de barras
         Product.create(id: barcode.to_i, name: product_name) if Product.find_by_id(barcode.to_i)==nil
       end
       success = true
     rescue Exception => e
-      p 'error, el archivo a migrar no está en PuedoComerlo/app/controllers/'+params[:filename]+', o no posee un formato correcto'
+      p 'error, el archivo a migrar no está en "PuedoComerlo/'+params[:filename_path]+'", o no posee un formato correcto'
       p e
     end
 
     respond_to do |format|
       if success
-        format.json { render json: {created: @product}, status: :created }
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.json { render json: {products_added: products.length}, status: :created }
+        format.html { redirect_to products, notice: 'Products was successfully created.' }
       else
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+        format.json { render json: {error: e.to_s}, status: :unprocessable_entity }
         format.html { render :new }
       end
     end

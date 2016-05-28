@@ -1,5 +1,30 @@
 Rails.application.routes.draw do
+
+# para cuando se tenga instalado devise
+  # devise_for :users, path: '', controllers: { registrations: "users/registrations", sessions: "users/sessions"}
+  # root 'home#index'
+
+  root 'products#index'
+
   resources :products
+  post 'migrate_txt_products' => 'products#migrate_new_products'
+
+  ############# no borrar ###############
+  # get 'products' => 'products#index'
+  # get 'products/new' => 'products#new'
+  # get 'products/:id' => 'products#show'
+  # get 'products/:id/edit' => 'products#edit'
+  # post 'products' => 'products#create'
+  # put 'products/:id' => 'products#update'
+  # delete 'products/:id' => 'products#destroy'
+  ############# no borrar ###############
+
+
+
+
+
+
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -52,6 +77,5 @@ Rails.application.routes.draw do
   #   namespace :admin do
   #     # Directs /admin/products/* to Admin::ProductsController
   #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  #     #   end
 end

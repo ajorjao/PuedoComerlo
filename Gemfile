@@ -43,6 +43,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano3-puma'
 
 gem 'devise'
+gem 'cancancan'
+gem 'bootstrap-sass'
+gem 'rack-cors', :require => 'rack/cors'
 gem 'paperclip', '~> 4.3'
 gem 'will_paginate', '~> 3.1.0'
 gem 'awesome_print', require: 'ap'
@@ -53,6 +56,10 @@ gem 'nprogress-rails'
 # gem 'bigquery'
 # gem 'gcloud', '0.6.0'
 
+# # Login con facebook
+# gem "omniauth"
+# gem "omniauth-facebook"
+# gem "rest-client"
 
 
 

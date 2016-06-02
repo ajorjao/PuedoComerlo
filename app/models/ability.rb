@@ -30,7 +30,7 @@ class Ability
       # can :manage, OtherAttribute, building: { creator_id: user.id }
     end
 
-    can :create, Building
+    # can :create, Building
 
     # The first argument to `can` is the action you are giving the user
     # permission to do.

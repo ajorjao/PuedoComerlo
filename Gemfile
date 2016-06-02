@@ -50,6 +50,7 @@ gem 'paperclip', '~> 4.3'
 gem 'will_paginate', '~> 3.1.0'
 gem 'awesome_print', require: 'ap'
 gem 'nprogress-rails'
+gem 'rest-client'
 
 # #Google BigQuery
 # gem 'google-api-client', '0.8.3'
@@ -59,7 +60,6 @@ gem 'nprogress-rails'
 # # Login con facebook
 # gem "omniauth"
 # gem "omniauth-facebook"
-# gem "rest-client"
 
 
 

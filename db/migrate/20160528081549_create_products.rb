@@ -4,7 +4,7 @@ class CreateProducts < ActiveRecord::Migration
     	t.integer :id, limit: 16
       t.string :name
 
-      t.timestamps null: false
+      # t.timestamps null: false
     end
   end
 end

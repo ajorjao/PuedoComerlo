@@ -1,14 +1,24 @@
 Rails.application.routes.draw do
 
   devise_for :users, path: '', controllers: { registrations: "users/registrations", sessions: "users/sessions"}
-  # root 'home#index'
+  root 'home#index'
 
-  root 'products#index'
+  devise_scope :user do
+    post 'register' => 'users/registrations#create'
+    get 'delete_avatar' => 'users/registrations#delete_avatar'
+    get 'users/page/:page' => 'users/registrations#users'
+    delete 'user/:id' => 'users/registrations#user_delete'
+    get 'user' => 'users/sessions#user_actual'
+  end
+
+  resources :families
+  get 'families/page/:page' => 'families#index'
 
   resources :products
   post 'migrate_txt_products' => 'products#migrate_new_products'
+  get 'products/page/:page' => 'products#index'
 
-  ############# no borrar ###############
+  ############# no borrar (son todas las rutas que otorgan los resources) ###############
   # get 'products' => 'products#index'
   # get 'products/new' => 'products#new'
   # get 'products/:id' => 'products#show'

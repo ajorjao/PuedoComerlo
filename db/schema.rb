@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160625165507) do
+ActiveRecord::Schema.define(version: 20160626214412) do
+
+  create_table "families", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "families", ["user_id"], name: "index_families_on_user_id"
 
   create_table "products", id: false, force: :cascade do |t|
     t.integer "id",   limit: 16
@@ -31,6 +40,11 @@ ActiveRecord::Schema.define(version: 20160625165507) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.boolean  "admin"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

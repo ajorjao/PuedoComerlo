@@ -44,12 +44,16 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
 gem 'cancancan'
+gem 'simple_form'
 gem 'bootstrap-sass'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'paperclip', '~> 4.3'
+gem 'open_uri_redirections'
 gem 'will_paginate', '~> 3.1.0'
 gem 'awesome_print', require: 'ap'
 gem 'nprogress-rails'
+gem 'rails-i18n'
+gem 'devise-i18n'
 gem 'rest-client'
 
 # #Google BigQuery

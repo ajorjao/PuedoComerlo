@@ -8,7 +8,23 @@
 </head>
 <body>
 
-<%= yield %>
+
+<%if user_signed_in?%>
+	<div style="margin: 100px calc(50% - 150px)">
+		<% if alert %>
+				<p class="alert"><%= alert %></p>
+		<% end %>
+		<p class="notice"><%= notice %></p>
+		<%= link_to 'Pagina principal', root_path %><br>
+		<%= yield %>
+	</div>
+<% elsif request.original_fullpath.include?("sign") %>
+	<%= yield %>
+<% else %>
+	<br><h2>No estas logeado</h2>
+	<%= link_to 'Entrar', root_path %><br>
+<% end %>
+
 
 </body>
 </html>

@@ -61,9 +61,9 @@ class Users::SessionsController < Devise::SessionsController
   def user_actual
     @user = current_user
     @user.avatar_file_name = URI.join(request.url, @user.avatar.url).path if current_user!=nil
-    families = @user.families
+    families = @user.families if @user!=nil
 
-    render json: { user: @user, families: families }
+    render json: { user: @user, family: families }
   end
 
   # protected

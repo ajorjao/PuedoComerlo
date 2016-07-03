@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get 'users/page/:page' => 'users/registrations#users'
     delete 'user/:id' => 'users/registrations#user_delete'
     get 'user' => 'users/sessions#user_actual'
+    put 'user' => 'users/registrations#user_edit'
   end
 
   resources :families

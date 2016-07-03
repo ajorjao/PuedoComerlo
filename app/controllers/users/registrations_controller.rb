@@ -73,6 +73,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  def user_edit
+    if current_user == nil
+      render json: {error: 'No estas logeado'}, status: 401
+    else
+      if current_user.update(account_update_params)
+        current_user.avatar_file_name = URI.join(request.url, current_user.avatar.url).path
+        render json: {edited: current_user}
+      else
+        render json: {error: 'Permisos insuficientes'}, status: 403
+      end
+    end
+  end
+
   # DELETE /resource
   # def destroy
   #   super
@@ -155,6 +168,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
     def account_update_params
       params[:user].delete_if {|k,v| v.blank? }
-      params.require(:user).permit(:email, :avatar, :password, :password_confirmation)
+      params.require(:user).permit(:email, :avatar, :password)
     end
 end

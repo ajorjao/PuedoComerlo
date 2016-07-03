@@ -61,9 +61,12 @@ class Users::SessionsController < Devise::SessionsController
   def user_actual
     @user = current_user
     @user.avatar_file_name = URI.join(request.url, @user.avatar.url).path if current_user!=nil
-    families = @user.families if @user!=nil
-
-    render json: { user: @user, family: families }
+    if @user == nil
+      render json: {error: 'No estas logeado'}, status: 404
+    else
+      families = @user.families
+      render json: { user: @user, family: families }
+    end
   end
 
   # protected

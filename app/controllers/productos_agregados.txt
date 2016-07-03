@@ -1,0 +1,2 @@
+nombre																		productos			tiempo tardado
+FIX Inventario Maria Isabel Rivas.txt			2785					343984ms

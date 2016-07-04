@@ -16,8 +16,11 @@ class ProductsController < ApplicationController
     @products = Product.all
     @products = @products.where("name like ?", "%#{params[:product][:name]}%") if params[:product][:name]!=nil
     @products = @products.where("id like ?", "%#{params[:product][:id]}%") if params[:product][:id]!=nil
-    render json: @products
-    #will_paginate @products        #en las vistas se usa para tener una barra con las paginas disponibles
+    if @products.count>0
+      render json: {products: @products}
+    else
+      render json: {error: "No hay productos coincidentes con la busqueda"}, status: 404
+    end
   end
 
   # GET /products/1

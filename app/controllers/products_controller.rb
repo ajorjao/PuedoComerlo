@@ -11,6 +11,15 @@ class ProductsController < ApplicationController
     #will_paginate @products        #en las vistas se usa para tener una barra con las paginas disponibles
   end
 
+  # PUT /products
+  def search
+    @products = Product.all
+    @products = @products.where("name like ?", "%#{params[:product][:name]}%") if params[:product][:name]!=nil
+    @products = @products.where("id like ?", "%#{params[:product][:id]}%") if params[:product][:id]!=nil
+    render json: @products
+    #will_paginate @products        #en las vistas se usa para tener una barra con las paginas disponibles
+  end
+
   # GET /products/1
   # GET /products/1.json
   def show

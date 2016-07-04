@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :products
   post 'migrate_txt_products' => 'products#migrate_new_products'
   get 'products/page/:page' => 'products#index'
+  put 'products' => 'products#search'
 
   ############# no borrar (son todas las rutas que otorgan los resources) ###############
   # get 'products' => 'products#index'

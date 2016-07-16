@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'products/page/:page' => 'products#index'
   put 'products' => 'products#search'
 
+  get 'ping' => 'home#ping'
   ############# no borrar (son todas las rutas que otorgan los resources) ###############
   # get 'products' => 'products#index'
   # get 'products/new' => 'products#new'

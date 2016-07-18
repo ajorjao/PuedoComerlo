@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  minor_symptom: MyText
+  medium_symptom: MyText
+  major_symptom: MyText
+  key_component: MyString
+
+two:
+  name: MyString
+  minor_symptom: MyText
+  medium_symptom: MyText
+  major_symptom: MyText
+  key_component: MyString

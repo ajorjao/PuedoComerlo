@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @intolerance.name %>
+</p>
+
+<p>
+  <strong>Minor symptom:</strong>
+  <%= @intolerance.minor_symptom %>
+</p>
+
+<p>
+  <strong>Medium symptom:</strong>
+  <%= @intolerance.medium_symptom %>
+</p>
+
+<p>
+  <strong>Major symptom:</strong>
+  <%= @intolerance.major_symptom %>
+</p>
+
+<p>
+  <strong>Key component:</strong>
+  <%= @intolerance.key_component %>
+</p>
+
+<%= link_to 'Edit', edit_intolerance_path(@intolerance) %> |
+<%= link_to 'Back', intolerances_path %>

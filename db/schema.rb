@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160626214412) do
+ActiveRecord::Schema.define(version: 20160718194419) do
 
   create_table "families", force: :cascade do |t|
     t.string   "name"
@@ -22,10 +22,28 @@ ActiveRecord::Schema.define(version: 20160626214412) do
 
   add_index "families", ["user_id"], name: "index_families_on_user_id"
 
-  create_table "products", id: false, force: :cascade do |t|
-    t.integer "id",   limit: 16
-    t.string  "name"
+  create_table "families_intolerances", force: :cascade do |t|
+    t.integer  "family_id"
+    t.integer  "intolerance_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
+
+# Could not dump table "intolerances" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
+
+  create_table "intolerances_products", force: :cascade do |t|
+    t.integer  "intolerance_id"
+    t.integer  "product_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "intolerances_products", ["intolerance_id"], name: "index_intolerances_products_on_intolerance_id"
+  add_index "intolerances_products", ["product_id"], name: "index_intolerances_products_on_product_id"
+
+# Could not dump table "products" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

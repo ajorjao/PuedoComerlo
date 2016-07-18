@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :intolerances
   devise_for :users, path: '', controllers: { registrations: "users/registrations", sessions: "users/sessions"}
   root 'home#index'
 

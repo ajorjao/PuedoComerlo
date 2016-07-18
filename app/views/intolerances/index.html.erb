@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Intolerances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Minor symptom</th>
+      <th>Medium symptom</th>
+      <th>Major symptom</th>
+      <th>Key component</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @intolerances.each do |intolerance| %>
+      <tr>
+        <td><%= intolerance.name %></td>
+        <td><%= intolerance.minor_symptom %></td>
+        <td><%= intolerance.medium_symptom %></td>
+        <td><%= intolerance.major_symptom %></td>
+        <td><%= intolerance.key_component %></td>
+        <td><%= link_to 'Show', intolerance %></td>
+        <td><%= link_to 'Edit', edit_intolerance_path(intolerance) %></td>
+        <td><%= link_to 'Destroy', intolerance, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Intolerance', new_intolerance_path %>

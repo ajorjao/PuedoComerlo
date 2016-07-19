@@ -11,7 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718194419) do
+ActiveRecord::Schema.define(version: 20160719034149) do
+
+  create_table "companies", id: false, force: :cascade do |t|
+    t.integer "id",   limit: 10
+    t.string  "name"
+  end
 
   create_table "families", force: :cascade do |t|
     t.string   "name"
@@ -48,6 +53,11 @@ ActiveRecord::Schema.define(version: 20160718194419) do
 
   add_index "intolerances_products", ["intolerance_id"], name: "index_intolerances_products_on_intolerance_id"
   add_index "intolerances_products", ["product_id"], name: "index_intolerances_products_on_product_id"
+
+  create_table "products", id: false, force: :cascade do |t|
+    t.integer "id",   limit: 16
+    t.string  "name"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

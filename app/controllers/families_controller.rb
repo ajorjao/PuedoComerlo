@@ -14,8 +14,10 @@ class FamiliesController < ApplicationController
     respond_to do |format|
       if @family==nil
         format.json { render json: {error: "El familiar no existe"}, status: :not_found }
+      elsif current_user.families.include?(@family)==false
+        format.json { render json: {error: 'No posees permisos para ver a esta persona'}, status: 401 }
       else
-        format.json { render json: @family, status: :ok }
+        format.json { render json: {family: @family, intolerances: @family.intolerances}, status: :ok }
       end
       format.html {}
     end
@@ -28,6 +30,55 @@ class FamiliesController < ApplicationController
 
   # GET /families/1/edit
   def edit
+  end
+
+  # POST /family/intolerance    //con parametros= {family_id: ###, intolerance_id: ###}
+  def add_intolerance
+    if current_user!=nil
+      familiar = Family.find_by_id(params[:family_id])
+      if current_user.families.include?(familiar)==false
+        render json: {error: 'No posees permisos para agregar una intolerancia a esta persona', families: current_user.families}, status: 401
+      else
+        agregado = false
+        intolerancias = Intolerance.where(id: params[:intolerances_ids].split(","))
+        ap intolerancias
+        intolerancias.each do |intolerancia|
+          if familiar.intolerances.include?(intolerancia)==false
+            familiar.intolerances << intolerancia
+            familiar.save
+            agregado = true
+          end
+        end
+        if agregado
+          render json: {family: familiar, intolerances: familiar.intolerances}
+        else
+          render json: {error: 'Ya posees las intolerancias seleccionadas'}, status: 400
+        end
+      end
+    else
+      render json: {error: 'No estas logeado'}, status: 401
+    end
+  end
+
+  # DELETE /family/intolerance    //con parametros= {family_id: ###, intolerance_id: ###}
+  def del_intolerance
+    if current_user!=nil
+      familiar = Family.find_by_id(params[:family_id])
+      if current_user.families.include?(familiar)==false #si el familiar no pertenece al usuario actual
+        render json: {error: 'No posees permisos para eliminar una intolerancia de esta persona', families: current_user.families}, status: 401
+      else #si el familiar pertenece al usuario actual
+        begin #si se posee la intlerancia que se quiere borrar
+          intolerance = familiar.intolerances.find_by_id(params[:intolerance_id])
+          familiar.intolerances.delete(params[:intolerance_id])
+          familiar.save
+          render json: {success: "Intolerancia '#{intolerance.name}' eliminada"}
+        rescue
+          render json: {error: 'No posees esa intolerancia'}, status: 404
+        end
+      end
+    else
+      render json: {error: 'No estas logeado'}, status: 401
+    end
   end
 
   # POST /families
@@ -67,11 +118,14 @@ class FamiliesController < ApplicationController
   # DELETE /families/1
   # DELETE /families/1.json
   def destroy
-    name = @family.name
-    @family.destroy
     respond_to do |format|
-      # format.json { head :no_content }
-      format.json { render json: {destroyed: "Familiar '#{name}' eliminado correctamente"}, status: :ok }
+      if current_user.families.include?(@family)==false
+        @family.destroy
+        format.json { render json: {destroyed: "Familiar '#{@family.name}' eliminado correctamente"}, status: :ok }
+      else
+        format.json { render json: {error: "No posees los permisos para eliminar a esta persona", families: current_user.families}, status: 401 }
+        # format.json { head :no_content }
+      end
       format.html { redirect_to families_url, notice: 'Family was successfully destroyed.' }
     end
   end

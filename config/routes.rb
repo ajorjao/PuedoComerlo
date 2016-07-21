@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :companies
-  resources :intolerances
   devise_for :users, path: '', controllers: { registrations: "users/registrations", sessions: "users/sessions"}
   root 'home#index'
 
@@ -16,6 +14,8 @@ Rails.application.routes.draw do
 
   resources :families
   get 'families/page/:page' => 'families#index'
+  post 'family/intolerance' => 'families#add_intolerance'
+  delete 'family/intolerance' => 'families#del_intolerance'
 
   resources :products
   post 'migrate_txt_products' => 'products#migrate_new_products'
@@ -23,6 +23,10 @@ Rails.application.routes.draw do
   put 'products' => 'products#search'
 
   get 'ping' => 'home#ping'
+
+  # resources :companies
+
+  # resources :intolerances
   ############# no borrar (son todas las rutas que otorgan los resources) ###############
   # get 'products' => 'products#index'
   # get 'products/new' => 'products#new'

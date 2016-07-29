@@ -13,7 +13,7 @@ Intolerance.create(name: "lactosa", minor_symptom: "", medium_symptom: "", major
 # Intolerance.create(name: "gluten", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: [])
 # Intolerance.create(name: "mani", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: [])
 # Intolerance.create(name: "nueces", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: [])
-Intolerance.create(name: "apio", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: ["apio","apium","graviolens","celery")
+Intolerance.create(name: "apio", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: ["apio","apium","graviolens","celery"])
 # Intolerance.create(name: "mostaza", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: [])
 # Intolerance.create(name: "huevo", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: [])
 # Intolerance.create(name: "sesamo", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: [])

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   post 'migrate_txt_products' => 'products#migrate_new_products'
   get 'products/page/:page' => 'products#index'
   put 'products' => 'products#search'
+  post 'products/intolerance' => 'products#add_intolerance'
+  delete 'products/intolerance' => 'products#del_intolerance'
 
   get 'ping' => 'home#ping'
 

@@ -13,10 +13,12 @@
 
 ActiveRecord::Schema.define(version: 20160720173724) do
 
-  create_table "companies", id: false, force: :cascade do |t|
-    t.integer "id",   limit: 10
-    t.string  "name"
-    t.string  "url"
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
   end
 
   create_table "families", force: :cascade do |t|
@@ -26,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160720173724) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "families", ["user_id"], name: "index_families_on_user_id"
+  add_index "families", ["user_id"], name: "index_families_on_user_id", using: :btree
 
   create_table "families_intolerances", force: :cascade do |t|
     t.integer  "family_id"
@@ -43,22 +45,24 @@ ActiveRecord::Schema.define(version: 20160720173724) do
     t.text     "key_components"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "family"
   end
 
   create_table "intolerances_products", force: :cascade do |t|
     t.integer  "intolerance_id"
-    t.integer  "product_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.float    "product_id"
   end
 
-  add_index "intolerances_products", ["intolerance_id"], name: "index_intolerances_products_on_intolerance_id"
-  add_index "intolerances_products", ["product_id"], name: "index_intolerances_products_on_product_id"
+  add_index "intolerances_products", ["intolerance_id"], name: "index_intolerances_products_on_intolerance_id", using: :btree
 
-  create_table "products", id: false, force: :cascade do |t|
-    t.integer "id",   limit: 16
+  create_table "products", primary_key: "barcode", force: :cascade do |t|
     t.string  "name"
+    t.integer "intolerance"
   end
+
+  add_index "products", ["barcode"], name: "index_products_on_barcode_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -80,7 +84,10 @@ ActiveRecord::Schema.define(version: 20160720173724) do
     t.datetime "avatar_updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "families", "users"
+  add_foreign_key "intolerances_products", "intolerances"
+  add_foreign_key "intolerances_products", "products", primary_key: "barcode"
 end

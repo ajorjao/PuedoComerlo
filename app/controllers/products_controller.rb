@@ -29,14 +29,16 @@ class ProductsController < ApplicationController
     if current_user == nil
       render json: {error: 'No estas logeado'}, status: 401
     elsif current_user.admin == true
-      producto = Product.find_by_id(params[:product_id])
-      intolerancia = Intolerance.find_by_id(params[:intolerance_id])
-
-      render json: {error: "No existe el producto en nuestra base de datos"} if producto == nil
-      render json: {error: "No existe la intolerancia en nuestra base de datos"} if intolerancia == nil
-      # producto.intolerances << intolerancia
-      render json: {product: producto, intolerances: producto.intolerances} if producto != nil and intolerancia != nil
-
+      ap producto = Product.find_by_id(params[:product_id])
+      ap intolerancia = Intolerance.find_by_id(params[:intolerance_id])
+      if producto == nil
+        render json: {error: "No existe el producto en nuestra base de datos"}, status: 404
+      elsif intolerancia == nil
+        render json: {error: "No existe la intolerancia en nuestra base de datos"}, status: 404
+      else
+        producto.intolerances << intolerancia
+        render json: {product: producto, intolerances: producto.intolerances}
+      end
     else
       render json: {error: 'No posees permisos para agregar una intolerancia a esta persona'}, status: 401
     end

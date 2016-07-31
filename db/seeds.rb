@@ -8,6 +8,9 @@
 
 User.create(email: "ajorjao13@gmail.com", password: "asdasd123", admin: "true")
 
+# ap producto = Product.create(id: 7801930008172, name: "HAMBURGUESA POLLO TIL 50G")
+ap producto = Product.create(barcode: 7801930008172, name: "HAMBURGUESA POLLO TIL 50G")
+ap producto.intolerances
 
 Intolerance.create(name: "lactosa", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: ["lactosa","lactose","leche","milk"])
 # Intolerance.create(name: "gluten", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: [])

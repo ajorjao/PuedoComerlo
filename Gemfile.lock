@@ -109,6 +109,8 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    pg (0.18.4)
+    pg (0.18.4-x86-mingw32)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -209,6 +211,7 @@ DEPENDENCIES
   nprogress-rails
   open_uri_redirections
   paperclip (~> 4.3)
+  pg
   quiet_assets
   rack-cors
   rails (= 4.2.6)

@@ -7,11 +7,9 @@ class CreateIntolerancesProducts < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    # add_reference :product, :barcode, type: :float, foreign_key: true
-    add_column :intolerances_products, :product_id, :float, limit: 16
-    # add_column :intolerances_products, :product_id, :float, index: true
-    add_foreign_key :intolerances_products, :products, column: :product_id, primary_key: "barcode"
-    # add_reference :intolerances_products, :product, type: :float, foreign_key: true
+    # add_column :intolerances_products, :product_id, :bigint, limit: 16
+    add_column :intolerances_products, :product_id, :bigint
+    add_foreign_key :intolerances_products, :products, column: :product_id, primary_key: "id", on_delete: :cascade
 
   end
 end

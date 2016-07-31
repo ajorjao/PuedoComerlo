@@ -45,7 +45,6 @@ class FamiliesController < ApplicationController
         intolerancias.each do |intolerancia|
           if familiar.intolerances.include?(intolerancia)==false
             familiar.intolerances << intolerancia
-            familiar.save
             agregado = true
           end
         end
@@ -67,12 +66,12 @@ class FamiliesController < ApplicationController
       if current_user.families.include?(familiar)==false #si el familiar no pertenece al usuario actual
         render json: {error: 'No posees permisos para eliminar una intolerancia de esta persona', families: current_user.families}, status: 401
       else #si el familiar pertenece al usuario actual
-        begin #si se posee la intlerancia que se quiere borrar
-          intolerance = familiar.intolerances.find_by_id(params[:intolerance_id])
+        # begin #si se posee la intlerancia que se quiere borrar
+        intolerance = Intolerance.find_by_id(params[:intolerance_id])
+        if familiar.intolerances.include?(intolerance)
           familiar.intolerances.delete(params[:intolerance_id])
-          familiar.save
           render json: {success: "Intolerancia '#{intolerance.name}' eliminada"}
-        rescue
+        else
           render json: {error: 'No posees esa intolerancia'}, status: 404
         end
       end

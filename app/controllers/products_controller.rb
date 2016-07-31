@@ -29,12 +29,14 @@ class ProductsController < ApplicationController
     if current_user == nil
       render json: {error: 'No estas logeado'}, status: 401
     elsif current_user.admin == true
-      ap producto = Product.find_by_id(params[:product_id])
-      ap intolerancia = Intolerance.find_by_id(params[:intolerance_id])
+      producto = Product.find_by_id(params[:product_id])
+      intolerancia = Intolerance.find_by_id(params[:intolerance_id])
       if producto == nil
         render json: {error: "No existe el producto en nuestra base de datos"}, status: 404
       elsif intolerancia == nil
         render json: {error: "No existe la intolerancia en nuestra base de datos"}, status: 404
+      elsif producto.intolerances.include?(intolerancia)
+          render json: {error: 'Ya posees las intolerancias seleccionadas'}, status: 400
       else
         producto.intolerances << intolerancia
         render json: {product: producto, intolerances: producto.intolerances}
@@ -46,7 +48,28 @@ class ProductsController < ApplicationController
 
   # DELETE /product/intolerance    //con parametros= {product_id: ###, intolerance_id: ###}
   def del_intolerance
-
+    if current_user == nil
+      render json: {error: 'No estas logeado'}, status: 401
+    elsif current_user.admin == true
+      producto = Product.find_by_id(params[:product_id])
+      if producto == nil
+        render json: {error: "No existe el producto en nuestra base de datos"}, status: 404
+      # elsif intolerancia == nil
+      #   render json: {error: "No existe la intolerancia en nuestra base de datos"}, status: 404
+      else
+        #si se posee la intlerancia que se quiere borrar
+        intolerancia = Intolerance.find_by_id(params[:intolerance_id])
+        if producto.intolerances.include?(intolerancia)
+          # intolerancia = producto.intolerances.find_by_id(params[:intolerance_id])
+          producto.intolerances.delete(params[:intolerance_id])
+          render json: {success: "Intolerancia '#{intolerancia.name}' eliminada del producto #{producto.name}"}
+        else
+          render json: {error: 'No posees esa intolerancia'}, status: 404
+        end
+      end
+    else
+      render json: {error: 'No posees permisos para agregar una intolerancia a esta persona'}, status: 401
+    end
   end
 
 
@@ -59,7 +82,7 @@ class ProductsController < ApplicationController
       if @product==nil
         format.json { render json: {error: "El producto no se encuentra disponible en nuestra base de datos"}, status: :not_found }
       else
-        format.json { render json: @product, status: :ok }
+        format.json { render json: {product: @product, intolerances: @product.intolerances}, status: :ok }
       end
       format.html {}
     end
@@ -100,6 +123,7 @@ class ProductsController < ApplicationController
       readed_file = File.open(params[:filename_path], 'r')
       # doc = readed_file.read
       products = eval(readed_file.read)
+      total = products.length
       readed_file.close
 
       products_added = 0
@@ -119,6 +143,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if success
         p "products_added: #{products_added}"
+        p "max total: #{total}"
         format.json { render json: {products_added: products_added}, status: :created }
         format.html { redirect_to products, notice: 'Products was successfully created.' }
       else

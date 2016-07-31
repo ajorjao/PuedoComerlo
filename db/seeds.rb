@@ -1,16 +1,7 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.create(email: "ajorjao13@gmail.com", password: "asdasd123", admin: "true")
 
-# ap producto = Product.create(id: 7801930008172, name: "HAMBURGUESA POLLO TIL 50G")
-ap producto = Product.create(barcode: 7801930008172, name: "HAMBURGUESA POLLO TIL 50G")
-ap producto.intolerances
+# Product.create(id: 7801930008172, name: "HAMBURGUESA POLLO TIL 50G")
 
 Intolerance.create(name: "lactosa", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: ["lactosa","lactose","leche","milk"])
 # Intolerance.create(name: "gluten", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: [])
@@ -27,6 +18,7 @@ Intolerance.create(name: "apio", minor_symptom: "", medium_symptom: "", major_sy
 # Intolerance.create(name: "sulfitos", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: [])
 Intolerance.create(name: "legumbres", minor_symptom: "", medium_symptom: "", major_symptom: "", key_components: ["legumbre","legume","lupinus albus","altramuz","altramuces","lupins"])
 
+# Product.first.intolerances << Intolerance.first
 
 Company.create(id: 7802900295, name: "soprole")
 Company.create(id: 7801810, name: "lipton")

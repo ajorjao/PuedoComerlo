@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   post 'family/intolerance' => 'families#add_intolerance'
   delete 'family/intolerance' => 'families#del_intolerance'
 
-  resources :products
+  # resources :products
+  # get 'products' => 'products#index'
+  get 'products/:id' => 'products#show'
   post 'migrate_txt_products' => 'products#migrate_new_products'
   get 'products/page/:page' => 'products#index'
   put 'products' => 'products#search'

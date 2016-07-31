@@ -11,15 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720173724) do
+ActiveRecord::Schema.define(version: 20160719034149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "companies", force: :cascade do |t|
-    t.string "name"
-    t.string "url"
+  create_table "companies", id: :bigserial, force: :cascade do |t|
+    t.string   "name"
+    t.string   "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
+
+  add_index "companies", ["id"], name: "index_companies_on_id", unique: true, using: :btree
 
   create_table "families", force: :cascade do |t|
     t.string   "name"
@@ -45,24 +49,22 @@ ActiveRecord::Schema.define(version: 20160720173724) do
     t.text     "key_components"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.integer  "family"
   end
 
   create_table "intolerances_products", force: :cascade do |t|
     t.integer  "intolerance_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.float    "product_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "product_id",     limit: 8
   end
 
   add_index "intolerances_products", ["intolerance_id"], name: "index_intolerances_products_on_intolerance_id", using: :btree
 
-  create_table "products", primary_key: "barcode", force: :cascade do |t|
-    t.string  "name"
-    t.integer "intolerance"
+  create_table "products", id: :bigserial, force: :cascade do |t|
+    t.string "name"
   end
 
-  add_index "products", ["barcode"], name: "index_products_on_barcode_id", unique: true, using: :btree
+  add_index "products", ["id"], name: "index_products_on_id", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -89,5 +91,5 @@ ActiveRecord::Schema.define(version: 20160720173724) do
 
   add_foreign_key "families", "users"
   add_foreign_key "intolerances_products", "intolerances"
-  add_foreign_key "intolerances_products", "products", primary_key: "barcode"
+  add_foreign_key "intolerances_products", "products", on_delete: :cascade
 end

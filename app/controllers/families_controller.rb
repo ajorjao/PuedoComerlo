@@ -32,7 +32,7 @@ class FamiliesController < ApplicationController
   def edit
   end
 
-  # POST /family/intolerance    //con parametros= {family_id: ###, intolerance_id: ###}
+  # POST /family/intolerance    //con parametros= {family_id: ###, intolerances_ids: ###}
   def add_intolerance
     if current_user!=nil
       familiar = Family.find_by_id(params[:family_id])
@@ -66,8 +66,8 @@ class FamiliesController < ApplicationController
       if current_user.families.include?(familiar)==false #si el familiar no pertenece al usuario actual
         render json: {error: 'No posees permisos para eliminar una intolerancia de esta persona', families: current_user.families}, status: 401
       else #si el familiar pertenece al usuario actual
-        # begin #si se posee la intlerancia que se quiere borrar
         intolerance = Intolerance.find_by_id(params[:intolerance_id])
+        # si se posee la intlerancia que se quiere borrar
         if familiar.intolerances.include?(intolerance)
           familiar.intolerances.delete(params[:intolerance_id])
           render json: {success: "Intolerancia '#{intolerance.name}' eliminada"}
@@ -118,7 +118,7 @@ class FamiliesController < ApplicationController
   # DELETE /families/1.json
   def destroy
     respond_to do |format|
-      if current_user.families.include?(@family)==false
+      if current_user.families.include?(@family)
         @family.destroy
         format.json { render json: {destroyed: "Familiar '#{@family.name}' eliminado correctamente"}, status: :ok }
       else

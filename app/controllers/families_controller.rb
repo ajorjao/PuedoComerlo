@@ -12,7 +12,9 @@ class FamiliesController < ApplicationController
   # GET /families/1.json
   def show
     respond_to do |format|
-      if @family==nil
+      if current_user==nil
+        render json: {error: 'No estas logeado'}, status: 401
+      elsif @family==nil
         format.json { render json: {error: "El familiar no existe"}, status: :not_found }
       elsif current_user.families.include?(@family)==false
         format.json { render json: {error: 'No posees permisos para ver a esta persona'}, status: 401 }

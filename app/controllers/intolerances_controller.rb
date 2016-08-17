@@ -65,8 +65,8 @@ class IntolerancesController < ApplicationController
 
 
   # def google_search(product_name)
-  def google_search
-    product_name = params[:product_name]
+  def google_search #solo para hacer pruebas
+    product_name = params[:product_name] #solo para hacer pruebas
     product_name = product_name.gsub(" ", "+")
     url = 'https://www.google.cl/?gws_rd=ssl#q=ingredientes+'+product_name+'&nfpr=1'
     # req = Net::HTTP::Get.new(url.to_s)

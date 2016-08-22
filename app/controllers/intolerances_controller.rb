@@ -65,18 +65,19 @@ class IntolerancesController < ApplicationController
 
 
   # def google_search(product_name)
-  def google_search #solo para hacer pruebas
-    product_name = params[:product_name] #solo para hacer pruebas
-    product_name = product_name.gsub(" ", "+")
-    url = 'https://www.google.cl/?gws_rd=ssl#q=ingredientes+'+product_name+'&nfpr=1'
+  # def google_search #solo para hacer pruebas
+  #   product_name = params[:product_name] #solo para hacer pruebas
+  #   product_name = product_name.gsub(" ", "+")
+  #   url = 'https://www.google.cl/?gws_rd=ssl#q=ingredientes+'+product_name+'&nfpr=1'
     # req = Net::HTTP::Get.new(url.to_s)
     # res = Net::HTTP.start(url.host, url.port) {|http|
     #   http.request(req)
     # }
     # p res.body
-    render json: { url_busqueda: url.to_s}
-  end
+  #   render json: { url_busqueda: url.to_s}
+  # end
 
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

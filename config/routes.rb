@@ -20,11 +20,14 @@ Rails.application.routes.draw do
   # resources :products
   # get 'products' => 'products#index'
   get 'products/:id' => 'products#show'
-  post 'migrate_txt_products' => 'products#migrate_new_products'
   get 'products/page/:page' => 'products#index'
   put 'products' => 'products#search'
   post 'products/intolerance' => 'products#add_intolerance'
   delete 'products/intolerance' => 'products#del_intolerance'
+  post 'migrate_txt_products' => 'products#migrate_new_products'
+
+  post 'migrate_txt_intolerances' => 'products#migrate_txt_intolerances'
+
 
   get 'ping' => 'home#ping'
 

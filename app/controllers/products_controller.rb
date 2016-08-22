@@ -153,6 +153,42 @@ class ProductsController < ApplicationController
     end
   end
 
+  def migrate_txt_intolerances
+    begin
+      readed_file = File.open(params[:filename_path], 'r')
+      # doc = readed_file.read
+      products = readed_file.read.split("\n\n")
+      total = products.length
+      readed_file.close
+
+      # products_added = 0
+      products.each do |product|
+        product_name, image, ingredientes = product.split("\n")
+        # #se crea cada producto solo si no existe anteriormente uno con el mismo codigo de barras
+        # if Product.find_by_id(barcode.to_i)==nil
+        #   Product.create(id: barcode.to_i, name: product_name)
+        #   products_added += 1
+        # end
+      end
+      success = true
+    rescue Exception => e
+      p 'error, el archivo a migrar no está en "PuedoComerlo/'+params[:filename_path]+'", o no posee un formato correcto'
+      p e
+    end
+
+    respond_to do |format|
+      if success
+        # p "products_added: #{products_added}"
+        # p "max total: #{total}"
+        format.json { render json: {products: products}, status: :ok }
+        format.html { redirect_to products, notice: 'Products was successfully created.' }
+      else
+        format.json { render json: {error: e.to_s}, status: :unprocessable_entity }
+        format.html { render :new }
+      end
+    end
+  end
+
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update

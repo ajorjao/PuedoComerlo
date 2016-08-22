@@ -1,0 +1,156 @@
+Picadillo de Mariscos
+http://www.deyco.cl/images/productos/mar/Mar_Foto_Detalle/DetPicMar.png
+http://www.deyco.cl/images/productos/mar/Mar_Tabla_Nutricional/TNutriPicMar425.png
+
+Surtido de Caldillos
+http://www.deyco.cl/images/productos/mar/Mar_Foto_Detalle/DetSurCal.png
+http://www.deyco.cl/images/productos/mar/Mar_Tabla_Nutricional/TNutriSurCal425.png
+
+Jurel 
+http://www.deyco.cl/images/productos/mar/Mar_Foto_Detalle/DetJur.png
+http://www.deyco.cl/images/productos/mar/Mar_Tabla_Nutricional/TNutriAtuLomAce1800.png
+
+Atún Desmenuzado al Agua 
+http://www.deyco.cl/images/productos/mar/Mar_Foto_Detalle/DetAtuDesAgua.png
+http://www.deyco.cl/images/productos/mar/Mar_Tabla_Nutricional/TNutriAtuDesAgu170.png
+
+Atún Desmenuzado al Aceite
+http://www.deyco.cl/images/productos/mar/Mar_Foto_Detalle/DetAtuDesAce.png
+http://www.deyco.cl/images/productos/mar/Mar_Tabla_Nutricional/TNutriAtuDesAce170.png
+
+Atún Lomito Aceite 
+http://www.deyco.cl/images/productos/mar/Mar_Foto_Detalle/DetAtuLomAce.png
+http://www.deyco.cl/images/productos/mar/Mar_Tabla_Nutricional/TNutriAtuLomAce1800.png
+
+Atún Lomito Agua 
+http://www.deyco.cl/images/productos/mar/Mar_Foto_Detalle/DetAtuLomAgu.png
+http://www.deyco.cl/images/productos/mar/Mar_Tabla_Nutricional/TNutriAtuLomAgu1800.png
+
+Cholgas en Aceite
+http://www.deyco.cl/images/productos/mar/Mar_Foto_Detalle/DetCholAce.png
+http://www.deyco.cl/images/productos/mar/Mar_Tabla_Nutricional/TNutriCholAce190.png
+
+Choritos en Aceite
+http://www.deyco.cl/images/productos/mar/Mar_Foto_Detalle/DetChorAce.png
+http://www.deyco.cl/images/productos/mar/Mar_Tabla_Nutricional/TNutriChorAce190.png
+
+Choritos en Agua
+http://www.deyco.cl/images/productos/mar/Mar_Foto_Detalle/DetChorAgu.png
+http://www.deyco.cl/images/productos/mar/Mar_Tabla_Nutricional/TNutriChorAgu190.png
+
+Sardinas en Aceite
+http://www.deyco.cl/images/productos/mar/Mar_Foto_Detalle/DetSarAce.png
+http://www.deyco.cl/images/productos/mar/Mar_Tabla_Nutricional/TNutriSarAce425.png
+
+Sardinas en Tomate
+http://www.deyco.cl/images/productos/mar/Mar_Foto_Detalle/DetSarTom.png
+http://www.deyco.cl/images/productos/mar/Mar_Tabla_Nutricional/TNutriSarTom425.png
+
+Alcachofas Corazones 
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetAlcCor.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutriAlcCor1000.png
+
+Fondos de Alcachofas
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetAlcFon.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutriAlcFon1000.png
+
+Champiñones Enteros
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetChaEnt.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutriChaEnt2840.png
+
+Champiñones Laminados
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetChaLam.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutriChaLam2840.png
+
+Choclito Cóctel Entero
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetChoEnt.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutrChoEnt245.png
+
+Choclito Cóctel Trozos
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetChoTro.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutrChoTro245.png
+
+Concentrado de Tomates
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetConTom.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutriConTom3000.png
+
+Espárragos Blancos
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetEspBla.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutriEspBla330.png
+
+Espárragos Cabecitas Blancas
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetEspCabBla.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutriEspCabBla205.png
+
+Espárragos Verdes
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetEspVer.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutriEspVer425.png
+
+Espárragos Cabecitas Verdes
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetEspCabVer.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutriEspCabVer230.png
+
+Palmitos Enteros
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetPalEnt.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutriPalEnt3000.png
+
+Palmitos Rodajas
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetPalRod.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutriPalRod3000.png
+
+Palmitos Trozos
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetPalTro.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutriPalTro810.png
+
+Pimiento Morrón Entero.
+http://www.deyco.cl/images/productos/verduras/Verduras_Foto_Detalle/DetPimMorr.png
+http://www.deyco.cl/images/productos/verduras/Verduras_Tabla_Nutricional/TNutriPimMor3000.png
+
+Pimiento Piquillo Pelado a las brasas
+http://www.deyco.cl/images/productos/premium/Premium_Foto_Detalle/DetPimPiq.png
+http://www.deyco.cl/images/productos/premium/Premium_Tabla_Nutricional/TNutriPimPiq290.png
+
+Cóctel de Frutas en almíbar
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Detalle/DetCocAlm.png
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Tabla_Nutricional/TNutCocFruAlm3000.png
+
+Cóctel de Frutas Tropicales
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Detalle/DetCocTro.png
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Tabla_Nutricional/TNutCocFruTro570.png
+
+Crema de Coco 
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Detalle/DetCocCre.png
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Tabla_Nutricional/TNutCocFruAlm425.png
+
+Leche de Coco 
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Detalle/DetCocLec.png
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Tabla_Nutricional/TNutCocFruAlm425.png
+
+Duraznos Cubitos  
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Detalle/DetDurCub.png
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Tabla_Nutricional/TNutriDurCub3000.png
+
+Duraznos Cubitos Green Valley 
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Detalle/DetDurCubGreVal.png
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Tabla_Nutricional/TNutriDurMit3000.png
+
+Duraznos Mitades  
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Detalle/DetDurMit.png
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Tabla_Nutricional/TNutriDurMit3000.png
+
+Frutillas al Jugo  
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Detalle/DetFru.png
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Tabla_Nutricional/TNutriFru820.png
+
+Papayas al Jugo 
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Detalle/DetPap.png
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Tabla_Nutricional/TNutriDurMit3000.png
+
+Piñas en Rodajas  
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Detalle/DetPinRod.png
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Tabla_Nutricional/TNutriPinRod3060.png
+
+Piñas en Trocitos  
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Detalle/DetPinTro.png
+http://www.deyco.cl/images/productos/frutas/Frutas_Foto_Tabla_Nutricional/TNutriPinTro3060.png
+

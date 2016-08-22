@@ -112,8 +112,8 @@ Intolerance.create(name: "legumbres", minor_symptom: "", medium_symptom: "Síndr
 
 #Company.create(id: , name: , url: "")
 
-# Company.create(id: 7802900295, name: "soprole", url: "http://www.soprole.cl/productos?page=1")
-# Company.create(id: 7801810, name: "lipton", url: "http://www.unileverfoodsolutions.cl/productos-marcas/marcas")
+#Fabo
+Company.create(name: "lipton", url: "http://www.unileverfoodsolutions.cl/productos-marcas/marcas")
 Company.create(name: "lipton", url: "http://www.unileverfoodsolutions.cl/productos-marcas/marcas")
 Company.create(name: "Carte", url: "http://www.unileverfoodsolutions.cl/productos-marcas/marcas")
 Company.create(name: "Hellsman" , url: "http://www.unileverfoodsolutions.cl/productos-marcas/marcas")
@@ -124,12 +124,18 @@ Company.create(name: "Maizena" , url: "http://www.unileverfoodsolutions.cl/produ
 Company.create(name: "Bonella" , url: "http://www.unileverfoodsolutions.cl/productos-marcas/marcas")
 Company.create(name: "Club" , url: "http://www.unileverfoodsolutions.cl/productos-marcas/marcas")
 Company.create(name: "Banda Azul", url: "http://www.unileverfoodsolutions.cl/productos-marcas/marcas")
-Company.create(name: "Vivo" , url: "http://www.vivo.cl/")
 Company.create(name: "Colun", url: "http://www.colun.cl/")
-Company.create(name: "Savory", url: "https://www.savory.cl/productos")
-Company.create(name: "Calan" , url: "http://www.calan.cl/productos/")
-Company.create(name: "Loncoleche", url: "http://www.loncoleche.cl/productos.html")
+
+#Alonso
+Company.create(name: "Vivo" , url: "http://www.vivo.cl/")
 Company.create(name: "Quaker" , url: "http://www.quaker.cl/?page_id=7649")
+Company.create(name: "Calan" , url: "http://www.calan.cl/productos/")
+
+#Rafa
+Company.create(name: "Savory", url: "https://www.savory.cl/productos")
+Company.create(name: "Loncoleche", url: "http://www.loncoleche.cl/productos.html")
+
+#Jorge
 Company.create(name: "Deyco" , url: "http://www.deyco.cl/productos-deyco.html")
 Company.create(name: "Coca Cola", url: "http://www.cocacoladechile.cl/")
 Company.create(name: "Mundo San Jose" , url: "http://www.mundosanjose.cl/productos/")

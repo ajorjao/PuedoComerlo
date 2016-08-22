@@ -14,8 +14,10 @@ class ProductsController < ApplicationController
   # PUT /products
   def search
     @products = Product.all
-    @products = @products.where("name like ?", "%#{params[:product][:name]}%") if params[:product][:name]!=nil
-    @products = @products.where("id like ?", "%#{params[:product][:id]}%") if params[:product][:id]!=nil
+    @products = @products.where("name ILIKE ?", "%#{params[:product][:name]}%") if params[:product][:name]!=nil
+    #ESTA ES LA LINEA DE LOS MILAGROS :OOOOOO
+    @products = @products.where("id::text ILIKE ?::text", "%#{params[:product][:id]}%") if params[:product][:id]!=nil
+    #@products = @products.where("(id % 10^(length(?)) = ?)", "'#{params[:product][:id]}'","#{params[:product][:id]}") if params[:product][:id]!=nil
     if @products.count>0
       render json: {products: @products}
     else

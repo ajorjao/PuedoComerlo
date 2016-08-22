@@ -46,5 +46,5 @@ test:
 
 production:
   <<: *default
-  host: postgres
+  host: postgresql
   database: puedoc_prod

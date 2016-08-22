@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719034149) do
+ActiveRecord::Schema.define(version: 20160822165418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,7 +61,13 @@ ActiveRecord::Schema.define(version: 20160719034149) do
   add_index "intolerances_products", ["intolerance_id"], name: "index_intolerances_products_on_intolerance_id", using: :btree
 
   create_table "products", id: :bigserial, force: :cascade do |t|
-    t.string "name"
+    t.string   "name"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer  "likes"
+    t.boolean  "denounced"
   end
 
   add_index "products", ["id"], name: "index_products_on_id", unique: true, using: :btree

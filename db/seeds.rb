@@ -52,7 +52,7 @@ Intolerance.create(name: "mostaza", minor_symptom: "", medium_symptom: "Urticari
 
 Intolerance.create(name: "huevo", minor_symptom: "", medium_symptom: "Reacciones cutáneas
     Síntomas gastrointestinales agudos y respiratorios
-    Reacción generalizada de anafilaxia (Junto con hipotensión, colapso vascular y disrritmias cardiacas)", major_symptom: "", key_components: ["egg","huevo", "Lecitina", "lisozima", "albúmina", "coagulante", "emulsificante", "gloubina", "livetina", "ovoalbúmina", "ovomucina", "ovomucoide", "otransferrina", "ovovitelina", "vitelina", "E-16b,luteína", "pigmento amarillo"])
+    Reacción generalizada de anafilaxia (Junto con hipotensión, colapso vascular y disrritmias cardiacas)", major_symptom: "", key_components: ["egg","huevo", "lecitina", "lisozima", "albúmina", "coagulante", "emulsificante", "gloubina", "livetina", "ovoalbúmina", "ovomucina", "ovomucoide", "otransferrina", "ovovitelina", "vitelina", "e-16b,luteína", "pigmento amarillo"])
 
 Intolerance.create(name: "sesamo", minor_symptom: "", medium_symptom: "Dermatitis de contacto 
     Urticaria
@@ -94,7 +94,7 @@ Intolerance.create(name: "soya", minor_symptom: "", medium_symptom: "Hinchazón 
     Pulso rápido o taquicardia
     Pérdida del conocimiento
     Aturdimiento
-    Anafilaxia: constricción de las vías respiratorias, incluyendo la inflamación de garganta", major_symptom: "", key_components: ["soya", "Mono-diglicerido", "Soya", "Soja", "Yuba", "TSF" ,"harina de soya texturizada", "TSP" ,"proteína de soya texturizada","TVP", "proteína vegetal texturizada", "Lecitina", "MSG", "lutamato monosodico"])
+    Anafilaxia: constricción de las vías respiratorias, incluyendo la inflamación de garganta", major_symptom: "", key_components: ["soya", "mono-diglicerido", "soya", "soja", "yuba", "tsf" ,"harina de soya texturizada", "tsp" ,"proteína de soya texturizada","proteina de soya texturizada","tvp", "proteína vegetal texturizada", "lecitina", "msg", "lutamato monosodico"])
 
 Intolerance.create(name: "sulfitos", minor_symptom: "", medium_symptom: "Estornudos
 	Secreción nasal (rinorrea)

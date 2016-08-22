@@ -75,8 +75,6 @@ class ProductsController < ApplicationController
   end
 
 
-
-
   # GET /products/1
   # GET /products/1.json
   def show
@@ -155,6 +153,7 @@ class ProductsController < ApplicationController
     end
   end
 
+  # POST /migrate_txt_intolerances      //con parametros= {filename_path: [ruta del archivo desde PuedoComerlo/...], empresa: [nombre de empresa]}
   def migrate_txt_intolerances
     begin
       readed_file = File.open(params[:filename_path], 'r')
@@ -163,26 +162,96 @@ class ProductsController < ApplicationController
       total = products.length
       readed_file.close
 
-      # products_added = 0
+      products_added = []
       products.each do |product|
         product_name, image, ingredientes = product.split("\n")
-        # #se crea cada producto solo si no existe anteriormente uno con el mismo codigo de barras
-        # if Product.find_by_id(barcode.to_i)==nil
-        #   Product.create(id: barcode.to_i, name: product_name)
-        #   products_added += 1
-        # end
+        my_company_products = Product.where("name ILIKE ?", "%#{params[:empresa]}%")
+        @posibles_productos = {}
+
+        #se buscan cada palabra en el nombre del producto
+        product_name.split(" ").each do |indicio_de_producto|
+          #se salta el indicio de producto si este es el nombre de la empresa q se esta buscando (ya se hizo este filtro por lo q marcaria a todos con +1)
+          if indicio_de_producto.casecmp(params[:empresa]) == 0
+            next
+          end
+          @mayor = 1
+          #busca entre los productos si posee el indicio del producto
+          my_company_products.where("name ILIKE ?", "%#{indicio_de_producto}%").each do |posible_producto|
+            if !@posibles_productos.include?(posible_producto.name)
+              @posibles_productos[posible_producto.name] = 1
+            else
+              @posibles_productos[posible_producto.name] = @posibles_productos[posible_producto.name]+1
+              @mayor = @posibles_productos[posible_producto.name]
+            end
+          end
+        end
+        # p @posibles_productos
+        @probables_productos = []
+        @posibles_productos.each do |nombre,cuenta|
+          if cuenta == @mayor
+            @probables_productos << nombre
+          end
+        end
+
+        #esto se debe borrar
+        asd = {}
+        asd[product_name] = @probables_productos
+        ap asd
+        #esto se debe agregar
+        if @probables_productos.length == 1
+          product = Product.find_by_name(product_name)
+          product.image_from_url(image)
+
+          #busqueda de intolerancia en la descripcion
+          Intolerance.all.each do |intolerancia|
+            #si es una imagen con las descripciones
+            if ingredientes.include?("http")
+              ####################################
+              #aqui usar gema para leer la imagen#
+              ####################################
+              p ""
+              p ""
+              p ""
+              p ""
+              p "aqui usar gema para leer la imagen"
+              p ""
+              p ""
+              p ""
+              p ""
+            else
+              #se recorre cada key compoent desde las intolerancias
+              intolerancia.key_components.each do |component|
+                #si posee un key_componente en los ingredientes, se agrega la intolerancia al producto
+                if ingredientes.downcase.include?(component.downcase)
+                  product.intolerances << intolerancia if !product.intolerances.include?(intolerancia)
+                end
+              end
+            end
+          end
+
+          product.save
+          
+          products_added << product
+        end
+        #####################
+
+
       end
       success = true
     rescue Exception => e
+      p ''
+      p ''
       p 'error, el archivo a migrar no está en "PuedoComerlo/'+params[:filename_path]+'", o no posee un formato correcto'
       p e
+      p ''
+      p ''
     end
 
     respond_to do |format|
       if success
         # p "products_added: #{products_added}"
         # p "max total: #{total}"
-        format.json { render json: {products: products}, status: :ok }
+        format.json { render json: {productos_añadidos: products_added}, status: :ok }
         format.html { redirect_to products, notice: 'Products was successfully created.' }
       else
         format.json { render json: {error: e.to_s}, status: :unprocessable_entity }
@@ -223,6 +292,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:id, :name)
+      params.require(:product).permit(:id, :name, :image, :likes, :denounced)
     end
 end

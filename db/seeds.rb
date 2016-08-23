@@ -24,7 +24,7 @@ Intolerance.create(name: "gluten", minor_symptom: "", medium_symptom: "Diarrea c
 	Dolor de cabeza
 	Alteraciones del esmalte dental
 	Raquitismo
-	Fracturas espontáneas", major_symptom: "", key_components: ["trigo", "centeno", "cebada", "escanda", "espelta", "triticale", "farro", "kamut", "espelta verde", "bulgur y avena"])
+	Fracturas espontáneas", major_symptom: "", key_components: ["trigo", "centeno", "cebada", "escanda", "espelta", "triticale", "farro", "kamut", "espelta verde", "bulgur", "avena"])
 
 Intolerance.create(name: "mani", minor_symptom: "", medium_symptom: "Dolor estomacal
 	Goteo nasal
@@ -112,7 +112,6 @@ Intolerance.create(name: "legumbres", minor_symptom: "", medium_symptom: "Síndr
 
 #Company.create(id: , name: , url: "")
 
-#Fabo
 Company.create(name: "lipton", url: "http://www.unileverfoodsolutions.cl/productos-marcas/marcas")
 Company.create(name: "lipton", url: "http://www.unileverfoodsolutions.cl/productos-marcas/marcas")
 Company.create(name: "Carte", url: "http://www.unileverfoodsolutions.cl/productos-marcas/marcas")
@@ -126,16 +125,13 @@ Company.create(name: "Club" , url: "http://www.unileverfoodsolutions.cl/producto
 Company.create(name: "Banda Azul", url: "http://www.unileverfoodsolutions.cl/productos-marcas/marcas")
 Company.create(name: "Colun", url: "http://www.colun.cl/")
 
-#Alonso
 Company.create(name: "Vivo" , url: "http://www.vivo.cl/")
 Company.create(name: "Quaker" , url: "http://www.quaker.cl/?page_id=7649")
 Company.create(name: "Calan" , url: "http://www.calan.cl/productos/")
 
-#Rafa
 Company.create(name: "Savory", url: "https://www.savory.cl/productos")
 Company.create(name: "Loncoleche", url: "http://www.loncoleche.cl/productos.html")
 
-#Jorge
 Company.create(name: "Deyco" , url: "http://www.deyco.cl/productos-deyco.html")
 Company.create(name: "Coca Cola", url: "http://www.cocacoladechile.cl/")
 Company.create(name: "Mundo San Jose" , url: "http://www.mundosanjose.cl/productos/")

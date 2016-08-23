@@ -42,7 +42,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rvm'
 # gem 'capistrano3-puma'
 
-gem 'pg'
 gem 'devise'
 gem 'cancancan'
 gem 'simple_form'
@@ -57,6 +56,7 @@ gem 'rails-i18n'
 gem 'devise-i18n'
 gem 'rest-client'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'similar_text', '~> 0.0.4'
 
 # #Google BigQuery
 # gem 'google-api-client', '0.8.3'

@@ -1,4 +1,5 @@
 require 'rest_client'
+require 'similar_text'
 
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
@@ -164,31 +165,60 @@ class ProductsController < ApplicationController
 
       products_added = []
       products.each do |product|
-        product_name, image, ingredientes = product.split("\n")
-        my_company_products = Product.where("name ILIKE ?", "%#{params[:empresa]}%")
+        product_name, ingredientes, image = product.split("\n")
+        if params[:empresa]!="all_companies"
+          my_company_products = Product.where("name ILIKE ?", "%#{params[:empresa]}%")
+        else
+          my_company_products = Product.all
+        end
         @posibles_productos = {}
 
+        @mayor = 1
         #se buscan cada palabra en el nombre del producto
         product_name.split(" ").each do |indicio_de_producto|
-          #se salta el indicio de producto si este es el nombre de la empresa q se esta buscando (ya se hizo este filtro por lo q marcaria a todos con +1)
-          if indicio_de_producto.casecmp(params[:empresa]) == 0
+          # se salta el indicio de producto si este es el nombre de la empresa q se esta buscando (ya se hizo este filtro por lo q marcaria a todos con +1)
+          # o si el indicio es un int (por los kg gr, etc)
+          if indicio_de_producto.casecmp(params[:empresa]) == 0 or indicio_de_producto[0].to_i != 0 or indicio_de_producto.casecmp("kg")==0 or indicio_de_producto.casecmp("grs")==0 or indicio_de_producto.casecmp("gr")==0
             next
           end
-          @mayor = 1
-          #busca entre los productos si posee el indicio del producto
-          my_company_products.where("name ILIKE ?", "%#{indicio_de_producto}%").each do |posible_producto|
-            if !@posibles_productos.include?(posible_producto.name)
-              @posibles_productos[posible_producto.name] = 1
-            else
-              @posibles_productos[posible_producto.name] = @posibles_productos[posible_producto.name]+1
-              @mayor = @posibles_productos[posible_producto.name]
+          #busca entre los productos de la empresa si posee el indicio del producto
+          p ''
+          p ''
+          p ''
+          p ''
+          p 'producto: '+product_name
+          p 'indicio_de_producto: '+indicio_de_producto.to_s
+          p ''
+          # my_company_products.where("name ILIKE ?", "%#{indicio_de_producto}%").each do |posible_producto|
+          my_company_products.each do |posible_producto|
+            #si el producto posee una diferencia de 1 letra con el producto
+            posible_producto.name.split(" ").each do |palabra|
+              similitud = palabra.downcase.similar(indicio_de_producto.downcase)
+              if similitud >= 80
+                p "similitud es mayor a 80: "+similitud.to_s
+                p "palabra: "+palabra, "indicio_de_producto: "+indicio_de_producto
+                if @posibles_productos[posible_producto.name] == nil
+                  @posibles_productos[posible_producto.name] = 1
+                else
+                  @posibles_productos[posible_producto.name] = @posibles_productos[posible_producto.name]+1
+                  @mayor = @posibles_productos[posible_producto.name] if @posibles_productos[posible_producto.name] > @mayor
+                end
+                p "@posibles_productos[#{posible_producto.name}]: "+@posibles_productos[posible_producto.name].to_s
+                # break
+              end
+              # break
             end
           end
         end
-        # p @posibles_productos
+
+        ap @posibles_productos
+        p "@mayor: "+@mayor.to_s
+
         @probables_productos = []
         @posibles_productos.each do |nombre,cuenta|
           if cuenta == @mayor
+            # p "@mayor: "+@mayor.to_s+"="+"cuenta: "+cuenta.to_s
+            # p "se agrega '"+nombre+"' a las posibilidades de #{product_name}"
             @probables_productos << nombre
           end
         end
@@ -199,7 +229,7 @@ class ProductsController < ApplicationController
         ap asd
         #esto se debe agregar
         if @probables_productos.length == 1
-          product = Product.find_by_name(product_name)
+          product = Product.find_by_name(@probables_productos[0].to_s)
           product.image_from_url(image)
 
           #busqueda de intolerancia en la descripcion
@@ -227,15 +257,13 @@ class ProductsController < ApplicationController
                 end
               end
             end
+            products_added << product if !products_added.include?(product)
           end
 
           product.save
           
-          products_added << product
         end
         #####################
-
-
       end
       success = true
     rescue Exception => e
@@ -247,17 +275,12 @@ class ProductsController < ApplicationController
       p ''
     end
 
-    respond_to do |format|
-      if success
-        # p "products_added: #{products_added}"
-        # p "max total: #{total}"
-        format.json { render json: {productos_añadidos: products_added}, status: :ok }
-        format.html { redirect_to products, notice: 'Products was successfully created.' }
-      else
-        format.json { render json: {error: e.to_s}, status: :unprocessable_entity }
-        format.html { render :new }
-      end
+    if success
+      render json: {num_productos: products_added.length, productos_añadidos: products_added}, status: :ok
+    else
+      render json: {error: e.to_s}, status: :unprocessable_entity
     end
+    # end
   end
 
   # PATCH/PUT /products/1

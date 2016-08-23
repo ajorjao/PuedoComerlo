@@ -234,15 +234,15 @@ Salsa Vivo Italiana
 http://www.vivo.cl/images/fichas/salsas1.jpg
 http://www.vivo.cl/images/salsas1.png
 
-Vivo Gotas
+Vivo Gotas Pera
 http://www.vivo.cl/images/fichas/pera_gota.jpg
 http://www.vivo.cl/images/pera_gota.png
 
-Vivo Gotas
+Vivo Gotas Uva
 http://www.vivo.cl/images/fichas/uva_gota.jpg
 http://www.vivo.cl/images/uva_gota.png
 
-Vivo Gotas
+Vivo Gotas Manzana
 http://www.vivo.cl/images/fichas/manzana_gota.jpg
 http://www.vivo.cl/images/manzana_gota.png
 

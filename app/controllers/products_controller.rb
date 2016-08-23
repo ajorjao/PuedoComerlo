@@ -1,5 +1,6 @@
 require 'rest_client'
 require 'similar_text'
+# require 'rtesseract'
 
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
@@ -163,71 +164,63 @@ class ProductsController < ApplicationController
       total = products.length
       readed_file.close
 
+
       products_added = []
       products.each do |product|
-        product_name, ingredientes, image = product.split("\n")
-        if params[:empresa]!="all_companies"
-          my_company_products = Product.where("name ILIKE ?", "%#{params[:empresa]}%")
-        else
-          my_company_products = Product.all
-        end
-        @posibles_productos = {}
+        #################################################################################################
+        # se intenta hacer coincidir los nombres del txt con los de nuestra base de datos
+        #################################################################################################
 
-        @mayor = 1
-        #se buscan cada palabra en el nombre del producto
-        product_name.split(" ").each do |indicio_de_producto|
-          # se salta el indicio de producto si este es el nombre de la empresa q se esta buscando (ya se hizo este filtro por lo q marcaria a todos con +1)
-          # o si el indicio es un int (por los kg gr, etc)
-          if indicio_de_producto.casecmp(params[:empresa]) == 0 or indicio_de_producto[0].to_i != 0 or indicio_de_producto.casecmp("kg")==0 or indicio_de_producto.casecmp("grs")==0 or indicio_de_producto.casecmp("gr")==0
-            next
+          product_name, ingredientes, image = product.split("\n")
+          if params[:empresa]!="all_companies"
+            my_company_products = Product.where("name ILIKE ?", "%#{params[:empresa]}%")
+          else
+            my_company_products = Product.all
           end
-          #busca entre los productos de la empresa si posee el indicio del producto
-          p ''
-          p ''
-          p ''
-          p ''
-          p 'producto: '+product_name
-          p 'indicio_de_producto: '+indicio_de_producto.to_s
-          p ''
-          # my_company_products.where("name ILIKE ?", "%#{indicio_de_producto}%").each do |posible_producto|
-          my_company_products.each do |posible_producto|
-            #si el producto posee una diferencia de 1 letra con el producto
-            posible_producto.name.split(" ").each do |palabra|
-              similitud = palabra.downcase.similar(indicio_de_producto.downcase)
-              if similitud >= 80
-                p "similitud es mayor a 80: "+similitud.to_s
-                p "palabra: "+palabra, "indicio_de_producto: "+indicio_de_producto
-                if @posibles_productos[posible_producto.name] == nil
-                  @posibles_productos[posible_producto.name] = 1
-                else
-                  @posibles_productos[posible_producto.name] = @posibles_productos[posible_producto.name]+1
-                  @mayor = @posibles_productos[posible_producto.name] if @posibles_productos[posible_producto.name] > @mayor
+          @posibles_productos = {}
+
+          @mayor = 1
+          #se buscan cada palabra en el nombre del producto
+          product_name.split(" ").each do |indicio_de_producto|
+            # se salta el indicio de producto si este es el nombre de la empresa q se esta buscando (ya se hizo este filtro por lo q marcaria a todos con +1) o si el indicio es un int (por los kg gr, etc)
+            if indicio_de_producto.casecmp(params[:empresa]) == 0 or indicio_de_producto[0].to_i != 0 or indicio_de_producto.casecmp("kg")==0 or indicio_de_producto.casecmp("grs")==0 or indicio_de_producto.casecmp("gr")==0
+              next
+            end
+            #busca entre los productos de la empresa si posee el indicio del producto
+            my_company_products.each do |posible_producto|
+              #si el producto posee una diferencia de 1 letra con el producto
+              posible_producto.name.split(" ").each do |palabra|
+                similitud = palabra.downcase.similar(indicio_de_producto.downcase)
+                if similitud >= 80
+                  p "similitud es mayor a 80: "+similitud.to_s
+                  p "palabra: "+palabra, "indicio_de_producto: "+indicio_de_producto
+                  if @posibles_productos[posible_producto.name] == nil
+                    @posibles_productos[posible_producto.name] = 1
+                  else
+                    @posibles_productos[posible_producto.name] = @posibles_productos[posible_producto.name]+1
+                    @mayor = @posibles_productos[posible_producto.name] if @posibles_productos[posible_producto.name] > @mayor
+                  end
+                  p "@posibles_productos[#{posible_producto.name}]: "+@posibles_productos[posible_producto.name].to_s
                 end
-                p "@posibles_productos[#{posible_producto.name}]: "+@posibles_productos[posible_producto.name].to_s
-                # break
               end
-              # break
             end
           end
-        end
 
-        ap @posibles_productos
-        p "@mayor: "+@mayor.to_s
+          ap @posibles_productos
+          p "@mayor: "+@mayor.to_s
 
-        @probables_productos = []
-        @posibles_productos.each do |nombre,cuenta|
-          if cuenta == @mayor
-            # p "@mayor: "+@mayor.to_s+"="+"cuenta: "+cuenta.to_s
-            # p "se agrega '"+nombre+"' a las posibilidades de #{product_name}"
-            @probables_productos << nombre
+          @probables_productos = []
+          @posibles_productos.each do |nombre,cuenta|
+            if cuenta == @mayor
+              @probables_productos << nombre
+            end
           end
-        end
 
-        #esto se debe borrar
-        asd = {}
-        asd[product_name] = @probables_productos
-        ap asd
-        #esto se debe agregar
+        #################################################################################################
+        # en este punto ya se identificaron algunos productos de los txt con los de nuestra base de datos
+        #################################################################################################
+
+        #si entre las coincidencas solo hay 1 posible producto que coincide con nuestra base de datos y el nombre del txt:
         if @probables_productos.length == 1
           product = Product.find_by_name(@probables_productos[0].to_s)
           product.image_from_url(image)
@@ -251,9 +244,11 @@ class ProductsController < ApplicationController
             else
               #se recorre cada key compoent desde las intolerancias
               intolerancia.key_components.each do |component|
-                #si posee un key_componente en los ingredientes, se agrega la intolerancia al producto
-                if ingredientes.downcase.include?(component.downcase)
-                  product.intolerances << intolerancia if !product.intolerances.include?(intolerancia)
+                #si posee un key_component en los ingredientes, se agrega la intolerancia al producto
+                ingredientes.split(" ").each do |palabra_ingrediente|
+                  if ingredientes.downcase.similar(component.downcase)
+                    product.intolerances << intolerancia if !product.intolerances.include?(intolerancia)
+                  end
                 end
               end
             end
@@ -281,6 +276,26 @@ class ProductsController < ApplicationController
       render json: {error: e.to_s}, status: :unprocessable_entity
     end
     # end
+  end
+
+  def testing
+    image = open(params[:image_url], :allow_redirections => :safe)
+    # ej params[:proporciones] = 247x36+36+297
+    width = params[:proporciones].split("x")[0].to_i
+    height = params[:proporciones].split("x")[1].split("+")[0].to_i
+    posx = params[:proporciones].split("x")[1].split("+")[1].to_i
+    posy = params[:proporciones].split("x")[1].split("+")[2].to_i
+
+    imagen = RTesseract::Mixed.new(image ,{:areas => [
+      {:x => posx, :y=>posy, :w=>width, :h=>height }
+    ]})
+
+    # imagen = RTesseract.new(image, :lang => "spa")
+    
+    # imagen = RTesseract.new(image)
+
+    result = imagen.to_s.gsub("V","Y")
+    render json: {string: result}, status: :ok
   end
 
   # PATCH/PUT /products/1

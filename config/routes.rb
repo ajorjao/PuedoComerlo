@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   post 'migrate_txt_intolerances' => 'products#migrate_txt_intolerances'
 
+  post 'testing' => 'products#testing'
 
   get 'ping' => 'home#ping'
 

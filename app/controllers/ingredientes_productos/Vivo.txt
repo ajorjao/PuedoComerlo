@@ -74,11 +74,11 @@ Flan Vainilla
 http://www.vivo.cl/images/fichas/postre9.jpg
 http://www.vivo.cl/images/postre9.png
 
-Sémola Berries
+Semola Berries
 http://www.vivo.cl/images/fichas/postre10.jpg
 http://www.vivo.cl/images/postre10.png
 
-Sémola Caramelo
+Semola Caramelo
 http://www.vivo.cl/images/fichas/postre11.jpg
 http://www.vivo.cl/images/postre11.png
 
@@ -114,7 +114,7 @@ Check Yogurt
 http://www.vivo.cl/images/fichas/cereales12.png
 http://www.vivo.cl/images/cereales12.png
 
-Avena Instantánea
+Avena Instantanea
 http://www.vivo.cl/images/fichas/cereales1.jpg
 http://www.vivo.cl/images/cereales1.png
 
@@ -134,7 +134,7 @@ Granola Miel y Almendra
 http://www.vivo.cl/images/fichas/cereales5.jpg
 http://www.vivo.cl/images/cereales5.png
 
-Check 3 Cereales
+Check Tres Cereales
 http://www.vivo.cl/images/fichas/cereales6.jpg
 http://www.vivo.cl/images/cereales6.png
 
@@ -154,23 +154,23 @@ Avena Cluster Miel
 http://www.vivo.cl/images/fichas/cereales8.jpg
 http://www.vivo.cl/images/cereales8.png
 
-Néctar Berries
+Nectar Berries
 http://www.vivo.cl/images/fichas/nectar1.jpg
 http://www.vivo.cl/images/nectar1.png
 
-Néctar Durazno
+Nectar Durazno
 http://www.vivo.cl/images/fichas/nectar2.jpg
 http://www.vivo.cl/images/nectar2.png
 
-Néctar Manzana
+Nectar Manzana
 http://www.vivo.cl/images/fichas/nectar3.jpg
 http://www.vivo.cl/images/nectar3.png
 
-Néctar Naranja
+Nectar Naranja
 http://www.vivo.cl/images/fichas/nectar4.jpg
 http://www.vivo.cl/images/nectar4.png
 
-Néctar Piña
+Nectar Piña
 http://www.vivo.cl/images/fichas/nectar5.jpg
 http://www.vivo.cl/images/nectar5.png
 
@@ -206,7 +206,7 @@ Lima Limon
 http://www.vivo.cl/images/fichas/jugo8.jpg
 http://www.vivo.cl/images/jugo8.png
 
-Jugo Limon con Té Verde
+Jugo Limon con Te Verde
 http://www.vivo.cl/images/fichas/jugo9.jpg
 http://www.vivo.cl/images/jugo9.png
 

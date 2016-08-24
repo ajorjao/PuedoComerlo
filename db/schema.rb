@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160822165418) do
+ActiveRecord::Schema.define(version: 20160824164224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20160822165418) do
     t.datetime "image_updated_at"
     t.integer  "likes"
     t.boolean  "denounced"
+    t.text     "ingredients"
   end
 
   add_index "products", ["id"], name: "index_products_on_id", unique: true, using: :btree

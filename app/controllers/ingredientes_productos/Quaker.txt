@@ -1,4 +1,4 @@
-Avena Instantánea
+Avena Instantanea
 http://www.quaker.cl/wp-content/uploads/2014/02/avena_instantanea1.jpg
 
 Avena Tradicional
@@ -7,10 +7,10 @@ http://www.quaker.cl/wp-content/uploads/2014/02/avena_tradicional1.jpg
 Avena Multisemillas
 http://www.quaker.cl/wp-content/uploads/2015/02/ficha_Avena-mutisemillas.jpg
 
-Avena Más Sabor Chocolate
+Avena Mas Sabor Chocolate
 http://www.quaker.cl/wp-content/uploads/2014/02/avena_chocolate.jpg
 
-Avena Más Sabor Manzana y Canela
+Avena Mas Sabor Manzana y Canela
 http://www.quaker.cl/wp-content/uploads/2014/05/avena_manzana_canela1.jpg
 
 Quadritos de Avena
@@ -28,7 +28,7 @@ http://www.quaker.cl/wp-content/uploads/2014/06/granola_miel_almendras.jpg
 Granola Miel & Pasas
 http://www.quaker.cl/wp-content/uploads/2014/06/granola_miel_pasas.jpg
 
-Granola Manzana y Arándanos
+Granola Manzana y Arandanos
 http://www.quaker.cl/wp-content/uploads/2015/02/ficha_granola-manzanaArandanos.jpg
 
 Hearts Cereal
@@ -46,7 +46,7 @@ http://www.quaker.cl/wp-content/uploads/2014/06/BARRA_MANZANA.jpg
 Postre Mousse Chocolate
 http://www.quaker.cl/wp-content/uploads/2014/06/BARRA_MOUSE.jpg
 
-Postre Pie de Limón
+Postre Pie de Limon
 http://www.quaker.cl/wp-content/uploads/2014/06/BARRA_PIE_LIMON.jpg
 
 Chewy Chispas de Chocolate
@@ -70,19 +70,19 @@ http://www.quaker.cl/wp-content/uploads/2014/06/galleta_tipo_casera_granola.jpg
 Tipo Casera Manzana y Canela
 http://www.quaker.cl/wp-content/uploads/2014/07/galleta_tipo_casera_manzana.jpg
 
-Galletón Almendras
+Galleton Almendras
 http://www.quaker.cl/wp-content/uploads/2014/06/galleton_tipocasero_almendras1.jpg
 
-Galletón Arándanos Rojos
+Galleton Arandanos Rojos
 http://www.quaker.cl/wp-content/uploads/2014/06/galleton_tipocasero_arandanos.jpg
 
-Galletón Chips de Chocolate
+Galleton Chips de Chocolate
 http://www.quaker.cl/wp-content/uploads/2014/06/galleton_tipocasero_chips_chocolate.jpg
 
 Mini Almendras
 http://www.quaker.cl/wp-content/uploads/2015/02/fichagalleta_mini_almendra.jpg
 
-Mini Arándanos Rojos
+Mini Arandanos Rojos
 http://www.quaker.cl/wp-content/uploads/2015/02/fichagalleta_mini_arandanos.jpg
 
 Mini Vainilla

@@ -174,12 +174,14 @@ class ProductsController < ApplicationController
           product_name, ingredientes, image = product.split("\n")
           if params[:empresa]!="all_companies"
             my_company_products = Product.where("name ILIKE ?", "%#{params[:empresa]}%")
+            @mayor = 2
           else
             my_company_products = Product.all
+            @mayor = 3
           end
           @posibles_productos = {}
 
-          @mayor = 1
+          #@mayor = 2
           #se buscan cada palabra en el nombre del producto
           product_name.split(" ").each do |indicio_de_producto|
             # se salta el indicio de producto si este es el nombre de la empresa q se esta buscando (ya se hizo este filtro por lo q marcaria a todos con +1) o si el indicio es un int (por los kg gr, etc)
@@ -189,8 +191,12 @@ class ProductsController < ApplicationController
             #busca entre los productos de la empresa si posee el indicio del producto
             my_company_products.each do |posible_producto|
               #si el producto posee una diferencia de 1 letra con el producto
+              p "Producto en BD: "+posible_producto.name
+              p "Producto con Ing: "+product_name
               posible_producto.name.split(" ").each do |palabra|
                 similitud = palabra.downcase.similar(indicio_de_producto.downcase)
+                #p "P1: "+palabra.downcase
+                #p "P2: "+indicio_de_producto.downcase
                 if similitud >= 80
                   p "similitud es mayor a 80: "+similitud.to_s
                   p "palabra: "+palabra, "indicio_de_producto: "+indicio_de_producto
@@ -254,7 +260,7 @@ class ProductsController < ApplicationController
             end
             products_added << product if !products_added.include?(product)
           end
-
+          product.ingredients = ingredientes
           product.save
           
         end

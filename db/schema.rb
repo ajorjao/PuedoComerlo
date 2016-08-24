@@ -16,14 +16,12 @@ ActiveRecord::Schema.define(version: 20160822165418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "companies", id: :bigserial, force: :cascade do |t|
+  create_table "companies", force: :cascade do |t|
     t.string   "name"
     t.string   "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "companies", ["id"], name: "index_companies_on_id", unique: true, using: :btree
 
   create_table "families", force: :cascade do |t|
     t.string   "name"

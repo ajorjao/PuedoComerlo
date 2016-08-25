@@ -58,27 +58,39 @@ class ProductsController < ApplicationController
 
   # DELETE /product/intolerance    //con parametros= {product_id: ###, intolerance_id: ###}
   def del_intolerance
-    if current_user == nil
-      render json: {error: 'No estas logeado'}, status: 401
-    elsif current_user.admin == true
-      producto = Product.find_by_id(params[:product_id])
-      if producto == nil
-        render json: {error: "No existe el producto en nuestra base de datos"}, status: 404
-      # elsif intolerancia == nil
-      #   render json: {error: "No existe la intolerancia en nuestra base de datos"}, status: 404
-      else
-        #si se posee la intlerancia que se quiere borrar
+    respond_to do |format|
+      format.json{
+        if current_user == nil
+          render json: {error: 'No estas logeado'}, status: 401
+        elsif current_user.admin == true
+          producto = Product.find_by_id(params[:product_id])
+          if producto == nil
+            render json: {error: "No existe el producto en nuestra base de datos"}, status: 404
+          # elsif intolerancia == nil
+          #   render json: {error: "No existe la intolerancia en nuestra base de datos"}, status: 404
+          else
+            #si se posee la intlerancia que se quiere borrar
+            intolerancia = Intolerance.find_by_id(params[:intolerance_id])
+            if producto.intolerances.include?(intolerancia)
+              # intolerancia = producto.intolerances.find_by_id(params[:intolerance_id])
+              producto.intolerances.delete(params[:intolerance_id])
+              render json: {success: "Intolerancia '#{intolerancia.name}' eliminada del producto #{producto.name}"}
+            else
+              render json: {error: 'No posees esa intolerancia'}, status: 404
+            end
+          end
+        else
+          render json: {error: 'No posees permisos para agregar una intolerancia a esta persona'}, status: 401
+        end
+      }
+      format.html{
+        producto = Product.find_by_id(params[:product_id])
         intolerancia = Intolerance.find_by_id(params[:intolerance_id])
         if producto.intolerances.include?(intolerancia)
-          # intolerancia = producto.intolerances.find_by_id(params[:intolerance_id])
           producto.intolerances.delete(params[:intolerance_id])
-          render json: {success: "Intolerancia '#{intolerancia.name}' eliminada del producto #{producto.name}"}
-        else
-          render json: {error: 'No posees esa intolerancia'}, status: 404
         end
-      end
-    else
-      render json: {error: 'No posees permisos para agregar una intolerancia a esta persona'}, status: 401
+        redirect_to "/products/#{producto.id.to_s}/edit"
+      }
     end
   end
 
@@ -337,9 +349,9 @@ class ProductsController < ApplicationController
   def destroy
     @product.destroy
     respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
+      format.html { redirect_to 'denounced_products', notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
-    end
+      end
   end
 
   private

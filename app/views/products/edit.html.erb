@@ -1,6 +1,22 @@
 <h1>Editing Product</h1>
 
+<h3><%= @product.name %></h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Intolerancias</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+	<% @product.intolerances.each do |intolerancia| %>
+	  <tr>
+		  <td><%= intolerancia.name %></td>
+			<td><%= link_to 'Eliminar', "/products/intolerance?product_id=#{@product.id}&intolerance_id=#{intolerancia.id}", method: :delete, data: { confirm: "Estas seguro de desligar esta intolrancia del producto?" } %></td>
+		</tr>
+	<% end %>
+</table>
+
 <%= render 'form' %>
 
-<%= link_to 'Show', @product %> |
-<%= link_to 'Back', products_path %>
+<%= link_to 'Back', denounced_products_path %>

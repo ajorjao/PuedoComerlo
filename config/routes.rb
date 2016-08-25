@@ -19,11 +19,14 @@ Rails.application.routes.draw do
 
   # resources :products
   # get 'products' => 'products#index'
+  get 'products/:id/edit' => 'products#edit'
+  delete 'product/:id' => 'products#destroy'
   get 'products/:id' => 'products#show'
   get 'products/page/:page' => 'products#index'
   put 'products' => 'products#search'
   post 'products/intolerance' => 'products#add_intolerance'
   delete 'products/intolerance' => 'products#del_intolerance'
+  # delete 'products/:id/intolerance' => 'products#del_intolerance'
   post 'migrate_txt_products' => 'products#migrate_new_products'
 
   post 'migrate_txt_intolerances' => 'products#migrate_txt_intolerances'
@@ -33,7 +36,9 @@ Rails.application.routes.draw do
   get 'ping' => 'home#ping'
 
   get 'denounced_products' => 'products#denounced_products'
-  
+
+  put 'update' => 'products#update'
+
 
   # resources :companies
 

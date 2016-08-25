@@ -155,7 +155,6 @@ Company.create(name: "Mundo San Jose" , url: "http://www.mundosanjose.cl/product
 # Company.create(id: 780, name: "")
 
 #PRODUCTOS
-
 triton = Product.create(id: 7802230086952 ,name:"GALLETA TRITON VAINILLA 126 GR.",image_file_name: null, image_content_type: null,image_file_size: null,image_updated_at:null,likes: null,denounced: null,ingredients:"Harina trigo, azucar, aceite animal parcialmente hidrog, almidon, cacao polvo, bicarbonato sodio, fosfato monocalcico, maltodextrina, sal, saborizante, lectina soya, colorante caramelo")
 triton.image_from_url("http://ep.yimg.com/ca/I/yhst-62086439978846_2268_30439829")
 triton.save

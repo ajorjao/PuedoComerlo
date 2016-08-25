@@ -177,8 +177,8 @@ aquariosManzana.save
 
 
 lecheColun = Product.create(id: 7802920777542 ,name:"LECHE COLUN NATURAL 1 LT.",image_file_name: nil, image_content_type: nil,image_file_size: nil,image_updated_at: nil,likes: nil,denounced: nil,ingredients:"Leche fluida natural estandarizada")
-# lecheColun.image_from_url("www.colun.cl/resources/upload/246f38479675296b0f1151da6ea2d6a2.png")
-# lecheColun.save
+lecheColun.image_from_url("http://pregrado.usistemas.cl/mejorprecio/images/632690ga.jpg")
+lecheColun.save
 
 listaProductos = [triton, cocacola, golazo, ramitasQueso, aquariosManzana, lecheColun]
 

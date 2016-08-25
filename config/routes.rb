@@ -32,6 +32,9 @@ Rails.application.routes.draw do
 
   get 'ping' => 'home#ping'
 
+  get 'denounced_products' => 'products#denounced_products'
+  
+
   # resources :companies
 
   # resources :intolerances

@@ -105,6 +105,14 @@ class ProductsController < ApplicationController
   def edit
   end
 
+  def denounced_products
+    if current_user.admin == true
+      @products = Product.where(denounced: true)
+    else
+      redirect_to root_path
+    end
+  end
+
   # POST /products
   # POST /products.json
   def create

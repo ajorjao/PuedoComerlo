@@ -20,8 +20,14 @@ class ProductsController < ApplicationController
     #ESTA ES LA LINEA DE LOS MILAGROS :OOOOOO
     @products = @products.where("id::text ILIKE ?::text", "%#{params[:product][:id]}%") if params[:product][:id]!=nil
     #@products = @products.where("(id % 10^(length(?)) = ?)", "'#{params[:product][:id]}'","#{params[:product][:id]}") if params[:product][:id]!=nil
-    if @products.count>0
-      render json: {products: @products}
+    @usable_products = []
+    @products.each do |product|
+    	if product.intolerances.count != 0
+    		@usable_products << product
+    	end
+    end
+    if @usable_products.count>0
+      render json: {products: @usable_products}
     else
       render json: {error: "No hay productos coincidentes con la busqueda"}, status: 404
     end

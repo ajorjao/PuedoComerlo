@@ -155,15 +155,19 @@ Company.create(name: "Mundo San Jose" , url: "http://www.mundosanjose.cl/product
 # Company.create(id: 780, name: "")
 
 #PRODUCTOS
-
 triton = Product.create(id: 7802230086952 ,name:"GALLETA TRITON VAINILLA 126 GR.",image_file_name: null, image_content_type: null,image_file_size: null,image_updated_at:null,likes: null,denounced: null,ingredients:"Harina trigo, azucar, aceite animal parcialmente hidrog, almidon, cacao polvo, bicarbonato sodio, fosfato monocalcico, maltodextrina, sal, saborizante, lectina soya, colorante caramelo")
 listaIntolerancias.each do |producto|
 	triton << Intolerance.find_by_name(producto)
+end
+triton.image_from_url("http://ep.yimg.com/ca/I/yhst-62086439978846_2268_30439829")
+triton.save
 
 cocacola = Product.create(id: 7801610001936 ,name:"COCA COLA LATA",image_file_name: null, image_content_type: null,image_file_size: null,image_updated_at:null,likes: null,denounced: null,ingredients:"Agua carbonatada, azucar, color caramelo, acido fosforico, saborizantes naturales y cafeina")
 listaIntolerancias.each do |producto|
 	cocacola << Intolerance.find_by_name(producto)
+end
 
 golazo = Product.create(id: 7802200809178 ,name:"GOLAZO LECHE 25G",image_file_name: null, image_content_type: null,image_file_size: null,image_updated_at:null,likes: null,denounced: null,ingredients:"Harina de arroz y trigo, azucar, leche en polvo, carbonato de calcio, sal . Relleno: azucar, manteca vegetal, leche en polvo, cacao en polvo, lecitina de soya")
 listaIntolerancias.each do |producto|
 	golazo << Intolerance.find_by_name(producto)
+end

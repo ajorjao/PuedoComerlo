@@ -180,9 +180,9 @@ lecheColun = Product.create(id: 7802920777542 ,name:"LECHE COLUN NATURAL 1 LT.",
 # lecheColun.image_from_url("www.colun.cl/resources/upload/246f38479675296b0f1151da6ea2d6a2.png")
 # lecheColun.save
 
-listaIntolerancias = [triton, cocacola, golazo, ramitasQueso, aquariosManzana, lecheColun]
+listaProductos = [triton, cocacola, golazo, ramitasQueso, aquariosManzana, lecheColun]
 
-listaIntolerancias.each do |producto|
+listaProductos.each do |producto|
 	# triton.intolerances << Intolerance.find_by_name(producto)
 	# cocacola.intolerances << Intolerance.find_by_name(producto)
 	# golazo.intolerances << Intolerance.find_by_name(producto)
@@ -191,6 +191,7 @@ listaIntolerancias.each do |producto|
 	# lecheColun.intolerances << Intolerance.find_by_name(producto)
 
 	#busqueda de intolerancia en la descripcion
+	#Usar arreglo con las intolerancias (listaIntolerancias)?????
 	Intolerance.all.each do |intolerancia|
 	  #se recorre cada key compoent desde las intolerancias
 	  intolerancia.key_components.each do |component|

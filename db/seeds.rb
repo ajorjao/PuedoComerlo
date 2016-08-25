@@ -155,36 +155,52 @@ Company.create(name: "Mundo San Jose" , url: "http://www.mundosanjose.cl/product
 # Company.create(id: 780, name: "")
 
 #PRODUCTOS
-triton = Product.create(id: 7802230086952 ,name:"GALLETA TRITON VAINILLA 126 GR.",image_file_name: null, image_content_type: null,image_file_size: null,image_updated_at:null,likes: null,denounced: null,ingredients:"Harina trigo, azucar, aceite animal parcialmente hidrog, almidon, cacao polvo, bicarbonato sodio, fosfato monocalcico, maltodextrina, sal, saborizante, lectina soya, colorante caramelo")
+triton = Product.create(id: 7802230086952 ,name:"GALLETA TRITON VAINILLA 126 GR.",image_file_name: nil, image_content_type: nil,image_file_size: nil,image_updated_at: nil,likes: nil,denounced: nil,ingredients:"Harina trigo, azucar, aceite animal parcialmente hidrog, almidon, cacao polvo, bicarbonato sodio, fosfato monocalcico, maltodextrina, sal, saborizante, lectina soya, colorante caramelo")
 triton.image_from_url("http://ep.yimg.com/ca/I/yhst-62086439978846_2268_30439829")
 triton.save
 
-cocacola = Product.create(id: 7801610001936 ,name:"COCA COLA LATA",image_file_name: null, image_content_type: null,image_file_size: null,image_updated_at:null,likes: null,denounced: null,ingredients:"Agua carbonatada, azucar, color caramelo, acido fosforico, saborizantes naturales y cafeina")
+cocacola = Product.create(id: 7801610001936 ,name:"COCA COLA LATA",image_file_name: nil, image_content_type: nil,image_file_size: nil,image_updated_at: nil,likes: nil,denounced: nil,ingredients:"Agua carbonatada, azucar, color caramelo, acido fosforico, saborizantes naturales y cafeina")
 cocacola.image_from_url("https://www.corporativo.tia.com.ec/sites/almacenestia.com/files/productos/imagenescargadas/2014-10-18/247060.jpeg")
 cocacola.save
 
-golazo = Product.create(id: 7802200809178 ,name:"GOLAZO LECHE 25G",image_file_name: null, image_content_type: null,image_file_size: null,image_updated_at:null,likes: null,denounced: null,ingredients:"Harina de arroz y trigo, azucar, leche en polvo, carbonato de calcio, sal . Relleno: azucar, manteca vegetal, leche en polvo, cacao en polvo, lecitina de soya")
+golazo = Product.create(id: 7802200809178 ,name:"GOLAZO LECHE 25G",image_file_name: nil, image_content_type: nil,image_file_size: nil,image_updated_at: nil,likes: nil,denounced: nil,ingredients:"Harina de arroz y trigo, azucar, leche en polvo, carbonato de calcio, sal . Relleno: azucar, manteca vegetal, leche en polvo, cacao en polvo, lecitina de soya")
 golazo.image_from_url("http://ep.yimg.com/ca/I/yhst-62086439978846_2268_38909330")
 golazo.save
 
-ramitasQueso = Product.create(id: 7802000003479 ,name:"ramitas queso 42g",image_file_name: null, image_content_type: null,image_file_size: null,image_updated_at:null,likes: null,denounced: null,ingredients:"Harina, aceite vegetal alto oleico, queso en polvo, aceite vegetal, sal, solidos de leche, azucar, emulsionante (estearil lactilato de sodio), antioxidante (TBHQ)")
+ramitasQueso = Product.create(id: 7802000003479 ,name:"ramitas queso 42g",image_file_name: nil, image_content_type: nil,image_file_size: nil,image_updated_at: nil,likes: nil,denounced: nil,ingredients:"Harina, aceite vegetal alto oleico, queso en polvo, aceite vegetal, sal, solidos de leche, azucar, emulsionante (estearil lactilato de sodio), antioxidante (TBHQ)")
 ramitasQueso.image_from_url("http://ep.yimg.com/ca/I/yhst-62086439978846_2266_14837706")
 ramitasQueso.save
 
-aquariosManzana = Product.create(id: 7801610040294 ,name:"AQUARIUS MANZANA 500 ML",image_file_name: null, image_content_type: null,image_file_size: null,image_updated_at:null,likes: null,denounced: null,ingredients:"Agua, azucar, jugo de manzana (10 m/m solidos solubles), acido citrico, polifosfato de sodio, acido malico, sorbato de potasio, citrato de sodio, benzoato de sodio, color caramelo, saborizante identico al natural y artificial, EDTA disodico calcico")
+aquariosManzana = Product.create(id: 7801610040294 ,name:"AQUARIUS MANZANA 500 ML",image_file_name: nil, image_content_type: nil,image_file_size: nil,image_updated_at: nil,likes: nil,denounced: nil,ingredients:"Agua, azucar, jugo de manzana (10 m/m solidos solubles), acido citrico, polifosfato de sodio, acido malico, sorbato de potasio, citrato de sodio, benzoato de sodio, color caramelo, saborizante identico al natural y artificial, EDTA disodico calcico")
 aquariosManzana.image_from_url("http://www.cocacoladechile.cl/wp-content/uploads/sites/15/Aquarius-Manzana-150x529-70x250.jpg")
 aquariosManzana.save
 
 
-lecheColun = Product.create(id: 7802920777542 ,name:"LECHE COLUN NATURAL 1 LT.",image_file_name: null, image_content_type: null,image_file_size: null,image_updated_at:null,likes: null,denounced: null,ingredients:"Leche fluida natural estandarizada")
-lecheColun.image_from_url("www.colun.cl/resources/upload/246f38479675296b0f1151da6ea2d6a2.png")
-lecheColun.save
+lecheColun = Product.create(id: 7802920777542 ,name:"LECHE COLUN NATURAL 1 LT.",image_file_name: nil, image_content_type: nil,image_file_size: nil,image_updated_at: nil,likes: nil,denounced: nil,ingredients:"Leche fluida natural estandarizada")
+# lecheColun.image_from_url("www.colun.cl/resources/upload/246f38479675296b0f1151da6ea2d6a2.png")
+# lecheColun.save
+
+listaIntolerancias = [triton, cocacola, golazo, ramitasQueso, aquariosManzana, lecheColun]
 
 listaIntolerancias.each do |producto|
-	triton << Intolerance.find_by_name(producto)
-	cocacola << Intolerance.find_by_name(producto)
-	golazo << Intolerance.find_by_name(producto)
-	ramitasQueso << Intolerance.find_by_name(producto)
-	aquariosManzana << Intolerance.find_by_name(producto)
-	lecheColun << Intolerance.find_by_name(producto)
+	# triton.intolerances << Intolerance.find_by_name(producto)
+	# cocacola.intolerances << Intolerance.find_by_name(producto)
+	# golazo.intolerances << Intolerance.find_by_name(producto)
+	# ramitasQueso.intolerances << Intolerance.find_by_name(producto)
+	# aquariosManzana.intolerances << Intolerance.find_by_name(producto)
+	# lecheColun.intolerances << Intolerance.find_by_name(producto)
+
+	#busqueda de intolerancia en la descripcion
+	Intolerance.all.each do |intolerancia|
+	  #se recorre cada key compoent desde las intolerancias
+	  intolerancia.key_components.each do |component|
+	    #si posee un key_component en los ingredientes, se agrega la intolerancia al producto
+	    producto.ingredients.split(" ").each do |palabra_ingrediente|
+	      if producto.ingredients.downcase.similar(component.downcase)
+	        producto.intolerances << intolerancia if !producto.intolerances.include?(intolerancia)
+	      end
+	    end
+	  end
+	  ## products_added << producto if !products_added.include?(producto)
+	end
 end

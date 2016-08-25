@@ -183,13 +183,6 @@ lecheColun = Product.create(id: 7802920777542 ,name:"LECHE COLUN NATURAL 1 LT.",
 listaIntolerancias = [triton, cocacola, golazo, ramitasQueso, aquariosManzana, lecheColun]
 
 listaIntolerancias.each do |producto|
-	# triton.intolerances << Intolerance.find_by_name(producto)
-	# cocacola.intolerances << Intolerance.find_by_name(producto)
-	# golazo.intolerances << Intolerance.find_by_name(producto)
-	# ramitasQueso.intolerances << Intolerance.find_by_name(producto)
-	# aquariosManzana.intolerances << Intolerance.find_by_name(producto)
-	# lecheColun.intolerances << Intolerance.find_by_name(producto)
-
 	#busqueda de intolerancia en la descripcion
 	Intolerance.all.each do |intolerancia|
 	  #se recorre cada key compoent desde las intolerancias

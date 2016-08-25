@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   # resources :products
   # get 'products' => 'products#index'
   get 'products/:id' => 'products#show'
+  get 'products/:id/edit' => 'products#edit'
+  delete 'products/:id' => 'products#destroy'
   get 'products/page/:page' => 'products#index'
   put 'products' => 'products#search'
   post 'products/intolerance' => 'products#add_intolerance'

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  # resources :banned_users
   devise_for :users, path: '', controllers: { registrations: "users/registrations", sessions: "users/sessions"}
   root 'home#index'
 
@@ -11,6 +12,9 @@ Rails.application.routes.draw do
     get 'user' => 'users/sessions#user_actual'
     put 'user' => 'users/registrations#user_edit'
   end
+  get 'banned_users' => 'banned_users#index'
+  post 'banned_users' => 'banned_users#create'
+  delete 'banned_users' => 'banned_users#destroy'
 
   resources :families
   get 'families/page/:page' => 'families#index'
@@ -30,17 +34,15 @@ Rails.application.routes.draw do
   delete 'products/intolerance' => 'products#del_intolerance'
   # delete 'products/:id/intolerance' => 'products#del_intolerance'
   post 'migrate_txt_products' => 'products#migrate_new_products'
-
   post 'migrate_txt_intolerances' => 'products#migrate_txt_intolerances'
-
-  post 'testing' => 'products#testing'
-
-  get 'ping' => 'home#ping'
-
   get 'denounced_products' => 'products#denounced_products'
   post 'denounce_product' => 'products#denounce_product'
-
   put 'update' => 'products#update'
+
+  
+  post 'testing' => 'products#testing'
+  get 'ping' => 'home#ping'
+
 
 
   # resources :companies

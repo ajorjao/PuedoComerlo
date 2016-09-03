@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Banned Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @banned_users.each do |banned_user| %>
+      <tr>
+        <td><%= banned_user.email %></td>
+        <td><%= link_to 'Show', banned_user %></td>
+        <td><%= link_to 'Edit', edit_banned_user_path(banned_user) %></td>
+        <td><%= link_to 'Destroy', banned_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Banned user', new_banned_user_path %>

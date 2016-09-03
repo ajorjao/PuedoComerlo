@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get 'ping' => 'home#ping'
 
   get 'denounced_products' => 'products#denounced_products'
+  post 'denounce_product' => 'products#denounce_product'
 
   put 'update' => 'products#update'
 

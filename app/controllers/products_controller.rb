@@ -125,6 +125,12 @@ class ProductsController < ApplicationController
     end
   end
 
+  def denounce_product
+    @product = Product.find_by_id(params[:product_id])
+    @product.update(denounced: true)
+    render json: { product: @product }
+  end
+
   # POST /products
   # POST /products.json
   def create

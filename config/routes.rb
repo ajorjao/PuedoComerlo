@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   post 'denounce_product' => 'products#denounce_product'
   put 'update' => 'products#update'
 
+  post 'sendemail' => 'home#sendemail'
   
   post 'testing' => 'products#testing'
   get 'ping' => 'home#ping'

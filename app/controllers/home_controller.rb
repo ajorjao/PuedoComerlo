@@ -8,4 +8,9 @@ class HomeController < ApplicationController
   def ping
   	render json: { succes: "ok" }
   end
+
+  def sendemail
+  	recived = {nombre: params[:nombre], email: params[:mail], mensaje: params[:mensaje] }
+  	render json: { recived: recived}
+  end
 end

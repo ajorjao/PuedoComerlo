@@ -23,7 +23,7 @@
 
 	<!-- Theme CSS -->
 	<!-- <link href="css/grayscale.min.css" rel="stylesheet"> -->
-	<link href="css/grayscale.css" rel="stylesheet">
+	<link href="css/grayscale.min.css" rel="stylesheet">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -148,7 +148,7 @@
 						</p>
 					</div>
 					<div class="col-md-3">
-						<img class="img-circle" src="img/rem.png" alt="Alonso Orellana" style="margin: 0 auto" width="200" height="200"><br><br>
+						<img class="img-circle" src="img/alonso.jpg" alt="Alonso Orellana" style="margin: 0 auto" width="200" height="200"><br><br>
 						<h3 class="text-center" style="margin: 0px 0px 5px;">Alonso Orellana</h3>
 						<p class="text-center">Quality Assurance</p>
 						<p style="font-size: 17px;">
@@ -179,24 +179,23 @@
 						<div class="col-sm-6">
 							<p>Es importante para nosotros que nos escribas tus opiniones, consultas y comentarios sobre lo que desees.</p>
 							<div class="footer-content">
-								<form method="post" action="http://www.yourlitzer.com/pagina/enviar_mail_contacto2.php">
-									<div class="form-group has-feedback">
-										<label class="sr-only" for="name2">Nombre</label>
-										<input type="text" class="form-control" id="name2" placeholder="Nombre" name="nombre" required>
-										<i class="fa fa-user form-control-feedback"></i>
-									</div>
-									<div class="form-group has-feedback">
-										<label class="sr-only" for="email2">Email</label>
-										<input type="email" class="form-control" id="email2" placeholder="Email" name="mail" required>
-										<i class="fa fa-envelope form-control-feedback"></i>
-									</div>
-									<div class="form-group has-feedback">
-										<label class="sr-only" for="message2">Mensaje</label>
-										<textarea class="form-control" rows="8" id="message2" placeholder="Mensaje" name="mensaje" required></textarea>
-										<i class="fa fa-pencil form-control-feedback"></i>
-									</div>
-									<input type="submit" value="Enviar" class="btn btn-default">
-								</form>
+								<!-- contenido de email enviado desde contactanos -->
+								<div class="form-group has-feedback">
+									<label class="sr-only" for="name2">Nombre</label>
+									<input type="text" class="form-control" id="name2" placeholder="Nombre" name="nombre" required>
+									<i class="fa fa-user form-control-feedback"></i>
+								</div>
+								<div class="form-group has-feedback">
+									<label class="sr-only" for="email2">Email</label>
+									<input type="email" class="form-control" id="email2" placeholder="Email" name="mail" required>
+									<i class="fa fa-envelope form-control-feedback"></i>
+								</div>
+								<div class="form-group has-feedback">
+									<label class="sr-only" for="message2">Mensaje</label>
+									<textarea class="form-control" rows="8" id="message2" placeholder="Mensaje" name="mensaje" required></textarea>
+									<i class="fa fa-pencil form-control-feedback"></i>
+								</div>
+            		<button onClick="sendMail()" type="button" class="btn btn-default">Enviar</button>
 							</div>
 						</div>
 					</div>
@@ -204,16 +203,17 @@
 				<div class="space"></div>
 				<div class="col-md-12">
 					<br><br>
-							<p class="text-center">Copyright © 2016 by <a href="#nosotros">Zineu</a>.</p>
-						</div>
+					<p class="text-center">Copyright © 2016 by <a href="#nosotros">Zineu</a>.</p>
+				</div>
 			</div>
 			<!-- .footer end -->
 		</div>
 	</section>
 
+	<p>Visitanos en la Feria de Software USM 2016</p>
 	<!-- Map Section -->
 	<div id="map"></div>
-
+	<div style="text-align: right;">Vicuña Mackenna 3939, Santiago, San Joaquín, Región Metropolitana</div>
 	<!-- Footer -->
 	<footer>
 				
@@ -235,5 +235,49 @@
 	<!-- Theme JavaScript -->
 	<script src="js/grayscale.min.js"></script>
 	
+	<script type="text/javascript">
+		var url_server = "localhost:3000"
+
+		function sendMail() {
+			var form = new FormData();
+			form.append("nombre", $("#name2").val());
+			form.append("mail", $("#email2").val());
+			form.append("mensaje", $("#message2").val());
+
+			var settings = {
+				"async": true,
+				"crossDomain": true,
+				"url": "http://"+url_server+"/sendemail",
+				"method": "POST",
+				"headers": {
+					"cache-control": "no-cache",
+					"postman-token": "8b5643a5-12a1-00bb-f3fb-155a6197ace5"
+				},
+				"processData": false,
+				"contentType": false,
+				"mimeType": "multipart/form-data",
+				"data": form,
+				error: function(resp, status){
+					if (resp.status==0){
+						alert("Error de conexión con el servidor, por favor intentelo mas tarde")
+					}
+					else{
+						alert(JSON.parse(resp.responseText).error)
+					}
+					location.reload();
+				}
+			}
+
+			var confirmsend = confirm("¿Estas seguro que deseas enviar el mensaje?");
+			if (confirmsend == true) {
+				$.ajax(settings).done(function (response) {
+					alert("Mensaje enviado correctamente");
+					// alert(response);
+					location.reload();
+				});
+			}
+		}
+
+	</script>
 	</body>
 </html>

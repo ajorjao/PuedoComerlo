@@ -10,7 +10,8 @@ class HomeController < ApplicationController
   end
 
   def sendemail
-  	recived = {nombre: params[:nombre], email: params[:mail], mensaje: params[:mensaje] }
-  	render json: { recived: recived}
+  	@recived = {nombre: params[:nombre], email: params[:mail], mensaje: params[:mensaje] }
+    # aqui se debe agregar el producto a la base de datos
+  	render json: { recived: @recived }
   end
 end

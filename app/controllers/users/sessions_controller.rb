@@ -11,12 +11,15 @@ class Users::SessionsController < Devise::SessionsController
         yield resource if block_given?
         respond_to do |format|
           format.json { render json: { error: "Combinacion de usuario y password incorrectos" }, status: 400 }
-          format.html { respond_with(resource, serialize_options(resource)) }
+          format.html { 
+            flash[:notice] = "Combinacion de usuario y password incorrectos"
+            respond_with(resource, serialize_options(resource))
+          }
         end
       else
         render json: { error: "Email inexistente" }, status: 400
       end
-    else #borrar el if completo cuando eliminemos la vercion web q da rails
+    else
       self.resource = resource_class.new(sign_in_params)
       clean_up_passwords(resource)
       yield resource if block_given?

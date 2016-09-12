@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :notifications
   # resources :banned_users
   devise_for :users, path: '', controllers: { registrations: "users/registrations", sessions: "users/sessions"}
   root 'home#index'
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
     get 'user' => 'users/sessions#user_actual'
     put 'user' => 'users/registrations#user_edit'
   end
+
   get 'banned_users' => 'banned_users#index'
   post 'banned_users' => 'banned_users#create'
   delete 'banned_users' => 'banned_users#destroy'

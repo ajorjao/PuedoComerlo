@@ -11,6 +11,11 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap
+//= require morris
+//= require morris-data
+//= require raphael.min
+
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .

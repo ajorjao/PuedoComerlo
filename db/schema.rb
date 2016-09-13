@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160912000734) do
+ActiveRecord::Schema.define(version: 20160913032257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20160912000734) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "likes"
+    t.integer  "dislikes"
+    t.integer  "parent_comment"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "companies", force: :cascade do |t|
@@ -68,6 +78,7 @@ ActiveRecord::Schema.define(version: 20160912000734) do
     t.integer  "from_type"
     t.integer  "from_id"
     t.text     "message"
+    t.boolean  "readed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -79,7 +90,7 @@ ActiveRecord::Schema.define(version: 20160912000734) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "likes"
-    t.boolean  "denounced"
+    t.integer  "denounced"
     t.text     "ingredients"
   end
 

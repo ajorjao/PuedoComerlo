@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :comments
   resources :notifications
   # resources :banned_users
   devise_for :users, path: '', controllers: { registrations: "users/registrations", sessions: "users/sessions"}

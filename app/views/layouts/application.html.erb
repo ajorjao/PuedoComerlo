@@ -24,10 +24,13 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.html">SB Admin</a>
+				<!-- <a class="navbar-brand" href="index.html">SB Admin</a> -->
+				<%= link_to 'Administrador', root_path, class: "navbar-brand" %><br>
 			</div>
 			<!-- Top Menu Items -->
 			<ul class="nav navbar-right top-nav">
+				
+				<!-- mensajes de contactanos -->
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
 					<ul class="dropdown-menu message-dropdown">
@@ -81,33 +84,57 @@
 						</li>
 					</ul>
 				</li>
+
+				<!-- notificaciones de productos denunciados -->
 				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Notificaciones"><i class="fa fa-bell"></i> <b class="caret"></b></a>
 					<ul class="dropdown-menu alert-dropdown">
-						<li>
-							<a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-						</li>
-						<li>
-							<a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-						</li>
-						<li>
-							<a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-						</li>
-						<li>
-							<a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-						</li>
-						<li>
-							<a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-						</li>
-						<li>
-							<a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-						</li>
+						<% Notification.where(readed: false).each do |notificacion| %>
+
+							<% if notificacion.from_type=="comment" %>
+								<% comentario = Comment.find(notificacion.from_id) %>
+								<% if comentario.dislikes >= 10 %>
+									<li>
+										<!-- <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a> -->
+										<% link_to raw("#{comentario.title} "+('<span class="label label-danger">'+"Dislikes: #{comentario.dislikes}"+'</span>')), "comment/#{comentario.id}" %>
+									</li>
+								<% else %>
+									<li>
+										<a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+									</li>
+								<% end %>
+
+							<% elsif notificacion.from_type=="product" %>
+
+							<% end %>
+							<!-- <li>
+								<a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+							</li>
+							<li>
+								<a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+							</li>
+							<li>
+								<a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+							</li>
+							<li>
+								<a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+							</li>
+							<li>
+								<a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+							</li>
+							<li>
+								<a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+							</li> -->
+						<% end %>
 						<li class="divider"></li>
 						<li>
-							<a href="#">View All</a>
+							<!-- <a href="#">View All</a> -->
+							<%= link_to(raw('Ver todas'), notifications_path) %>
 						</li>
 					</ul>
 				</li>
+
+				<!-- perfil -->
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
 					<ul class="dropdown-menu">
@@ -122,7 +149,8 @@
 						</li>
 						<li class="divider"></li>
 						<li>
-							<a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+							<!-- <a href="#"><i class="fa fa-fw fa-power-off"></i> Cerrar Sesión</a> -->
+							<%= link_to(raw(('<i class="fa fa-fw fa-power-off"></i>')+' Cerrar Sesión'), destroy_user_session_path, method: :delete, data: { confirm: '¿Deseas Cerrar Sesión?' }) %>
 						</li>
 					</ul>
 				</li>
@@ -131,16 +159,20 @@
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav side-nav">
 					<li class="active">
-						<a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+					<!-- <li> -->
+						<!-- <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a> -->
+						<%= link_to(raw(('<i class="fa fa-fw fa-dashboard"></i>')+' Pagina principal'), root_path) %>
 					</li>
 					<li>
-						<a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+						<!-- <a href="charts.html"><i class="fa fa-fw fa-edit"></i> Charts</a> -->
+						<%= link_to(raw(('<i class="fa fa-fw fa-edit"></i>')+' Productos denunciados'), denounced_products_path) %>
 					</li>
-					<li>
-						<a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
-					</li>
-					<li>
-						<a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+					<!-- <li> -->
+						<!-- <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a> -->
+						<%#= link_to(raw(('<i class="fa fa-fw fa-edit"></i>')+' Productos denunciados'), notifications_path) %>
+					<!-- </li> -->
+					<!-- <li>
+						<a href="forms.html"><i class="fa fa-fw fa-bar-chart-o"></i> Forms</a>
 					</li>
 					<li>
 						<a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
@@ -164,14 +196,13 @@
 					</li>
 					<li>
 						<a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-					</li>
+					</li> -->
 				</ul>
 			</div>
 			<!-- /.navbar-collapse -->
 		</nav>
 
 		<div id="page-wrapper">
-			<%= link_to 'Pagina principal', root_path %><br>
 			<%= yield %>
 		</div>
 		<!-- /#page-wrapper -->

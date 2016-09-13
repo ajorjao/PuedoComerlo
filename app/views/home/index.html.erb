@@ -1,20 +1,19 @@
 <!-- <h1>Home#index</h1> -->
 <!-- <p>Find me in app/views/home/index.html.erb</p> -->
-<table>
+<!-- <table> -->
 	<!-- <tr> -->
 		<!-- <td><%#= link_to 'Products', products_path %></td><td>&nbsp; &nbsp; &nbsp; &nbsp;</td> -->
 		<!-- <td><%#= link_to 'Families', families_path %></td> -->
 	<!-- </tr> -->
-	<tr>
-		<td><%= link_to 'Ver productos denunciados perfil', denounced_products_path %></td><td></td>
-		<!--%= link_to 'Borrar cuenta', registration_path(current_user), method: :delete %-->
-		<td><%= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete %><br></td>
-	</tr>
-</table>
+	<!-- <tr>
+		<td><%#= link_to 'Ver productos denunciados perfil', denounced_products_path %></td><td></td>
+		<%#= link_to 'Borrar cuenta', registration_path(current_user), method: :delete %>
+		<td><%#= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete %><br></td>
+	</tr> -->
+<!-- </table> -->
 
-<h1>Conectado</h1>
-<p> id: <%= current_user.id %></p>
-<%#= image_tag current_user.avatar.url(:thumb) %><br>
+<h1>Bienvenido <%= current_user.email.split("@")[0] %></h1>
+<!-- <%#= image_tag current_user.avatar.url(:thumb) %><br> -->
 <%# if current_user.avatar_file_name != nil %>
 	<%#= link_to 'Desvincular imagen', delete_avatar_path %>
 <%# else	%>

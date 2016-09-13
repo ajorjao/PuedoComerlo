@@ -25,14 +25,14 @@ class NotificationsController < ApplicationController
   # POST /notifications.json
   def create
     @notification = Notification.new(notification_params)
-
+    @notification.readed = false
     respond_to do |format|
       if @notification.save
+        format.json { render json: {created: @notification}}
         format.html { redirect_to @notification, notice: 'Notification was successfully created.' }
-        format.json { render :show, status: :created, location: @notification }
       else
+        format.json { render json: {error: @notification.errors}, status: :unprocessable_entity }
         format.html { render :new }
-        format.json { render json: @notification.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,11 +42,11 @@ class NotificationsController < ApplicationController
   def update
     respond_to do |format|
       if @notification.update(notification_params)
-        format.html { redirect_to @notification, notice: 'Notification was successfully updated.' }
         format.json { render :show, status: :ok, location: @notification }
+        format.html { redirect_to @notification, notice: 'Notification was successfully updated.' }
       else
-        format.html { render :edit }
         format.json { render json: @notification.errors, status: :unprocessable_entity }
+        format.html { render :edit }
       end
     end
   end

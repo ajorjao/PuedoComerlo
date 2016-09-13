@@ -34,8 +34,8 @@
 		height: 500px;
 	}
 
-	#wrapper {
-		/* Center wrapper perfectly */
+	#initwrapper {
+		/* Center initwrapper perfectly */
 		width: 300px;
 		height: 400px;
 		margin: 70px auto;
@@ -317,7 +317,7 @@
 	}  
 </style>
 
-<div id="wrapper">
+<div id="initwrapper">
 		<%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {class: "login-form"}) do |f| %>
 			<p id="notice"><%= notice %></p>
 			<div class="header">

@@ -34,53 +34,26 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
 					<ul class="dropdown-menu message-dropdown">
-						<li class="message-preview">
-							<a href="#">
-								<div class="media">
-									<span class="pull-left">
-										<img class="media-object" src="http://placehold.it/50x50" alt="">
-									</span>
-									<div class="media-body">
-										<h5 class="media-heading"><strong>John Smith</strong>
-										</h5>
-										<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-										<p>Lorem ipsum dolor sit amet, consectetur...</p>
-									</div>
-								</div>
-							</a>
-						</li>
-						<li class="message-preview">
-							<a href="#">
-								<div class="media">
-									<span class="pull-left">
-										<img class="media-object" src="http://placehold.it/50x50" alt="">
-									</span>
-									<div class="media-body">
-										<h5 class="media-heading"><strong>John Smith</strong>
-										</h5>
-										<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-										<p>Lorem ipsum dolor sit amet, consectetur...</p>
-									</div>
-								</div>
-							</a>
-						</li>
-						<li class="message-preview">
-							<a href="#">
-								<div class="media">
-									<span class="pull-left">
-										<img class="media-object" src="http://placehold.it/50x50" alt="">
-									</span>
-									<div class="media-body">
-										<h5 class="media-heading"><strong>John Smith</strong>
-										</h5>
-										<p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-										<p>Lorem ipsum dolor sit amet, consectetur...</p>
-									</div>
-								</div>
-							</a>
-						</li>
+						<% Notification.where(readed: false, from_type: 2).each do |notificacion| %>
+
+							<%# if notificacion.from_type=="contact" %>
+								<li class="message-preview">
+									<%= link_to(raw((''+
+										'<div class="media">'+
+											'<div class="media-body">'+
+												'<h5 class="media-heading"><strong>')+"#{notificacion.message.split(':')[0]}"+('</strong>'+
+												'</h5>'+
+												'<p class="small text-muted"><i class="fa fa-clock-o"></i>')+"#{notificacion.created_at}"+('</p>'+
+												'<p>')+"#{notificacion.message.split(':')[1][0...15]}..."+('</p>'+
+											'</div>'+
+										'</div>')), "/notifications/#{notificacion.id}") %>
+								</li>
+							<%# end %>
+
+						<% end %>
 						<li class="message-footer">
-							<a href="#">Read All New Messages</a>
+							<!-- <a href="#">Read All New Messages</a> -->
+							<%= link_to('Ver todos los mensajes nuevos', notifications_path) %>
 						</li>
 					</ul>
 				</li>
@@ -93,43 +66,34 @@
 
 							<% if notificacion.from_type=="comment" %>
 								<% comentario = Comment.find(notificacion.from_id) %>
-								<% if comentario.dislikes >= 10 %>
+								<% if comentario.dislikes > 10 %>
 									<li>
-										<!-- <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a> -->
-										<% link_to raw("#{comentario.title} "+('<span class="label label-danger">'+"Dislikes: #{comentario.dislikes}"+'</span>')), "comment/#{comentario.id}" %>
+										<%= link_to raw("Comentario: #{comentario.title} "+('<span class="label label-danger">'+"Dislikes: #{comentario.dislikes}"+'</span>')), "/comments/#{comentario.id}" %>
 									</li>
 								<% else %>
 									<li>
-										<a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+										<%= link_to raw("Comentario: #{comentario.title} "+('<span class="label label-warning">'+"Dislikes: #{comentario.dislikes}"+'</span>')), "/comments/#{comentario.id}" %>
 									</li>
 								<% end %>
 
 							<% elsif notificacion.from_type=="product" %>
+								<% producto = Product.find(notificacion.from_id) %>
+								<% if producto.denounced > 10 %>
+									<li>
+										<%= link_to raw("Producto: #{producto.name} "+('<span class="label label-danger">'+"Denuncias: #{producto.denounced}"+'</span>')), "/products/#{producto.id}" %>
+									</li>
+								<% else %>
+									<li>
+										<%= link_to raw("Producto: #{producto.name} "+('<span class="label label-warning">'+"Denuncias: #{producto.denounced}"+'</span>')), "/products/#{producto.id}" %>
+									</li>
+								<% end %>
 
 							<% end %>
-							<!-- <li>
-								<a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-							</li>
-							<li>
-								<a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-							</li>
-							<li>
-								<a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-							</li>
-							<li>
-								<a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-							</li>
-							<li>
-								<a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-							</li>
-							<li>
-								<a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-							</li> -->
 						<% end %>
 						<li class="divider"></li>
 						<li>
 							<!-- <a href="#">View All</a> -->
-							<%= link_to(raw('Ver todas'), notifications_path) %>
+							<%= link_to('Ver todas', notifications_path) %>
 						</li>
 					</ul>
 				</li>

@@ -5,7 +5,29 @@ class Product < ActiveRecord::Base
 
 	has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
 	validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+
+	validate :unliked_undenounced, on: :create
+	validate :is_critical, on: :update
+
 	def image_from_url(url)
 		self.image = open(url, :allow_redirections => :safe)
 	end
+
+	private
+		def unliked_undenounced
+			self.likes = 0
+			self.denounced = 0
+		end
+
+		def is_critical
+			if self.denounced!=0 and self.denounced%5==0
+				notificacion = Notification.find_by(from_type: 1, from_id: self.id)
+				if notificacion==nil
+					Notification.create(from_type: 1, from_id: self.id)
+				else
+					notificacion.readed = false
+					notificacion.save
+				end
+			end
+		end
 end

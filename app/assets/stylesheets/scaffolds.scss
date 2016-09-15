@@ -38,13 +38,14 @@ div {
 }
 
 #notice {
-  /*color: green;*/
-  position: fixed;
-  right: 0px;
-  top: 0px;
-  background-color: #fff;
+  color: #fcf8e3;
+  position: relative;
+  right: 10px;
+  top: 10px;
+  background-color: #333;
   border-radius: 5px;
   padding: 5px;
+  float: right;
 }
 
 .field_with_errors {

@@ -5,7 +5,6 @@ class CreateComments < ActiveRecord::Migration
       t.text :description
       t.integer :likes
       t.integer :dislikes
-      t.integer :parent_comment
 
       t.timestamps null: false
     end

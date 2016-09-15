@@ -101,10 +101,18 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product==nil
         format.json { render json: {error: "El producto no se encuentra disponible en nuestra base de datos"}, status: :not_found }
+        format.html {
+          redirect_to root_path, notice: "El producto no se encuentra disponible en nuestra base de datos"
+        }
       else
         format.json { render json: {product: @product, intolerances: @product.intolerances}, status: :ok }
+        format.html {
+          notificacion = Notification.find_by(from_type: 1, from_id: @product.id)
+          if notificacion!=nil
+            notificacion.update(readed: true)
+          end
+        }
       end
-      format.html {}
     end
   end
 
@@ -341,11 +349,11 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
+        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
       else
-        format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }
+        format.html { render :edit }
       end
     end
   end
@@ -357,7 +365,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to 'denounced_products', notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
-      end
+    end
   end
 
   private

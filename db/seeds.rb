@@ -1,5 +1,6 @@
 
-User.create(email: "ajorjao13@gmail.com", password: "asdasd123", admin: "true")
+User.create(email: "ajorjao13@gmail.com", password: "asdasd123", admin: "true", username: "Administrador Jorge")
+usuarioComun = User.create(email: "ajorjao123@gmail.com", password: "asdasd123", admin: "false", username: "Jorjo")
 
 #no mover el orden de las intolerancias
 lactosa = Intolerance.create(name: "lactosa", minor_symptom: "", medium_symptom: "Náuseas
@@ -51,15 +52,15 @@ mostaza = Intolerance.create(name: "mostaza", minor_symptom: "", medium_symptom:
 	Shock anafiláctico", major_symptom: "", key_components: ["mostaza","mustard"])
 
 huevo = Intolerance.create(name: "huevo", minor_symptom: "", medium_symptom: "Reacciones cutáneas
-    Síntomas gastrointestinales agudos y respiratorios
-    Reacción generalizada de anafilaxia (Junto con hipotensión, colapso vascular y disrritmias cardiacas)", major_symptom: "", key_components: ["egg","huevo", "lecitina", "lisozima", "albúmina", "coagulante", "emulsificante", "gloubina", "livetina", "ovoalbúmina", "ovomucina", "ovomucoide", "otransferrina", "ovovitelina", "vitelina", "e-16b,luteína", "pigmento amarillo"])
+		Síntomas gastrointestinales agudos y respiratorios
+		Reacción generalizada de anafilaxia (Junto con hipotensión, colapso vascular y disrritmias cardiacas)", major_symptom: "", key_components: ["egg","huevo", "lecitina", "lisozima", "albúmina", "coagulante", "emulsificante", "gloubina", "livetina", "ovoalbúmina", "ovomucina", "ovomucoide", "otransferrina", "ovovitelina", "vitelina", "e-16b,luteína", "pigmento amarillo"])
 
 sesamo = Intolerance.create(name: "sesamo", minor_symptom: "", medium_symptom: "Dermatitis de contacto 
-    Urticaria
-    Rinitis alérgica
-    Asma
-    Dermatitis atópica
-    Anafilaxia", major_symptom: "", key_components: ["sésamo","ajonjolí","sesame"])
+		Urticaria
+		Rinitis alérgica
+		Asma
+		Dermatitis atópica
+		Anafilaxia", major_symptom: "", key_components: ["sésamo","ajonjolí","sesame"])
 
 pescado = Intolerance.create(name: "pescado", minor_symptom: "", medium_symptom: "Hinchazón de los labios
 	Prurito o picor en la cavidad bucal
@@ -84,17 +85,17 @@ moluscos = Intolerance.create(name: "moluscos", minor_symptom: "", medium_sympto
 	Síndrome de alergia oral", major_symptom: "", key_components: ["moluscos","molluscs","[ESPECIES DE MOLUSCOS????]"])
 
 soya = Intolerance.create(name: "soya", minor_symptom: "", medium_symptom: "Hinchazón en labios, cara, lengua, garganta y otras partes del cuerpo
-    Hormigueo en la boca
-    Problemas de piel: urticaria, eczema o picazón
-    Úlceras en la boca
-    Dificultad para respirar y/o respiración sibilante
-    Dolor abdominal acompañado con diarrea, náuseas o vómitos
-    Mareos y desvanecimientos
-    Fuerte caída de la presión arterial
-    Pulso rápido o taquicardia
-    Pérdida del conocimiento
-    Aturdimiento
-    Anafilaxia: constricción de las vías respiratorias, incluyendo la inflamación de garganta", major_symptom: "", key_components: ["soya", "mono-diglicerido", "soya", "soja", "yuba", "tsf" ,"harina de soya texturizada", "tsp" ,"proteína de soya texturizada","proteina de soya texturizada","tvp", "proteína vegetal texturizada", "lecitina", "msg", "lutamato monosodico"])
+		Hormigueo en la boca
+		Problemas de piel: urticaria, eczema o picazón
+		Úlceras en la boca
+		Dificultad para respirar y/o respiración sibilante
+		Dolor abdominal acompañado con diarrea, náuseas o vómitos
+		Mareos y desvanecimientos
+		Fuerte caída de la presión arterial
+		Pulso rápido o taquicardia
+		Pérdida del conocimiento
+		Aturdimiento
+		Anafilaxia: constricción de las vías respiratorias, incluyendo la inflamación de garganta", major_symptom: "", key_components: ["soya", "mono-diglicerido", "soya", "soja", "yuba", "tsf" ,"harina de soya texturizada", "tsp" ,"proteína de soya texturizada","proteina de soya texturizada","tvp", "proteína vegetal texturizada", "lecitina", "msg", "lutamato monosodico"])
 
 sulfitos = Intolerance.create(name: "sulfitos", minor_symptom: "", medium_symptom: "Estornudos
 	Secreción nasal (rinorrea)
@@ -185,16 +186,25 @@ listaProductos.each do |producto|
 	#busqueda de intolerancia en la descripcion
 	#Usar arreglo con las intolerancias (listaIntolerancias)?????
 	Intolerance.all.each do |intolerancia|
-	  #se recorre cada key compoent desde las intolerancias
-	  intolerancia.key_components.each do |component|
-	    #si posee un key_component en los ingredientes, se agrega la intolerancia al producto
-	    producto.ingredients.split(" ").each do |palabra_ingrediente|
-	      if palabra_ingrediente.downcase.similar(component.downcase) > 80
-	        p component+" hace match con "+palabra_ingrediente
-	        producto.intolerances << intolerancia if !producto.intolerances.include?(intolerancia)
-	      end
-	    end
-	  end
-	  ## products_added << producto if !products_added.include?(producto)
+		#se recorre cada key compoent desde las intolerancias
+		intolerancia.key_components.each do |component|
+			#si posee un key_component en los ingredientes, se agrega la intolerancia al producto
+			producto.ingredients.split(" ").each do |palabra_ingrediente|
+				if palabra_ingrediente.downcase.similar(component.downcase) > 80
+					p component+" hace match con "+palabra_ingrediente
+					producto.intolerances << intolerancia if !producto.intolerances.include?(intolerancia)
+				end
+			end
+		end
 	end
 end
+
+comentarioOK = Comment.create(title: "Me gusta", description: "buen producto, me ha servido mucho", likes: 16, dislikes: 1)
+comentarioNO = Comment.create(title: "Lo odio", description: "tu mal, yo mal, el mal, ellos mal, todo mal", likes: 1, dislikes: 16)
+
+
+# ap Notification.create(from_type: "comment", from_id: 1)
+Notification.create(from_type: "comment", from_id: comentarioNO.id)
+Notification.create(from_type: "comment", from_id: comentarioOK.id)
+Notification.create(from_type: "product", from_id: triton.id)
+Notification.create(from_type: "contact", from_id: usuarioComun.id, message: "NoSoyJorge:Hola! quisiera saber cuando sera el lanzamiento de esta hermosa aplicacion")

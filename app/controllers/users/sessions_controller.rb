@@ -41,7 +41,17 @@ class Users::SessionsController < Devise::SessionsController
       @user.avatar_file_name = URI.join(request.url, @user.avatar.url).path
       respond_to do |format|
         format.json { render json: {logged_in: @user} }
-        format.html { respond_with resource, location: after_sign_in_path_for(resource) }
+        format.html {
+          if current_user.admin == false
+            signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+            set_flash_message :notice, :signed_out if signed_out && is_flashing_format?
+            yield if block_given?
+            flash[:notice] = "Lo siento, tu cuenta no posee permisos de Administrador"
+            respond_to_on_destroy
+          else
+            respond_with resource, location: after_sign_in_path_for(resource)
+          end
+        }
       end
     else
       render json: {error: "Ya estas logeado como '#{current_user.email}'"}

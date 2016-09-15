@@ -27,9 +27,8 @@ ActiveRecord::Schema.define(version: 20160913032257) do
     t.text     "description"
     t.integer  "likes"
     t.integer  "dislikes"
-    t.integer  "parent_comment"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "companies", force: :cascade do |t|
@@ -76,11 +75,11 @@ ActiveRecord::Schema.define(version: 20160913032257) do
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "from_type"
-    t.integer  "from_id"
+    t.integer  "from_id",    limit: 8
     t.text     "message"
     t.boolean  "readed"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "products", id: :bigserial, force: :cascade do |t|
@@ -99,6 +98,7 @@ ActiveRecord::Schema.define(version: 20160913032257) do
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
+    t.string   "username"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
   resources :comments
+  
   resources :notifications
-  # resources :banned_users
+  post 'sendemail' => 'notifications#create'
+  
   devise_for :users, path: '', controllers: { registrations: "users/registrations", sessions: "users/sessions"}
   root 'home#index'
 
@@ -15,6 +17,7 @@ Rails.application.routes.draw do
     put 'user' => 'users/registrations#user_edit'
   end
 
+  # resources :banned_users
   get 'banned_users' => 'banned_users#index'
   post 'banned_users' => 'banned_users#create'
   delete 'banned_users' => 'banned_users#destroy'
@@ -42,7 +45,6 @@ Rails.application.routes.draw do
   post 'denounce_product' => 'products#denounce_product'
   put 'update' => 'products#update'
 
-  post 'sendemail' => 'home#sendemail'
   
   post 'testing' => 'products#testing'
   get 'ping' => 'home#ping'

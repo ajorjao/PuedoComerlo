@@ -10,6 +10,22 @@ class CommentsController < ApplicationController
   # GET /comments/1
   # GET /comments/1.json
   def show
+    respond_to do |format|
+      if @comment==nil
+        format.json { render json: {error: "Este comentario ya no existe"}, status: :not_found }
+        format.html {
+          redirect_to root_path, notice: "Este comentario ya no existe"
+        }
+      else
+        format.json { render json: {comment: @comment}, status: :ok }
+        format.html {
+          notificacion = Notification.find_by(from_type: 0, from_id: @comment.id)
+          if notificacion!=nil
+            notificacion.update(readed: true)
+          end
+        }
+      end
+    end
   end
 
   # GET /comments/new
@@ -64,7 +80,7 @@ class CommentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
-      @comment = Comment.find(params[:id])
+      @comment = Comment.find_by_id(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -30,10 +30,11 @@ Rails.application.routes.draw do
 
   # resources :products
   get 'products/page/:page' => 'products#index'
-  get 'products/:id/edit' => 'products#edit'
   get 'products/new' => 'products#new', as: 'new_product'
+  post 'product/new' => 'products#create'
   delete 'product/:id' => 'products#destroy'
   get 'products/:id' => 'products#show'
+  put 'products/:id/editar' => 'products#update'
   get 'products/:id/edit' => 'products#edit', as: 'edit_product'
   delete 'products/:id' => 'products#destroy'
   put 'products' => 'products#search'

@@ -1,5 +1,22 @@
-<h1>New Product</h1>
+<h1>Agregar nuevo Producto</h1>
 
-<%= render 'form' %>
+<%= form_tag("/product/new", method: "post") do %>
+
+  <div class="field">
+    <%= label_tag "Nombre de producto " %>
+    <%= text_field_tag :name %><br>
+    <%= label_tag "Codigo de barra " %>
+    <%= number_field_tag :id %><br>
+    <%= label_tag "Ingredientes " %>
+    <%= text_field_tag :ingredientes %><br>
+    <%= label_tag "Link de la imagen " %>
+    <%= text_field_tag :url %><br>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag("Guardar") %>
+  </div>
+<% end %>
+
 
 <%= link_to raw(('<i class="fa fa-fw fa-arrow-circle-left"></i>')+' Volver'), :back, class: "btn btn-sm btn-primary", style: "color:#fff" %>

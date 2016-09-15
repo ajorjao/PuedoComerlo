@@ -123,10 +123,6 @@ class ProductsController < ApplicationController
     @product = Product.new
   end
 
-  # GET /products/1/edit
-  def edit
-  end
-
   def denounced_products
     if current_user.admin == true
       @products = Product.where(denounced: true)
@@ -137,27 +133,31 @@ class ProductsController < ApplicationController
 
   def denounce_product
     @product = Product.find_by_id(params[:product_id])
-    @product.update(denounced: true)
+    @product.update(denounced: @product.denounced+1)
     render json: { product: @product }
   end
 
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(product_params)
-    if params[:id]!=nil
+    @product = Product.new(name: params[:name], id: params[:id], ingredients: params[:ingredientes])
+    @product.image_from_url(params[:url])
+
+  # 
+    if params[:id]!=nil or params[:name]!=nil
       respond_to do |format|
         if @product.save
-          format.html { redirect_to @product, notice: 'Product was successfully created.' }
           format.json { render :show, status: :created, location: @product }
+          format.html { redirect_to "/products/"+params[:id].to_s, notice: 'Product was successfully created.' }
         else
-          format.html { render :new }
           format.json { render json: @product.errors, status: :unprocessable_entity }
+          format.html { render :new }
         end
       end
     else
       respond_to do |format|
-        format.json { render json: {error: "product dont have an id defined"}, status: :unprocessable_entity }
+        format.json { render json: {error: "El producto no puede quedar sin id"}, status: :unprocessable_entity }
+        format.html { redirect_to "product/new", notice: "El producto no puede quedar sin id" }
       end
     end
   end
@@ -346,13 +346,18 @@ class ProductsController < ApplicationController
     render json: {string: result}, status: :ok
   end
 
+  # GET /products/1/edit
+  def edit
+  end
+
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
+    @product = Product.find_by(id: params[:product][:id])
     respond_to do |format|
-      if @product.update(product_params)
-        format.json { render :show, status: :ok, location: @product }
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+      if @product.update(name: params[:product][:name], id: params[:product][:id], ingredients: params[:product][:ingredients], denounced: params[:product][:denounced])
+        format.json { render json: {updated: @product}, status: :ok, location: @product }
+        format.html { redirect_to "/products/"+params[:id].to_s, notice: 'Producto modificado correctamente' }
       else
         format.json { render json: @product.errors, status: :unprocessable_entity }
         format.html { render :edit }

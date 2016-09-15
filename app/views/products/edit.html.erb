@@ -2,21 +2,32 @@
 
 <h3><%= @product.name %></h3>
 
-<table>
+<!-- <table>
   <thead>
     <tr>
       <th>Intolerancias</th>
       <th colspan="3"></th>
     </tr>
   </thead>
-	<% @product.intolerances.each do |intolerancia| %>
+	<%# @product.intolerances.each do |intolerancia| %>
 	  <tr>
-		  <td><%= intolerancia.name %></td>
-			<td><%= link_to 'Eliminar', "/products/intolerance?product_id=#{@product.id}&intolerance_id=#{intolerancia.id}", method: :delete, data: { confirm: "Estas seguro de desligar esta intolrancia del producto?" } %></td>
+		  <td><%#= intolerancia.name %></td>
+			<td><%#= link_to 'Eliminar', "/products/intolerance?product_id=#{@product.id}&intolerance_id=#{intolerancia.id}", method: :delete, data: { confirm: "Estas seguro de desligar esta intolrancia del producto?" } %></td>
 		</tr>
-	<% end %>
-</table>
+	<%# end %>
+</table> -->
 
-<%= render 'form' %>
+<%= form_for @product, url: "/products/#{@product.id}/editar", html: {method: "put"} do |f| %>
+  <%= label_tag "Nombre" %>
+  <%= f.text_field :name %><br>
+  <%= label_tag "Código de Barra" %>
+  <%= f.text_field :id %><br>
+  <%= label_tag "Ingredientes" %>
+  <%= f.text_field :ingredients %><br>
+  <%= label_tag "Denuncias" %>
+  <%= f.text_field :denounced %><br>
+  <%= f.submit "Editar", class: "btn btn-primary" %>
+<% end %><br>
+
 
 <%= link_to raw(('<i class="fa fa-fw fa-arrow-circle-left"></i>')+' Volver'), :back, class: "btn btn-sm btn-primary", style: "color:#fff" %>

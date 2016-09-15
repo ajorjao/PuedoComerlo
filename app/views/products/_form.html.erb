@@ -1,21 +1,22 @@
-<%= form_for('update') do |f| %>
-  <% if @product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
-
-      <ul>
-      <% @product.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%#= form_tag({controller: "products", action: "create"}, method: "post", class: "new_object") do |f| %>
+<%= form_tag("/product/new", method: "post") do %>
 
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= label_tag "Nombre de producto " %>
+    <%= text_field_tag :name %><br>
+    <%= label_tag "Codigo de barra " %>
+    <%= number_field_tag :id %><br>
+    <%= label_tag "Ingredientes " %>
+    <%= text_field_tag :ingredientes %><br>
+    <%= label_tag "Link de la imagen " %>
+    <%= text_field_tag :url %><br>
   </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag("Guardar") %>
   </div>
 <% end %>
+
+
+
+

@@ -1,5 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
 # before_filter :configure_sign_in_params, only: [:create]
+  skip_before_action :ask_loged, only: [:create, :new , :user_actual]
 
   # GET /resource/sign_in
   def new

@@ -1,7 +1,8 @@
 <h3>
-  <strong>Nombre:</strong>
+  <%= image_tag @product.image.url(:medium) %>
+  <strong>Producto:</strong>
   <%= @product.name %><br>
-</h3>
+</h3><br>
 <p>
   <strong>Likes:</strong>
   <%= @product.likes %> &nbsp;

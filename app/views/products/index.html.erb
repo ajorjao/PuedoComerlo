@@ -1,12 +1,18 @@
-<p id="notice"><%= notice %></p>
+<style>
+  a:visited {
+    color: #b9b7b7;
+  }
+</style>
 
-<h1>Listing Products</h1>
+<h1>Lista de Productos</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
+      <th>Producto</th>
+      <th style="text-align: center;">Likes</th>
+      <th style="text-align: center;">Denuncias</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -14,14 +20,18 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= product.name %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td style="text-align: center;"><%= product.likes %></td>
+        <td style="text-align: center;"><%= product.denounced %></td>
+        <td><%= button_to 'Ver', "/products/#{product.id}", method: :get %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
 
-<%= link_to 'New Product', new_product_path %>
+<h4>
+  <%= will_paginate @products, previous_label: 'Pagina Anterior', next_label: 'Pagina Siguiente', class: "label label-default", style: 'color:#000', link_separator: " &nbsp;" %>
+</h4>
+
+<br>
+<%= link_to raw(('<i class="fa fa-fw fa-plus-circle"></i>')+' Agregar un nuevo producto'), new_product_path, class: "btn btn-sm btn-primary", style: 'color:#fff' %>

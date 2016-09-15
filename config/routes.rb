@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   # resources :banned_users
   get 'banned_users' => 'banned_users#index'
+  get 'banned_users/new' => 'banned_users#new', as: 'new_banned_user'
   post 'banned_users' => 'banned_users#create'
   delete 'banned_users' => 'banned_users#destroy'
 
@@ -28,13 +29,13 @@ Rails.application.routes.draw do
   delete 'family/intolerance' => 'families#del_intolerance'
 
   # resources :products
-  # get 'products' => 'products#index'
+  get 'products/page/:page' => 'products#index'
   get 'products/:id/edit' => 'products#edit'
+  get 'products/new' => 'products#new', as: 'new_product'
   delete 'product/:id' => 'products#destroy'
   get 'products/:id' => 'products#show'
-  get 'products/:id/edit' => 'products#edit'
+  get 'products/:id/edit' => 'products#edit', as: 'edit_product'
   delete 'products/:id' => 'products#destroy'
-  get 'products/page/:page' => 'products#index'
   put 'products' => 'products#search'
   post 'products/intolerance' => 'products#add_intolerance'
   delete 'products/intolerance' => 'products#del_intolerance'

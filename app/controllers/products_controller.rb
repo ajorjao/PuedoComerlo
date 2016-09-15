@@ -8,9 +8,11 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all.paginate(page: params[:page])
-    render json: @products
-    #will_paginate @products        #en las vistas se usa para tener una barra con las paginas disponibles
+    @products = Product.paginate(page: params[:page])
+    respond_to do |format|
+      format.json{ render json: @products }
+      format.html{}
+    end
   end
 
   # PUT /products

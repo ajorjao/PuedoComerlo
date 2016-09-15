@@ -1,9 +1,9 @@
-<p id="notice"><%= notice %></p>
-
-<p>
+<h3>
   <strong>Email:</strong>
   <%= @banned_user.email %>
+</h3>
+<p>
 </p>
 
 <%= link_to 'Edit', edit_banned_user_path(@banned_user) %> |
-<%= link_to 'Back', banned_users_path %>
+<%= link_to raw(('<i class="fa fa-fw fa-arrow-circle-left"></i>')+' Volver'), :back, class: "btn btn-sm btn-primary", style: "color:#fff" %>

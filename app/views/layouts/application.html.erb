@@ -12,196 +12,155 @@
 <p id="notice"><%= notice %></p>
 
 <%if user_signed_in?%>
-	<!-- si no posee permisos de administrador -->
-	<%# if current_user.admin == false %>
-		<%# flash[:notice] = "Lo siento, tu cuenta no posee permisos de Administrador" %>
-		<!-- <script type="text/javascript">
-			var settings = {
-				"async": true,
-				"crossDomain": true,
-				"url": "http://"+url_server+"/sign_out",
-				"method": "DELETE",
-				"headers": {
-					"cache-control": "no-cache",
-					"postman-token": "0d3ea712-a98e-209b-6bcc-8b064906ed01"
-				},
-				error: function(resp, status){
-					alert("Error de conexión, por favor comprueba tu conexión")
-				}
-			}
+	<div id="wrapper">
 
-			$(document).ready(function( $ ) {
-				$.ajax(settings).done(function (response) {
-					alert(response);
-					window.location.href="/sign_in";
-				});
-			});
+		<!-- Navigation -->
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<!-- <a class="navbar-brand" href="index.html">SB Admin</a> -->
+				<%= link_to 'Administrador', root_path, class: "navbar-brand" %><br>
+			</div>
+			<!-- Top Menu Items -->
+			<ul class="nav navbar-right top-nav">
+				
+				<!-- mensajes de contactanos -->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
+					<ul class="dropdown-menu message-dropdown">
+						<% Notification.where(readed: false, from_type: 2).each do |notificacion| %>
 
-			$.ajax(settings).done(function (response) {
-				alert(response);
-				window.location.href="/sign_in";
-			});
-		</script> -->
-	<%# else %>
-		<div id="wrapper">
+							<%# if notificacion.from_type=="contact" %>
+								<li class="message-preview">
+									<%= link_to(raw((''+
+										'<div class="media">'+
+											'<div class="media-body">'+
+												'<h5 class="media-heading"><strong>')+"#{notificacion.message.split(':')[0]}"+('</strong>'+
+												'</h5>'+
+												'<p class="small text-muted"><i class="fa fa-clock-o"></i>')+"#{notificacion.created_at}"+('</p>'+
+												'<p>')+"#{notificacion.message.split(':')[1][0...15]}..."+('</p>'+
+											'</div>'+
+										'</div>')), "/notifications/#{notificacion.id}") %>
+								</li>
+							<%# end %>
 
-			<!-- Navigation -->
-			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<!-- <a class="navbar-brand" href="index.html">SB Admin</a> -->
-					<%= link_to 'Administrador', root_path, class: "navbar-brand" %><br>
-				</div>
-				<!-- Top Menu Items -->
-				<ul class="nav navbar-right top-nav">
-					
-					<!-- mensajes de contactanos -->
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-						<ul class="dropdown-menu message-dropdown">
-							<% Notification.where(readed: false, from_type: 2).each do |notificacion| %>
+						<% end %>
+						<li class="divider"></li>
+						<li class="message-footer">
+							<!-- <a href="#">Read All New Messages</a> -->
+							<%= link_to('Ver todos los mensajes', notifications_path) %>
+						</li>
+					</ul>
+				</li>
 
-								<%# if notificacion.from_type=="contact" %>
-									<li class="message-preview">
-										<%= link_to(raw((''+
-											'<div class="media">'+
-												'<div class="media-body">'+
-													'<h5 class="media-heading"><strong>')+"#{notificacion.message.split(':')[0]}"+('</strong>'+
-													'</h5>'+
-													'<p class="small text-muted"><i class="fa fa-clock-o"></i>')+"#{notificacion.created_at}"+('</p>'+
-													'<p>')+"#{notificacion.message.split(':')[1][0...15]}..."+('</p>'+
-												'</div>'+
-											'</div>')), "/notifications/#{notificacion.id}") %>
+				<!-- notificaciones de productos denunciados -->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Notificaciones"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+					<ul class="dropdown-menu alert-dropdown">
+						<% Notification.where(readed: false).each do |notificacion| %>
+
+							<% if notificacion.from_type=="comment" %>
+								<% comentario = Comment.find(notificacion.from_id) %>
+								<% if comentario.dislikes > 10 %>
+									<li>
+										<%= link_to raw("Comentario: #{comentario.title} "+('<span class="label label-danger">'+"Dislikes: #{comentario.dislikes}"+'</span>')), "/comments/#{comentario.id}" %>
 									</li>
-								<%# end %>
-
-							<% end %>
-							<li class="message-footer">
-								<!-- <a href="#">Read All New Messages</a> -->
-								<%= link_to('Ver todos los mensajes nuevos', notifications_path) %>
-							</li>
-						</ul>
-					</li>
-
-					<!-- notificaciones de productos denunciados -->
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Notificaciones"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-						<ul class="dropdown-menu alert-dropdown">
-							<% Notification.where(readed: false).each do |notificacion| %>
-
-								<% if notificacion.from_type=="comment" %>
-									<% comentario = Comment.find(notificacion.from_id) %>
-									<% if comentario.dislikes > 10 %>
-										<li>
-											<%= link_to raw("Comentario: #{comentario.title} "+('<span class="label label-danger">'+"Dislikes: #{comentario.dislikes}"+'</span>')), "/comments/#{comentario.id}" %>
-										</li>
-									<% else %>
-										<li>
-											<%= link_to raw("Comentario: #{comentario.title} "+('<span class="label label-warning">'+"Dislikes: #{comentario.dislikes}"+'</span>')), "/comments/#{comentario.id}" %>
-										</li>
-									<% end %>
-
-								<% elsif notificacion.from_type=="product" %>
-									<% producto = Product.find(notificacion.from_id) %>
-									<% if producto.denounced > 10 %>
-										<li>
-											<%= link_to raw("Producto: #{producto.name} "+('<span class="label label-danger">'+"Denuncias: #{producto.denounced}"+'</span>')), "/products/#{producto.id}" %>
-										</li>
-									<% else %>
-										<li>
-											<%= link_to raw("Producto: #{producto.name} "+('<span class="label label-warning">'+"Denuncias: #{producto.denounced}"+'</span>')), "/products/#{producto.id}" %>
-										</li>
-									<% end %>
-
+								<% else %>
+									<li>
+										<%= link_to raw("Comentario: #{comentario.title} "+('<span class="label label-warning">'+"Dislikes: #{comentario.dislikes}"+'</span>')), "/comments/#{comentario.id}" %>
+									</li>
 								<% end %>
+
+							<% elsif notificacion.from_type=="product" %>
+								<% producto = Product.find(notificacion.from_id) %>
+								<% if producto.denounced > 10 %>
+									<li>
+										<%= link_to raw("Producto: #{producto.name} "+('<span class="label label-danger">'+"Denuncias: #{producto.denounced}"+'</span>')), "/products/#{producto.id}" %>
+									</li>
+								<% else %>
+									<li>
+										<%= link_to raw("Producto: #{producto.name} "+('<span class="label label-warning">'+"Denuncias: #{producto.denounced}"+'</span>')), "/products/#{producto.id}" %>
+									</li>
+								<% end %>
+
 							<% end %>
-							<li class="divider"></li>
+						<% end %>
+						<li class="divider"></li>
+						<li>
+							<!-- <a href="#">View All</a> -->
+							<%= link_to('Ver todas las notificaciones', notifications_path) %>
+						</li>
+					</ul>
+				</li>
+
+				<!-- perfil -->
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%= current_user.username %> <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="#"><i class="fa fa-fw fa-user"></i> Mi Perfil</a>
+						</li>
+						<!-- <li>
+							<a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+						</li> -->
+						<li class="divider"></li>
+						<li>
+							<!-- <a href="#"><i class="fa fa-fw fa-power-off"></i> Cerrar Sesión</a> -->
+							<%= link_to(raw(('<i class="fa fa-fw fa-power-off"></i>')+' Cerrar Sesión'), destroy_user_session_path, method: :delete, data: { confirm: '¿Deseas Cerrar Sesión?' }) %>
+						</li>
+					</ul>
+				</li>
+			</ul>
+
+			<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav side-nav">
+					<!-- <li class="active"> -->
+					<li>
+						<%= link_to(raw(('<i class="fa fa-fw fa-home"></i>')+' Pagina principal'), root_path) %>
+					</li>
+					<li>
+						<%= link_to(raw(('<i class="fa fa-fw fa-shopping-cart"></i>')+' Productos'), "/products/page/1") %>
+					</li>
+					<li>
+						<a href="javascript:;" data-toggle="collapse" data-target="#notifications-colapse"><i class="fa fa-fw fa-flag"></i> Notificaciones <i class="fa fa-fw fa-caret-down"></i></a>
+						<ul id="notifications-colapse" class="collapse">
 							<li>
-								<!-- <a href="#">View All</a> -->
-								<%= link_to('Ver todas', notifications_path) %>
+								<%= link_to(raw(('<i class="fa fa-fw fa-exclamation-triangle"></i>')+' Todas las notificaciones'), notifications_path) %>
+							</li>
+							<li>
+								<%= link_to(raw(('<i class="fa fa-fw fa-cart-arrow-down"></i>')+' Productos denunciados'), denounced_products_path) %>
+							</li>
+							<li>
+								<%= link_to(raw(('<i class="fa fa-fw fa-comments-o"></i>')+' Comentarios denunciados'), denounced_products_path) %>
+							</li>
+							<li>
+								<%= link_to(raw(('<i class="fa fa-fw fa-comment-o"></i>')+' Mensajes de contactanos'), denounced_products_path) %>
 							</li>
 						</ul>
 					</li>
-
-					<!-- perfil -->
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li>
-								<a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-							</li>
-							<li>
-								<a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-							</li>
-							<li class="divider"></li>
-							<li>
-								<!-- <a href="#"><i class="fa fa-fw fa-power-off"></i> Cerrar Sesión</a> -->
-								<%= link_to(raw(('<i class="fa fa-fw fa-power-off"></i>')+' Cerrar Sesión'), destroy_user_session_path, method: :delete, data: { confirm: '¿Deseas Cerrar Sesión?' }) %>
-							</li>
-						</ul>
+					<li>
+						<%= link_to(raw(('<i class="fa fa-fw fa-user-times"></i>')+' Usuarios Baneados'), banned_users_path) %>
 					</li>
 				</ul>
-
-				<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-				<div class="collapse navbar-collapse navbar-ex1-collapse">
-					<ul class="nav navbar-nav side-nav">
-						<li class="active">
-						<!-- <li> -->
-							<%= link_to(raw(('<i class="fa fa-fw fa-dashboard"></i>')+' Pagina principal'), root_path) %>
-						</li>
-						<li>
-							<%= link_to(raw(('<i class="fa fa-fw fa-edit"></i>')+' Productos denunciados'), denounced_products_path) %>
-						</li>
-						<!-- <li> -->
-							<!-- <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a> -->
-							<%#= link_to(raw(('<i class="fa fa-fw fa-edit"></i>')+' Productos denunciados'), notifications_path) %>
-						<!-- </li> -->
-						<!-- <li>
-							<a href="forms.html"><i class="fa fa-fw fa-bar-chart-o"></i> Forms</a>
-						</li>
-						<li>
-							<a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-						</li>
-						<li>
-							<a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-						</li>
-						<li>
-							<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-							<ul id="demo" class="collapse">
-								<li>
-									<a href="#">Dropdown Item</a>
-								</li>
-								<li>
-									<a href="#">Dropdown Item</a>
-								</li>
-							</ul>
-						</li>
-						<li>
-							<a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-						</li>
-						<li>
-							<a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-						</li> -->
-					</ul>
-				</div>
-				<!-- /.navbar-collapse -->
-			</nav>
-
-			<div id="page-wrapper">
-				<%= yield %>
 			</div>
-			<!-- /#page-wrapper -->
+			<!-- /.navbar-collapse -->
+		</nav>
+
+		<div id="page-wrapper">
+			<%= yield %>
 		</div>
-	<%# end %>
+		<!-- /#page-wrapper -->
+	</div>
 
 <!-- si alguien se quiere logear -->
 <% elsif request.original_fullpath.include?("sign") %>
@@ -213,7 +172,6 @@
 		window.location.href="/sign_in"
 	</script>
 <% end %>
-
 
 </body>
 </html>

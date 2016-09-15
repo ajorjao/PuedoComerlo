@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.all
+    @notifications = Notification.order(from_type: "asc", readed: "asc")
   end
 
   # GET /notifications/1
@@ -42,10 +42,6 @@ class NotificationsController < ApplicationController
     user = User.find_by_email(params[:mail])
     if user
       @notification = Notification.new(from_type: "contact", from_id: user.id, message:"#{params[:nombre]}:#{params[:mensaje]}")
-      # @notification.readed = false
-      # if @Notification.from_type != "contact"
-      #   @notification.message = nil
-      # end
       respond_to do |format|
         if @notification.save
           format.json { render json: {created: @notification}}
@@ -82,8 +78,8 @@ class NotificationsController < ApplicationController
   def destroy
     @notification.destroy
     respond_to do |format|
-      format.html { redirect_to notifications_url, notice: 'Notification was successfully destroyed.' }
       format.json { head :no_content }
+      format.html { redirect_to notifications_url, notice: 'Notificacion eliminada correctamente' }
     end
   end
 

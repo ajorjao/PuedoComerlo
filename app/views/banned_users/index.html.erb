@@ -1,12 +1,10 @@
-<p id="notice"><%= notice %></p>
+<h1>Lista de Usuarios Baneados</h1>
 
-<h1>Listing Banned Users</h1>
-
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Email</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -14,14 +12,13 @@
     <% @banned_users.each do |banned_user| %>
       <tr>
         <td><%= banned_user.email %></td>
-        <td><%= link_to 'Show', banned_user %></td>
-        <td><%= link_to 'Edit', edit_banned_user_path(banned_user) %></td>
-        <td><%= link_to 'Destroy', banned_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar'), "/banned_users/#{banned_user.id}", method: :delete, data: { confirm: '¿Estas seguro que desaeas desbanear este usuario?' }, class: "btn btn-xs btn-danger", style: "color:#fff" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+<%= link_to raw(('<i class="fa fa-fw fa-plus-circle"></i>')+' Bannear un usuario'), new_product_path, class: "btn btn-sm btn-primary", style: 'color:#fff' %>
 
-<%= link_to 'New Banned user', new_banned_user_path %>
+<%#= link_to 'Bannear nuevo usuario', new_banned_user_path %>

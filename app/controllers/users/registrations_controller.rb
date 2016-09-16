@@ -2,6 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
   prepend_before_filter :require_no_authentication, :only => [ :get ]
+  skip_before_action :ask_loged, only: [:create]
 
   # GET /resource/sign_up
   # def new
@@ -10,7 +11,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    if current_user == nil
+    if BannedUser.find_by_email(params[:user][:email])
+      render json: {error: "No se puede crear una cuenta con el email '#{current_user.email}'"}
+    elsif current_user == nil
       #super
       build_resource(sign_up_params)
       resource.save

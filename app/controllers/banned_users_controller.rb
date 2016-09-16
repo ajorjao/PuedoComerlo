@@ -35,16 +35,16 @@ class BannedUsersController < ApplicationController
 				begin
 					@banned_user = BannedUser.new(banned_user_params)
 					user = User.find_by_email(@banned_user.email)
- 					user.destroy
+ 					user.destroy if user
 					@banned_user.save
 					respond_to do |format|
 						format.json { render json: @banned_user, status: :created }
-						format.html { redirect_to "/banned_users", notice: 'Usuario baneado correctamente.' }
+						format.html { redirect_to "/banned_users", notice: 'Email baneado correctamente.' }
 					end
 				rescue Exception => e
 					respond_to do |format|
-						format.json { render json: {error: "No se pudo banear el usuario, #{e}"}, status: :created }
-						format.html { redirect_to "/banned_users", notice: "No se pudo banear el usuario, #{e}" }
+						format.json { render json: {error: "No se pudo banear el email, #{e}"}, status: :created }
+						format.html { redirect_to "/banned_users", notice: "No se pudo banear el email, #{e}" }
 					end
 				end
 			end

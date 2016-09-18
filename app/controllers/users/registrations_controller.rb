@@ -95,24 +95,34 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def users
-    if current_user == nil
-      render json: {error: 'No estas logeado'}, status: 401
-    elsif current_user.admin == true
+    if current_user.admin == true
       @users = User.order("email ASC").paginate(page: params[:page])
       @users.each do |user|
         user.avatar_file_name = URI.join(request.url, user.avatar.url).path
       end
-      render json: @users
-      #will_paginate @users        #en las vistas se usa para tener una barra con las paginas disponibles
+      respond_to do |format|
+        format.json { render json: @users }
+        format.html {  }
+      end
     else
-      render json: {error: 'Permisos insuficientes'}
+      respond_to do |format|
+        format.json { render json: {error: 'Permisos insuficientes'} }
+        format.html { redirect_to root_path, notice: 'Permisos insuficientes' }
+      end
+    end
+  end
+
+  def user
+    @user = User.find_by_id(params[:id])
+    families = @user.families
+    respond_to do |format|
+      format.json { render json: { user: @user, family: families } }
+      format.html {  }
     end
   end
 
   def user_delete
-    if current_user == nil
-      render json: {error: 'No estas logeado'}, status: 401
-    elsif current_user.id == params[:id].to_i or current_user.admin == true
+    if current_user.id == params[:id].to_i or current_user.admin == true
       @user = User.where(id: params[:id])
       if @user == []
         render json: {error: 'Usuario inexistente'}, status: 404

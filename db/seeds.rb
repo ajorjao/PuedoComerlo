@@ -1,6 +1,7 @@
 
 User.create(email: "ajorjao13@gmail.com", password: "asdasd123", admin: "true", username: "Administrador Jorge")
 usuarioComun = User.create(email: "ajorjao123@gmail.com", password: "asdasd123", admin: "false", username: "Jorjo")
+Family.create(name: "Jorjo", user_id: userusuarioComun.id)
 
 #no mover el orden de las intolerancias
 lactosa = Intolerance.create(name: "lactosa", minor_symptom: "", medium_symptom: "Náuseas

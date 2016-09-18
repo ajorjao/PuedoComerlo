@@ -87,9 +87,9 @@ class FamiliesController < ApplicationController
   def create
     params[:family][:user_id] = current_user.id if params[:family][:user_id]==nil
     @family = Family.new(family_params)
-    # if current_user.families.count == 0
-    #   @family.default = true
-    # end
+    if current_user.families.count == 0
+      current_user.username = @family.name
+    end
 
     respond_to do |format|
       if @family.save

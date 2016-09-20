@@ -25,6 +25,7 @@ class ProductsController < ApplicationController
     @usable_products = []
     @products.each do |product|
     	if product.intolerances.count != 0
+        product.image_file_name = URI.join(request.url, product.image.url).path
     		@usable_products << product
     	end
     end
@@ -143,7 +144,6 @@ class ProductsController < ApplicationController
     @product = Product.new(name: params[:name], id: params[:id], ingredients: params[:ingredientes])
     @product.image_from_url(params[:url])
 
-  # 
     if params[:id]!=nil or params[:name]!=nil
       respond_to do |format|
         if @product.save

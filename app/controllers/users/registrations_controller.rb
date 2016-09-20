@@ -12,7 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     if BannedUser.find_by_email(params[:user][:email])
-      render json: {error: "No se puede crear una cuenta con el email '#{current_user.email}'"}
+      render json: {error: "No se puede crear una cuenta con el email '#{params[:user][:email]}', ya que este esta baneado"}, status: 401
     elsif current_user == nil
       #super
       build_resource(sign_up_params)
@@ -83,8 +83,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if current_user.update(account_update_params)
         current_user.avatar_file_name = URI.join(request.url, current_user.avatar.url).path
         render json: {edited: current_user}
+      elsif params[:user][:avatar].original_filename.split(".")[1]==nil # si el archivo no tiene extencion
+        render json: {error: 'Error, el archivo no posee un formato valido. (Posee extencion nula)'}, status: 400
       else
-        render json: {error: 'Permisos insuficientes'}, status: 403
+        render json: {error: 'Error, el archivo no posee un formato valido.'}, status: 403
+        # render json: {error: 'Permisos insuficientes'}, status: 403
       end
     end
   end

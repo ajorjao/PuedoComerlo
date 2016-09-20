@@ -107,7 +107,8 @@ class ProductsController < ApplicationController
           redirect_to root_path, notice: "El producto no se encuentra disponible en nuestra base de datos"
         }
       else
-        format.json { render json: {product: @product, intolerances: @product.intolerances}, status: :ok }
+        @comment = @post.comments.build
+        format.json { render json: {product: @product, intolerances: @product.intolerances, comments: @comments}, status: :ok }
         format.html {
           notificacion = Notification.find_by(from_type: 1, from_id: @product.id)
           if notificacion!=nil

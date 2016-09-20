@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     post 'register' => 'users/registrations#create'
     get 'delete_avatar' => 'users/registrations#delete_avatar'
     get 'users/page/:page' => 'users/registrations#users'
+    get 'user/:id' => 'users/registrations#user'
     delete 'user/:id' => 'users/registrations#user_delete'
     get 'user' => 'users/sessions#user_actual'
     put 'user' => 'users/registrations#user_edit'

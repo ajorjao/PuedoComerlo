@@ -24,8 +24,9 @@ class ProductsController < ApplicationController
     #@products = @products.where("(id % 10^(length(?)) = ?)", "'#{params[:product][:id]}'","#{params[:product][:id]}") if params[:product][:id]!=nil
     @usable_products = []
     @products.each do |product|
-    	if product.intolerances.count != 0
-    		@usable_products << product
+    	if !product.ingredients.blank? # si se conocen los ingredientes del producto
+        product.image_file_name = URI.join(request.url, product.image.url).path
+    		@usable_products << {product: product, intolerancias: product.intolerances}
     	end
     end
     if @usable_products.count>0
@@ -144,7 +145,6 @@ class ProductsController < ApplicationController
     @product = Product.new(name: params[:name], id: params[:id], ingredients: params[:ingredientes])
     @product.image_from_url(params[:url])
 
-  # 
     if params[:id]!=nil or params[:name]!=nil
       respond_to do |format|
         if @product.save

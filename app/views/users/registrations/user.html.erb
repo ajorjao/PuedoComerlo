@@ -1,0 +1,40 @@
+<h3>
+  <%= image_tag @user.avatar.url(:medium) %>
+  <strong>Usuario:</strong>
+  <%= @user.username %><br>
+</h3><br>
+<p>
+	<h5>
+	  <strong>Email:</strong>
+	</h5>
+  <%= @user.email %><br><br>
+
+	<h4>
+	  <strong>Familia:</strong>
+	</h4>
+	<table class="table table-condensed">
+	  <thead>
+	    <tr>
+	      <th>Nombre</th>
+	      <th>Intolerancias</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+			<% @user.families.each do |familiar| %>
+	  		<tr>
+				  <td><%= familiar.name %></td>
+				  <td>
+					  <% familiar.intolerances.each do |intolerancia| %>
+					  	<%= intolerancia.name %>, 
+					  <% end %>
+				  </td>
+	  		</tr>
+			<% end %>
+		</tbody>
+	</table>
+</p>
+
+
+
+<br><br>
+<%= link_to raw(('<i class="fa fa-fw fa-arrow-circle-left"></i>')+' Volver'), :back, class: "btn btn-sm btn-primary", style: "color:#fff" %>

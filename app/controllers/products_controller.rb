@@ -110,6 +110,7 @@ class ProductsController < ApplicationController
       else
         @comments = Comment.all
         @comments = @comments.where("product_id::text LIKE ?::text", "%#{params[:id]}%") if params[:id]!=nil
+        @product.image_file_name = URI.join(request.url, @product.image.url).path
         format.json { render json: {product: @product, intolerances: @product.intolerances, comments: @comments}, status: :ok }
         #format.json { render json: {product: @product, intolerances: @product.intolerances}, status: :ok }        
         format.html {

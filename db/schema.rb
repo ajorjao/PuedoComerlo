@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(version: 20160913032257) do
     t.text     "description"
     t.integer  "likes"
     t.integer  "dislikes"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "user_id"
+    t.integer  "product_id",  limit: 8
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "companies", force: :cascade do |t|

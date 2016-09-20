@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
 	validate :is_critical, on: :update
 	
 	#begin of Fabo edit#
-	belongs_to:user
+	#belongs_to:user
 	belongs_to:product
 	#end of Fabo edit#
 	

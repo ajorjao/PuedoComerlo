@@ -7,7 +7,7 @@ class CreateComments < ActiveRecord::Migration
       t.integer :dislikes
       #begin fabo edit#
       t.integer :user_id    #id de quien lo crea
-      t.integer :product_id  #id del producto comentado
+      t.bigint :product_id  #id del producto comentado
       #end fabo edit#
 
       t.timestamps null: false

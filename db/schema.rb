@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 20160913032257) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "likes"
-    t.boolean  "denounced"
+    t.integer  "denounced"
     t.text     "ingredients"
   end
 
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20160913032257) do
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
+    t.string   "username"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

@@ -4,115 +4,36 @@ usuarioComun = User.create(email: "ajorjao123@gmail.com", password: "asdasd123",
 Family.create(name: "Jorjo", user_id: usuarioComun.id)
 
 #no mover el orden de las intolerancias
-lactosa = Intolerance.create(name: "lactosa", minor_symptom: "", medium_symptom: "Náuseas
-	Dolor abdominal
-	Espasmos
-	Hinchazón y distensión abdominal
-	Gases abdominales y flatulencias
-	Diarreas ácidas
-	Heces pastosas y flotantes
-	Defecación explosiva
-	Vómitos
-	Enrojecimiento periana", major_symptom: "", key_components: ["lactosa","lactose","leche","milk"])
+lactosa = Intolerance.create(name: "Lactosa", minor_symptom: "", medium_symptom: "Náuseas, Dolor abdominal, Espasmos, Hinchazón y distensión abdominal, Gases abdominales y flatulencias, Diarreas ácidas, Heces pastosas y flotantes, Defecación explosiva, Vómitos, Enrojecimiento periana", major_symptom: "", key_components: ["lactosa","lactose","leche","milk"])
 
-gluten = Intolerance.create(name: "gluten", minor_symptom: "", medium_symptom: "Diarrea crónica
-	Hinchazón abdominal
-	Estreñimiento
-	Náuseas y vómitos
-	Anemia
-	Debilidad generalizada
-	Erupciones cutáneas
-	Estreñimiento
-	Dolor de cabeza
-	Alteraciones del esmalte dental
-	Raquitismo
-	Fracturas espontáneas", major_symptom: "", key_components: ["trigo", "centeno", "cebada", "escanda", "espelta", "triticale", "farro", "kamut", "espelta verde", "bulgur", "avena"])
+gluten = Intolerance.create(name: "Gluten", minor_symptom: "", medium_symptom: "Diarrea crónica, Hinchazón abdominal, Estreñimiento, Náuseas y vómitos, Anemia, Debilidad generalizada, Erupciones cutáneas, Estreñimiento, Dolor de cabeza, Alteraciones del esmalte dental, Raquitismo, Fracturas espontáneas", major_symptom: "", key_components: ["trigo", "centeno", "cebada", "escanda", "espelta", "triticale", "farro", "kamut", "espelta verde", "bulgur", "avena"])
 
-mani = Intolerance.create(name: "mani", minor_symptom: "", medium_symptom: "Dolor estomacal
-	Goteo nasal
-	Picazón de ojos
-	Ronchas (Urticaria) u hormigueo en los labios o la lengua", major_symptom: "", key_components: ["mani","cacahuate","peanut","frutos secos"])
+mani = Intolerance.create(name: "Mani", minor_symptom: "", medium_symptom: "Dolor estomacal, Goteo nasal, Picazón de ojos, Ronchas (Urticaria) u hormigueo en los labios o la lengua", major_symptom: "", key_components: ["mani","cacahuate","peanut","frutos secos"])
 
-nueces = Intolerance.create(name: "nueces", minor_symptom: "", medium_symptom: "Picazón o hinchazón de la boca, la lengua o los labios
-	Reacciones en la piel (Eccema, urticaria, hinchazón y enrojecimiento de la cara o las extremidades)
-	Los síntomas gastrointestinales (Dolor abdominal, náuseas, vómitos, diarrea)
-	Los síntomas respiratorios (Secreción o congestión nasal, tos, estornudos, respiración sibilante, dificultad para respirar)
-	Los síntomas cardiovasculares (Caída en la presión arterial, mareos, desmayos)", major_symptom: "", key_components: ["nuez","nut","nueces","frutos secos"])
+nueces = Intolerance.create(name: "Nueces", minor_symptom: "", medium_symptom: "Picazón o hinchazón de la boca, la lengua o los labios, Reacciones en la piel (Eccema, urticaria, hinchazón y enrojecimiento de la cara o las extremidades), Los síntomas gastrointestinales (Dolor abdominal, náuseas, vómitos, diarrea), Los síntomas respiratorios (Secreción o congestión nasal, tos, estornudos, respiración sibilante, dificultad para respirar), Los síntomas cardiovasculares (Caída en la presión arterial, mareos, desmayos)", major_symptom: "", key_components: ["nuez","nut","nueces","frutos secos"])
 
-apio = Intolerance.create(name: "apio", minor_symptom: "", medium_symptom: "Vómitos
-	Diarrea
-	Erupciones en la piel
-	Inflamación de las vías respiratorias
-	Disminución de la presión arterial
-	Reacción anafiláctica", major_symptom: "", key_components: ["apio","apium","graviolens","celery"])
+apio = Intolerance.create(name: "Apio", minor_symptom: "", medium_symptom: "Vómitos, Diarrea, Erupciones en la piel, Inflamación de las vías respiratorias, Disminución de la presión arterial, Reacción anafiláctica", major_symptom: "", key_components: ["apio","apium","graviolens","celery"])
 
-mostaza = Intolerance.create(name: "mostaza", minor_symptom: "", medium_symptom: "Urticaria
-	Eccema
-	Asma bronquial
-	Dolor gástrico
-	Shock anafiláctico", major_symptom: "", key_components: ["mostaza","mustard"])
+mostaza = Intolerance.create(name: "Mostaza", minor_symptom: "", medium_symptom: "Urticaria, Eccema, Asma bronquial, Dolor gástrico, Shock anafiláctico", major_symptom: "", key_components: ["mostaza","mustard"])
 
-huevo = Intolerance.create(name: "huevo", minor_symptom: "", medium_symptom: "Reacciones cutáneas
-		Síntomas gastrointestinales agudos y respiratorios
-		Reacción generalizada de anafilaxia (Junto con hipotensión, colapso vascular y disrritmias cardiacas)", major_symptom: "", key_components: ["egg","huevo", "lecitina", "lisozima", "albúmina", "coagulante", "emulsificante", "gloubina", "livetina", "ovoalbúmina", "ovomucina", "ovomucoide", "otransferrina", "ovovitelina", "vitelina", "e-16b,luteína", "pigmento amarillo"])
+huevo = Intolerance.create(name: "Huevo", minor_symptom: "", medium_symptom: "Reacciones cutáneas, Síntomas gastrointestinales agudos y respiratorios, Reacción generalizada de anafilaxia (Junto con hipotensión, colapso vascular y disrritmias cardiacas)", major_symptom: "", key_components: ["egg","huevo", "lecitina", "lisozima", "albúmina", "coagulante", "emulsificante", "gloubina", "livetina", "ovoalbúmina", "ovomucina", "ovomucoide", "otransferrina", "ovovitelina", "vitelina", "e-16b,luteína", "pigmento amarillo"])
 
-sesamo = Intolerance.create(name: "sesamo", minor_symptom: "", medium_symptom: "Dermatitis de contacto 
-		Urticaria
-		Rinitis alérgica
-		Asma
-		Dermatitis atópica
-		Anafilaxia", major_symptom: "", key_components: ["sésamo","ajonjolí","sesame"])
+sesamo = Intolerance.create(name: "Sesamo", minor_symptom: "", medium_symptom: "Dermatitis de contacto, Urticaria, Rinitis alérgica, Asma, Dermatitis atópica, Anafilaxia", major_symptom: "", key_components: ["sésamo","ajonjolí","sesame"])
 
-pescado = Intolerance.create(name: "pescado", minor_symptom: "", medium_symptom: "Hinchazón de los labios
-	Prurito o picor en la cavidad bucal
-	Dificultad para deglutir
-	Urticaria
-	Rinitis
-	Dolor abdominal
-	Diarrea
-	Ronchas graves
-	Dificultad respiratoria y asma
-	Náuseas y vómitos", major_symptom: "", key_components: ["fish","pescado","[ESPECIES DE PESCADO???]"])
+pescado = Intolerance.create(name: "Pescado", minor_symptom: "", medium_symptom: "Hinchazón de los labios, Prurito o picor en la cavidad bucal, Dificultad para deglutir, Urticaria, Rinitis, Dolor abdominal, Diarrea, Ronchas graves, Dificultad respiratoria y asma, Náuseas y vómitos", major_symptom: "", key_components: ["fish","pescado","[ESPECIES DE PESCADO???]"])
 
-crustaceo = Intolerance.create(name: "crustaceos", minor_symptom: "", medium_symptom: "Urticaria aguda
-	Asma
-	Rinitis
-	Anafilaxia
-	Síndrome de alergia oral", major_symptom: "", key_components: ["crustáceos","crustacean","[ESPECIES DE CRUSTACEOS???]"])
+crustaceo = Intolerance.create(name: "Crustaceos", minor_symptom: "", medium_symptom: "Urticaria aguda, Asma, Rinitis, Anafilaxia, Síndrome de alergia oral", major_symptom: "", key_components: ["crustáceos","crustacean","[ESPECIES DE CRUSTACEOS???]"])
 
-moluscos = Intolerance.create(name: "moluscos", minor_symptom: "", medium_symptom: "Urticaria aguda			
-	Asma
-	Anafilaxia
-	Síndrome de alergia oral", major_symptom: "", key_components: ["moluscos","molluscs","[ESPECIES DE MOLUSCOS????]"])
+moluscos = Intolerance.create(name: "Moluscos", minor_symptom: "", medium_symptom: "Urticaria aguda, Asma, Anafilaxia, Síndrome de alergia oral", major_symptom: "", key_components: ["moluscos","molluscs","[ESPECIES DE MOLUSCOS????]"])
 
-soya = Intolerance.create(name: "soya", minor_symptom: "", medium_symptom: "Hinchazón en labios, cara, lengua, garganta y otras partes del cuerpo
-		Hormigueo en la boca
-		Problemas de piel: urticaria, eczema o picazón
-		Úlceras en la boca
-		Dificultad para respirar y/o respiración sibilante
-		Dolor abdominal acompañado con diarrea, náuseas o vómitos
-		Mareos y desvanecimientos
-		Fuerte caída de la presión arterial
-		Pulso rápido o taquicardia
-		Pérdida del conocimiento
-		Aturdimiento
-		Anafilaxia: constricción de las vías respiratorias, incluyendo la inflamación de garganta", major_symptom: "", key_components: ["soya", "mono-diglicerido", "soya", "soja", "yuba", "tsf" ,"harina de soya texturizada", "tsp" ,"proteína de soya texturizada","proteina de soya texturizada","tvp", "proteína vegetal texturizada", "lecitina", "msg", "lutamato monosodico"])
+soya = Intolerance.create(name: "Soya", minor_symptom: "", medium_symptom: "Hinchazón en labios, cara, lengua, garganta y otras partes del cuerpo, Hormigueo en la boca, Problemas de piel: urticaria, eczema o picazón, Úlceras en la boca, Dificultad para respirar y/o respiración sibilante, Dolor abdominal acompañado con diarrea, náuseas o vómitos, Mareos y desvanecimientos, Fuerte caída de la presión arterial, Pulso rápido o taquicardia, Pérdida del conocimiento, Aturdimiento, Anafilaxia: constricción de las vías respiratorias, incluyendo la inflamación de garganta", major_symptom: "", key_components: ["soya", "mono-diglicerido", "soya", "soja", "yuba", "tsf" ,"harina de soya texturizada", "tsp" ,"proteína de soya texturizada","proteina de soya texturizada","tvp", "proteína vegetal texturizada", "lecitina", "msg", "lutamato monosodico"])
 
-sulfitos = Intolerance.create(name: "sulfitos", minor_symptom: "", medium_symptom: "Estornudos
-	Secreción nasal (rinorrea)
-	Prurito (picor)
-	Erupción (aparecen granos, como urticaria)
-	Dolor abdominal o posiblemente asma", major_symptom: "", key_components: ["sulfitos","sulfites","Dióxido de azufre","E220","Sulfito sódico","E221","Sulfito ácido de sodio","E222","Metabisulfito sódico","Disulfito sódico","E223", "Metabisulfito potásico","Disulfito potásico","E224",  "Sulfito cálcico", "E226","Sulfito ácido de calcio","Bisulfito cálcico", "E227", "Sulfito ácido de potasio" ,"Bisulfito potásico" ,"E228"])
+sulfitos = Intolerance.create(name: "Sulfitos", minor_symptom: "", medium_symptom: "Estornudos, Secreción nasal (rinorrea), Prurito (picor), Erupción (aparecen granos, como urticaria), Dolor abdominal o posiblemente asma", major_symptom: "", key_components: ["sulfitos","sulfites","Dióxido de azufre","E220","Sulfito sódico","E221","Sulfito ácido de sodio","E222","Metabisulfito sódico","Disulfito sódico","E223", "Metabisulfito potásico","Disulfito potásico","E224",  "Sulfito cálcico", "E226","Sulfito ácido de calcio","Bisulfito cálcico", "E227", "Sulfito ácido de potasio" ,"Bisulfito potásico" ,"E228"])
 
-legumbres = Intolerance.create(name: "legumbres", minor_symptom: "", medium_symptom: "Síndrome de alergia oral
-	Urticaria
-	Angioedema
-	Rinitis
-	Crisis asmáticas
-	Anafilaxia", major_symptom: "", key_components: ["legumbre","legume","lupinus albus","altramuz","altramuces","lupins","lupino"])
-
+legumbres = Intolerance.create(name: "Legumbres", minor_symptom: "", medium_symptom: "Síndrome de alergia oral, Urticaria, Angioedema, Rinitis, Crisis asmáticas, Anafilaxia", major_symptom: "", key_components: ["legumbre","legume","lupinus albus","altramuz","altramuces","lupins","lupino"])
+ 
 #no se si esto funciona!!!
-listaIntolerancias = ["legumbres", "sulfitos","soya"," moluscos" ,"crustaceo", "pescado", "sesamo", "huevo" ,"mostaza", "apio", "nueces" ,"mani" ,"gluten", "lactosa"]
+# listaIntolerancias = ["legumbres", "sulfitos","soya"," moluscos" ,"crustaceo", "pescado", "sesamo", "huevo" ,"mostaza", "apio", "nueces" ,"mani" ,"gluten", "lactosa"]
 #Company.create(id: , name: , url: "")
 
 Company.create(name: "lipton", url: "http://www.unileverfoodsolutions.cl/productos-marcas/marcas")
@@ -200,8 +121,8 @@ listaProductos.each do |producto|
 	end
 end
 
-comentarioOK = Comment.create(title: "Me gusta", description: "buen producto, me ha servido mucho", likes: 16, dislikes: 1)
-comentarioNO = Comment.create(title: "Lo odio", description: "tu mal, yo mal, el mal, ellos mal, todo mal", likes: 1, dislikes: 16)
+comentarioOK = Comment.create(title: "Me gusta", description: "buen producto, me ha servido mucho", likes: 16, dislikes: 1, user_id: usuarioComun.id, product_id: triton.id)
+comentarioNO = Comment.create(title: "Lo odio", description: "tu mal, yo mal... Mal, mal, mal, todo mal", likes: 1, dislikes: 16, user_id: usuarioComun.id, product_id: triton.id)
 
 
 # ap Notification.create(from_type: "comment", from_id: 1)

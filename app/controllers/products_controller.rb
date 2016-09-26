@@ -108,8 +108,8 @@ class ProductsController < ApplicationController
           redirect_to root_path, notice: "El producto no se encuentra disponible en nuestra base de datos"
         }
       else
-        @comments = Comment.all
-        @comments = @comments.where("product_id::text LIKE ?::text", "%#{params[:id]}%") if params[:id]!=nil
+        # @comments = Comment.where("product_id::text LIKE ?::text", "%#{params[:id]}%") if params[:id]!=nil
+        @comments = @product.comments
         @product.image_file_name = URI.join(request.url, @product.image.url).path
         format.json { render json: {product: @product, intolerances: @product.intolerances, comments: @comments}, status: :ok }
         #format.json { render json: {product: @product, intolerances: @product.intolerances}, status: :ok }        

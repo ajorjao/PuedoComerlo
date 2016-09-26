@@ -31,6 +31,33 @@ class CommentsController < ApplicationController
     end
   end
 
+
+  def productcomments
+    @product = Product.find_by_id(params[:id])
+    respond_to do |format|
+      if @product==nil
+        format.json { render json: {error: "Este producto no existe"}, status: :not_found }
+        format.html {
+          redirect_to root_path, notice: "Este producto no existe"
+        }
+      else
+        @comments = []
+        @product.comments.order(likes: :desc).each do |comment|
+          comment_hash = comment.attributes
+          comment_hash.delete("user_id")
+          comment_hash.delete("product_id")
+          comment_hash[:prom_likes] = comment.prom_likes
+          comment_hash[:user] = comment.user
+          @comments.push(comment_hash)
+        end
+        format.json { render json: {comments: @comments}, status: :ok }
+        format.html {
+
+        }
+      end
+    end
+  end
+
   # GET /comments/1
   # GET /comments/1.json
   def show

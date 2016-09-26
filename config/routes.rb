@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :comments#, only: [:show, :edit, :update, :destroy]
   get 'comments' => 'comments#index'
   get 'comments/:id' => 'comments#getcomm'
+  get 'product_comments/:id' => 'comments#productcomments'
   post 'comments' => 'comments#create'
   get 'comments/new' => 'comments#new'
   get 'comments/:id/edit' => 'comments#edit'

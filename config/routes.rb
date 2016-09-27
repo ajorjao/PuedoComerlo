@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get 'comments/:id/edit' => 'comments#edit'
   put 'comments/:id' => 'comments#update'
   delete 'comments/:id' => 'comments#destroy'
+  get 'denounced_comments' => 'comments#denounced_comments'
+
 
   resources :notifications
   post 'sendemail' => 'notifications#create'

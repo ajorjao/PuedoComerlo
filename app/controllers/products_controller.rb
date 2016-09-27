@@ -130,7 +130,7 @@ class ProductsController < ApplicationController
 
   def denounced_products
     if current_user.admin == true
-      @products = Product.where(denounced: true)
+      @products = Product.where("denounced > ?", 0)
     else
       redirect_to root_path
     end

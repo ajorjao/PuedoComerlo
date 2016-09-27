@@ -58,6 +58,14 @@ class CommentsController < ApplicationController
     end
   end
 
+  def denounced_comments
+    if current_user.admin == true
+      @comments = Comment.where("(likes - dislikes) < ?", -10)
+    else
+      redirect_to root_path
+    end
+  end
+
   # GET /comments/1
   # GET /comments/1.json
   def show
@@ -89,8 +97,19 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
-    @comment = Comment.find(params[:id])
+    #@comment = Comment.find(params[:id])
     @product = Product.find(params[:product_id])
+    @comment = Comment.where(user_id: current_user.id).find_by_id(params[:id])
+    respond_to do |format|
+      if @comment.update(comment_params)
+        #código#
+        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
+        format.json { render :show, status: :ok, location: @comment }
+      else
+        format.html { render :edit }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # POST /comments

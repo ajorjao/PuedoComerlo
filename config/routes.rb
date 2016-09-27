@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'product_comments/:id' => 'comments#productcomments'
   post 'comments' => 'comments#create'
   get 'comments/new' => 'comments#new'
-  get 'comments/:id/edit' => 'comments#edit'
+  put 'comments/:id/edit' => 'comments#edit'
   put 'comments/:id' => 'comments#update'
   put 'like_comment/:id' => 'comments#like_dislike'
   delete 'comments/:id' => 'comments#destroy'
@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   resources :notifications
   post 'sendemail' => 'notifications#create'
+  get 'messages' => 'notifications#getmsg'
+  delete 'messages/:id' => 'notifications#destroy'
   
   devise_for :users, path: '', controllers: { registrations: "users/registrations", sessions: "users/sessions"}
   root 'home#index'

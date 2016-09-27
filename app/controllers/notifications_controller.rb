@@ -26,6 +26,15 @@ class NotificationsController < ApplicationController
     end
   end
 
+  def getmsg
+    ap @message
+    if current_user.admin == true
+      @message = Notification.where(from_type: 2)
+    else
+      redirect_to root_path
+    end
+  end
+
   # GET /notifications/new
   def new
     @notification = Notification.new
@@ -76,10 +85,32 @@ class NotificationsController < ApplicationController
   # DELETE /notifications/1
   # DELETE /notifications/1.json
   def destroy
-    @notification.destroy
-    respond_to do |format|
-      format.json { head :no_content }
-      format.html { redirect_to notifications_url, notice: 'Notificacion eliminada correctamente' }
+    if @notification.from_type == "product"
+      @notification.destroy
+      respond_to do |format|
+        format.json { head :no_content }
+        format.html { redirect_to denounced_products_path, notice: 'Notificacion eliminada correctamente' }
+      end
+    elsif @notification.from_type == "comment"
+      @notification.destroy
+      respond_to do |format|
+        format.json { head :no_content }
+        format.html { redirect_to denounced_comments_path, notice: 'Notificacion eliminada correctamente' }
+      end
+    
+    elsif @notification.from_type == "contact"
+      @notification.destroy
+      respond_to do |format|
+        format.json { head :no_content }
+        format.html { redirect_to messages_path, notice: 'Notificacion eliminada correctamente' }
+      end
+
+    else
+      @notification.destroy
+      respond_to do |format|
+        format.json { head :no_content }
+        format.html { redirect_to notifications_path, notice: 'Notificacion eliminada correctamente' }
+      end
     end
   end
 

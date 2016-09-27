@@ -61,7 +61,7 @@ class CommentsController < ApplicationController
 
   def denounced_comments
     if current_user.admin == true
-      @comments = Comment.where("(likes - dislikes) < ?", -10)
+      @comments = Comment.where("(likes - dislikes) < ?", -14)
     else
       redirect_to root_path
     end
@@ -98,18 +98,10 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
-    #@comment = Comment.find(params[:id])
-    @product = Product.find(params[:product_id])
-    @comment = Comment.where(user_id: current_user.id).find_by_id(params[:id])
-    respond_to do |format|
-      if @comment.update(comment_params)
-        #código#
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @comment }
-      else
-        format.html { render :edit }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    if current_user.admin == true
+      @comment = Comment.find_by_id(params[:id])
+      @comment.update(likes: 0, dislikes: 0)
+      redirect_to denounced_comments_path
     end
   end
 
@@ -138,7 +130,7 @@ class CommentsController < ApplicationController
     #recover?
     #if current_user.id == @comment.user_id  #not sure if this goes here
       #@Product = Product.find(params[:product_id])
-    @comment = current_user.comments.find_by_id(params[:id])
+    @comment = Comment.find_by_id(params[:id])
     # @comment = Comment.where(user_id: current_user.id).find_by_id(params[:id])
     respond_to do |format|
       if @comment.update(comment_params)
@@ -179,7 +171,11 @@ class CommentsController < ApplicationController
   def destroy
     #check comment is from current user
     #fabo edit
-    @comment = Comment.where(user_id: current_user.id).find_by_id(params[:id])
+    if current_user.admin == true
+      @comment = Comment.find_by_id(params[:id])
+    else
+      @comment = Comment.where(user_id: current_user.id).find_by_id(params[:id])
+    end
     #@product = Product.find_by_id(params[:product_id])
     #if current_user.id == @comment.user_id  #not sure if this goes here
       #@product = Product.find(params[:product_id])
@@ -187,7 +183,7 @@ class CommentsController < ApplicationController
     @comment.destroy
     respond_to do |format|
       #replace text with [Deleted]#
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' } #debería ser /producto#comentarios??
+      format.html { redirect_to denounced_comments_path, notice: 'Comment was successfully destroyed.' } #debería ser /producto#comentarios??
       format.json { head :no_content }
     end
     #end

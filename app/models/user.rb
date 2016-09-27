@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   has_many :families, dependent: :destroy
-  has_many :comments
+  has_many :comments, dependent: :destroy
   
   def avatar_from_url(url)
     self.avatar = open(url, :allow_redirections => :safe)

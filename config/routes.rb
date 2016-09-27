@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'comments/new' => 'comments#new'
   get 'comments/:id/edit' => 'comments#edit'
   put 'comments/:id' => 'comments#update'
+  put 'like_comment/:id' => 'comments#like_dislike'
   delete 'comments/:id' => 'comments#destroy'
   get 'denounced_comments' => 'comments#denounced_comments'
 

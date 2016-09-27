@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_comment, only: [:show, :edit, :destroy]
 
   # GET /comments
   # GET /comments.json
@@ -42,7 +42,8 @@ class CommentsController < ApplicationController
         }
       else
         @comments = []
-        @product.comments.order(likes: :desc).each do |comment|
+        # @product.comments.order(likes: :desc).each do |comment|
+        @product.comments.order(:created_at).each do |comment|
           comment_hash = comment.attributes
           comment_hash.delete("user_id")
           comment_hash.delete("product_id")
@@ -115,22 +116,17 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    #@product = Product.find_by_id(comment_params[:product_id])
-    #@comment = current_user.comment.new(comment_params)
-    #fabo was here
-    #@product = Product.find_by_id(params[:product_id])
-    #@comment = @product.comments.create(comment_params)
-    @comment =Comment.create(comment_params)
+    @comment = Comment.create(title: params[:title], description: params[:description], product_id: params[:product_id])
+    @comment.likes = 0
+    @comment.dislikes = 0
     @comment.user_id = current_user.id
-    #end fabo was here
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-        #format.json { render :show, status: :created, location: @comment }
         format.json { render json: {comment: @comment}, status: :ok }
+        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
       else
-        format.html { render :new }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.html { render :new }
       end
     end
   end
@@ -142,19 +138,40 @@ class CommentsController < ApplicationController
     #recover?
     #if current_user.id == @comment.user_id  #not sure if this goes here
       #@Product = Product.find(params[:product_id])
-    @comment = Comment.where(user_id: current_user.id).find_by_id(params[:id])
+    @comment = current_user.comments.find_by_id(params[:id])
+    # @comment = Comment.where(user_id: current_user.id).find_by_id(params[:id])
     respond_to do |format|
       if @comment.update(comment_params)
         #código#
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @comment }
+        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
       else
-        format.html { render :edit }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.html { render :edit }
       end
     end
     #end fabo edit
     #end
+  end
+
+  def like_dislike
+    @comment = Comment.find_by_id(params[:id])
+    if @comment
+      @comment.update(likes: @comment.likes+1) if params[:like]
+      @comment.update(dislikes: @comment.dislikes+1) if params[:dislike]
+      @comment.update(likes: @comment.likes-1) if params[:like_cancel]
+      @comment.update(dislikes: @comment.dislikes-1) if params[:dislike_cancel]
+
+      # respond_to do |format|
+      render json: @comment, status: :ok
+        # format.html { redirect_to "@comment", notice: 'Comment was successfully updated.' }
+      # end
+    else
+      # respond_to do |format|
+      render json: {error: "El comentario ya no existe"}, status: 404
+        # format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
+      # end
+    end
   end
 
   # DELETE /comments/1

@@ -4,7 +4,7 @@ require 'similar_text'
 
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :ask_admin, only: [ :add_intolerance ]
+  before_action :ask_admin, only: [ :add_intolerance, :del_intolerance, :create ]
 
   # GET /products
   # GET /products.json
@@ -144,14 +144,14 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(name: params[:name], id: params[:id], ingredients: params[:ingredientes])
+    @product = Product.new(name: params[:name], id: params[:id], ingredients: params[:ingredients])
     @product.image_from_url(params[:url])
 
     if params[:id]!=nil or params[:name]!=nil
       respond_to do |format|
         if @product.save
           format.json { render :show, status: :created, location: @product }
-          format.html { redirect_to "/products/"+params[:id].to_s, notice: 'Product was successfully created.' }
+          format.html { redirect_to "/products/"+params[:id].to_s, notice: 'El producto fue creado exitosamente.' }
         else
           format.json { render json: @product.errors, status: :unprocessable_entity }
           format.html { render :new }
@@ -160,7 +160,7 @@ class ProductsController < ApplicationController
     else
       respond_to do |format|
         format.json { render json: {error: "El producto no puede quedar sin id"}, status: :unprocessable_entity }
-        format.html { redirect_to "product/new", notice: "El producto no puede quedar sin id" }
+        format.html { redirect_to "product/new", notice: "El producto no puede quedar sin código de barra." }
       end
     end
   end

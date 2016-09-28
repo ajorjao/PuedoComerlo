@@ -1,18 +1,31 @@
-<h1>Agregar nuevo Producto</h1>
+<h1>Agregar Nuevo Producto</h1>
 
-<%= form_tag("/product/new", method: "post") do %>
+<%= form_tag "/product/new", method: "post", class: "form-horizontal" do %>
 
-  <div class="field">
-    <%= label_tag "Nombre de producto " %>
-    <%= text_field_tag :name %><br>
-    <%= label_tag "Codigo de barra " %>
-    <%= number_field_tag :id %><br>
-    <%= label_tag "Ingredientes " %>
-    <%= text_field_tag :ingredientes %><br>
-    <%= label_tag "Link de la imagen " %>
-    <%= text_field_tag :url %><br>
+  <div class="form-group">
+    <%= label_tag "","Nombre de Producto:", class: "control-label col-sm-2" %>
+    <div class="col-sm-10">
+      <%= text_field_tag :name, "", class: "form-control" %>
+    </div>
   </div>
-
+  <div class="form-group">
+    <%= label_tag "","Código de Barra:", class: "control-label col-sm-2" %>
+    <div class="col-sm-10">
+      <%= number_field_tag :id, "", class: "form-control", max: "9999999999999999" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= label_tag "","Ingredientes:", class: "control-label col-sm-2"%>
+    <div class="col-sm-10">
+      <%= text_area_tag :ingredients, "", class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= label_tag "","Link de la Imagen:", class: "control-label col-sm-2" %>
+    <div class="col-sm-10">
+      <%= text_field_tag :url, "", class: "form-control" %>
+    </div>
+  </div>
   <div class="actions">
     <%= submit_tag "Guardar", class: "btn btn-sm btn-primary" %>
   </div>

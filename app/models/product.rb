@@ -21,18 +21,19 @@ class Product < ActiveRecord::Base
 
 	private
 		def add_intolerances
-			if self.ingredients == nil
-				raise ActiveRecord::Rollback, "El producto debe ser distinto de nil"
-			end
 			self.likes = 0
 			self.denounced = 0
-			Intolerance.all.each do |intolerancia|
-				#se recorre cada key compoent desde las intolerancias
-				intolerancia.key_components.each do |component|
-					#si posee un key_component en los ingredientes, se agrega la intolerancia al producto
-					self.ingredients.split(" ").each do |palabra_ingrediente|
-						if palabra_ingrediente.downcase.similar(component.downcase) > 80
-							self.intolerances << intolerancia if !self.intolerances.include?(intolerancia)
+			if self.ingredients != nil
+				#raise ActiveRecord::Rollback, "El producto debe ser distinto de nil"
+			
+				Intolerance.all.each do |intolerancia|
+					#se recorre cada key compoent desde las intolerancias
+					intolerancia.key_components.each do |component|
+						#si posee un key_component en los ingredientes, se agrega la intolerancia al producto
+						self.ingredients.split(" ").each do |palabra_ingrediente|
+							if palabra_ingrediente.downcase.similar(component.downcase) > 80
+								self.intolerances << intolerancia if !self.intolerances.include?(intolerancia)
+							end
 						end
 					end
 				end

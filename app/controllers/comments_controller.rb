@@ -126,24 +126,22 @@ class CommentsController < ApplicationController
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
   def update
-    #fabo edit
-    #recover?
-    #if current_user.id == @comment.user_id  #not sure if this goes here
-      #@Product = Product.find(params[:product_id])
+    # @Product = Product.find(params[:product_id])
     @comment = Comment.find_by_id(params[:id])
-    # @comment = Comment.where(user_id: current_user.id).find_by_id(params[:id])
     respond_to do |format|
-      if @comment.update(comment_params)
-        #código#
-        format.json { render :show, status: :ok, location: @comment }
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
+      if @comment.user.id == current_user.id
+        if @comment.update(title: params[:title], description: params[:description])
+          format.json { render json: { updated: @comment } }
+          format.html { redirect_to @comment, notice: 'Comentario correctamente editado' }
+        else
+          format.json { render json: @comment.errors, status: :unprocessable_entity }
+          format.html { render :edit }
+        end
       else
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-        format.html { render :edit }
+        format.json { render json: {error: "No posees permisos para eliminar este comentario"}, status: 401 }
+        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
       end
     end
-    #end fabo edit
-    #end
   end
 
   def like_dislike
@@ -169,25 +167,17 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
-    #check comment is from current user
-    #fabo edit
     if current_user.admin == true
       @comment = Comment.find_by_id(params[:id])
     else
       @comment = Comment.where(user_id: current_user.id).find_by_id(params[:id])
     end
-    #@product = Product.find_by_id(params[:product_id])
-    #if current_user.id == @comment.user_id  #not sure if this goes here
-      #@product = Product.find(params[:product_id])
-      #@comment = Comment.find(params[:id])
     @comment.destroy
     respond_to do |format|
-      #replace text with [Deleted]#
+      format.json { render json: { destroyed: "Comentario eliminado correctamente" } }
+      # format.json { head :no_content }
       format.html { redirect_to denounced_comments_path, notice: 'Comment was successfully destroyed.' } #debería ser /producto#comentarios??
-      format.json { head :no_content }
     end
-    #end
-    #end of fabo edit
   end
 
   private

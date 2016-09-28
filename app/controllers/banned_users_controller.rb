@@ -74,10 +74,10 @@ class BannedUsersController < ApplicationController
 	# DELETE /banned_users/1
 	# DELETE /banned_users/1.json
 	def destroy
-		@banned_user = BannedUser.find_by_email(params[:banned_user][:email])
+		@banned_user = BannedUser.find_by_id(params[:id])
 		if @banned_user == nil
 			respond_to do |format|
-				format.json { render json: {error: "El usuario '#{params[:banned_user][:email]}' no estaba baneado"}, status: 404 }
+				format.json { render json: {error: "El usuario no estaba baneado"}, status: 404 }
 				format.html { redirect_to "/banned_users" }
 			end
 		else

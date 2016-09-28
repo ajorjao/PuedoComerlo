@@ -9,18 +9,34 @@ class Product < ActiveRecord::Base
 	has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/productimage/:style/producto_default.png"
 	validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
-
-	validate :unliked_undenounced, on: :create
+	validate :add_intolerances, on: :create
 	validate :is_critical, on: :update
+
+	before_destroy :delnotify
 
 	def image_from_url(url)
 		self.image = open(url, :allow_redirections => :safe)
 	end
 
+
 	private
-		def unliked_undenounced
+		def add_intolerances
+			if self.ingredients == nil
+				raise ActiveRecord::Rollback, "El producto debe ser distinto de nil"
+			end
 			self.likes = 0
 			self.denounced = 0
+			Intolerance.all.each do |intolerancia|
+				#se recorre cada key compoent desde las intolerancias
+				intolerancia.key_components.each do |component|
+					#si posee un key_component en los ingredientes, se agrega la intolerancia al producto
+					self.ingredients.split(" ").each do |palabra_ingrediente|
+						if palabra_ingrediente.downcase.similar(component.downcase) > 80
+							self.intolerances << intolerancia if !self.intolerances.include?(intolerancia)
+						end
+					end
+				end
+			end
 		end
 
 		def is_critical
@@ -33,5 +49,10 @@ class Product < ActiveRecord::Base
 					notificacion.save
 				end
 			end
+		end
+
+		def delnotify
+			notificacion = Notification.find_by(from_id: self.id)
+			notificacion.delete if notificacion
 		end
 end

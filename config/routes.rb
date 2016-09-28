@@ -50,7 +50,6 @@ Rails.application.routes.draw do
   get 'products/:id' => 'products#show'
   put 'products/:id/editar' => 'products#update'
   get 'products/:id/edit' => 'products#edit', as: 'edit_product'
-  delete 'products/:id' => 'products#destroy'
   put 'products' => 'products#search'
   post 'products/intolerance' => 'products#add_intolerance'
   delete 'products/intolerance' => 'products#del_intolerance'

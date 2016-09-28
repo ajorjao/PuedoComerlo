@@ -17,8 +17,15 @@
 	<h4>
 	  <strong>Intolerancias:</strong>
 	</h4>
-	<% @product.intolerances.each do |intolerancia| %>
-	  <%= intolerancia.name %>, 
+	<% if @product.intolerances != [] %>
+		<ul>
+		<% @product.intolerances.each do |intolerancia| %>
+			<li> <%= intolerancia.name %> </li>
+		<% end %>
+
+		</ul>
+	<% else %>
+		<i style="margin-left: 10px;">Este producto no posee intolerancias registradas</i>
 	<% end %>
 </p>
 

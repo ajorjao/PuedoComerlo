@@ -16,7 +16,16 @@ class ApplicationController < ActionController::Base
       if current_user==nil
         respond_to do |format|
           format.json { render json: {error: 'No estas logeado'}, status: 401 }
-          format.html { redirect_to root_path }
+          format.html { redirect_to root_path, notice: 'No estas logeado' }
+        end
+      end
+    end
+    
+    def ask_admin
+      if current_user.admin != true
+        respond_to do |format|
+          format.json { render json: {error: 'Permisos insuficientes'} }
+          format.html { redirect_to root_path, notice: 'Permisos insuficientes' }
         end
       end
     end

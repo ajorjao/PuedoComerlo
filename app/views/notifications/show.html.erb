@@ -1,6 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<p>
+<!-- <p>
   <strong>From type:</strong>
   <%= @notification.from_type %>
 </p>
@@ -8,12 +6,25 @@
 <p>
   <strong>From:</strong>
   <%= @notification.from_id %>
-</p>
+</p> -->
 
+<% usuario = User.find_by_id(@notification.from_id) %>
+<h4>
+	<strong>Remitente: </strong>
+</h4>
+<h5 style="padding-left: 10px;">
+	<strong>Nombre:</strong> <%= @notification.message.split(":")[0] %><br>
+	<strong>Email:</strong> <%= usuario.email %><br><br>
+</h5>
+
+<h4>
+  <strong>Mensaje:</strong><br>
+</h4>
 <p>
-  <strong>Message:</strong>
-  <%= @notification.message %>
-</p>
+	<%= @notification.message.split(":")[1] %>
+</p><br>
 
-<%= link_to 'Edit', edit_notification_path(@notification) %> |
+
+
+<%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar Mensaje') , "messages/#{@notification.id}", method: :delete, data: { confirm: "Estas seguro de borrar este mensaje?"}, class: "btn btn-xs btn-danger", style: "color:#fff"  %><br><br>
 <%= link_to raw(('<i class="fa fa-fw fa-arrow-circle-left"></i>')+' Volver'), :back, class: "btn btn-sm btn-primary", style: "color:#fff" %>

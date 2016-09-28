@@ -4,7 +4,7 @@ class Comment < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :product
 
-	before_destroy :delnot
+	before_destroy :delnotify
 
 	def prom_likes
 		self.likes - self.dislikes
@@ -23,8 +23,8 @@ class Comment < ActiveRecord::Base
 			end
 		end
 
-		def delnot
+		def delnotify
 			notificacion = Notification.find_by(from_id: self.id)
-			notificacion.delete
+			notificacion.delete if notificacion
 		end
 end

@@ -4,6 +4,7 @@ require 'similar_text'
 
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :ask_admin, only: [ :add_intolerance ]
 
   # GET /products
   # GET /products.json
@@ -39,23 +40,23 @@ class ProductsController < ApplicationController
 
   # POST /product/intolerance    //con parametros= {product_id: ###, intolerance_id: ###}
   def add_intolerance
-    if current_user == nil
-      render json: {error: 'No estas logeado'}, status: 401
-    elsif current_user.admin == true
-      producto = Product.find_by_id(params[:product_id])
-      intolerancia = Intolerance.find_by_id(params[:intolerance_id])
+    producto = Product.find_by_id(params[:product_id])
+    intolerancia = Intolerance.find_by_id(params[:intolerance_id])
+    respond_to do |format|
       if producto == nil
-        render json: {error: "No existe el producto en nuestra base de datos"}, status: 404
+        format.json { render json: {error: "No existe el producto en nuestra base de datos"}, status: 404 }
+        format.html { redirect_to "products/page/1", notice: "No existe el producto en nuestra base de datos" }
       elsif intolerancia == nil
-        render json: {error: "No existe la intolerancia en nuestra base de datos"}, status: 404
+        format.json { render json: {error: "No existe la intolerancia en nuestra base de datos"}, status: 404 }
+        format.html { redirect_to "products/page/1", notice: "No existe la intolerancia en nuestra base de datos" }
       elsif producto.intolerances.include?(intolerancia)
-          render json: {error: 'Ya posees las intolerancias seleccionadas'}, status: 400
+        format.json { render json: {error: 'El producto ya posee la intolerancia seleccionada'}, status: 400 }
+        format.html { redirect_to :back, notice: "El producto ya posee la intolerancia seleccionada" }
       else
         producto.intolerances << intolerancia
-        render json: {product: producto, intolerances: producto.intolerances}
+        format.json { render json: {product: producto, intolerances: producto.intolerances} }
+        format.html { redirect_to :back, notice: "Intolerancia agregada correctamente" }
       end
-    else
-      render json: {error: 'No posees permisos para agregar una intolerancia a esta persona'}, status: 401
     end
   end
 
@@ -92,7 +93,7 @@ class ProductsController < ApplicationController
         if producto.intolerances.include?(intolerancia)
           producto.intolerances.delete(params[:intolerance_id])
         end
-        redirect_to "/products/#{producto.id.to_s}/edit"
+        redirect_to "/products/#{producto.id}/edit", notice: "Intolerancia eliminada correctamente"
       }
     end
   end
@@ -104,9 +105,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product==nil
         format.json { render json: {error: "El producto no se encuentra disponible en nuestra base de datos"}, status: :not_found }
-        format.html {
-          redirect_to root_path, notice: "El producto no se encuentra disponible en nuestra base de datos"
-        }
+        format.html { redirect_to root_path, notice: "El producto no se encuentra disponible en nuestra base de datos" }
       else
         # @comments = Comment.where("product_id::text LIKE ?::text", "%#{params[:id]}%") if params[:id]!=nil
         @comments = @product.comments

@@ -11,8 +11,18 @@ class User < ActiveRecord::Base
 
   has_many :families, dependent: :destroy
   has_many :comments, dependent: :destroy
+
+  before_destroy :delnotify
   
   def avatar_from_url(url)
     self.avatar = open(url, :allow_redirections => :safe)
   end
+
+  private
+    def delnotify
+      notificaciones = Notification.where(from_id: self.id)
+      notificaciones.each do |notificacion|
+        notificacion.destroy
+      end
+    end
 end

@@ -4,17 +4,20 @@
   <thead>
     <tr>
       <th>Remitente</th>
+      <th>Nombre</th>
       <th>Contenido</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @message.each do |kek| %>
       <tr>
+      <% usuario = User.find_by_id(kek.from_id) %>
+      <td><%= usuario.email %></td>
       <td><%= kek.message.split(":")[0] %></td>
       <td><%= kek.message.split(":")[1] %></td>
-        <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar') , "messages/#{kek.id}", method: :delete, data: { confirm: "Estas seguro de borrar este mensaje?"}, class: "btn btn-xs btn-danger", style: "color:#fff"  %></td>
+      <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar') , "messages/#{kek.id}", method: :delete, data: { confirm: "Estas seguro de borrar este mensaje?"}, class: "btn btn-xs btn-danger", style: "color:#fff"  %></td>
       </tr>
     <% end %>
   </tbody>

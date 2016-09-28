@@ -1,5 +1,6 @@
 class BannedUsersController < ApplicationController
 	before_action :set_banned_user, only: [:show, :edit, :update]
+	before_action :ask_admin
 
 	# GET /banned_users
 	# GET /banned_users.json
@@ -28,28 +29,31 @@ class BannedUsersController < ApplicationController
 	# POST /banned_users
 	# POST /banned_users.json
 	def create
-		if current_user.admin == true
-			if BannedUser.find_by_email(params[:banned_user][:email])!=nil
-				render json: {error: "El usuario #{params[:banned_user][:email]} ya estaba baneado"}
-			else
-				begin
-					@banned_user = BannedUser.new(banned_user_params)
-					user = User.find_by_email(@banned_user.email)
- 					user.destroy if user
-					@banned_user.save
-					respond_to do |format|
-						format.json { render json: @banned_user, status: :created }
-						format.html { redirect_to "/banned_users", notice: 'Email baneado correctamente.' }
-					end
-				rescue Exception => e
-					respond_to do |format|
-						format.json { render json: {error: "No se pudo banear el email, #{e}"}, status: :created }
-						format.html { redirect_to "/banned_users", notice: "No se pudo banear el email, #{e}" }
-					end
-				end
+		if BannedUser.find_by_email(params[:banned_user][:email])!=nil
+			respond_to do |format|
+				format.json { render json: {error: "El usuario #{params[:banned_user][:email]} ya estaba baneado"} }
+				format.html { redirect_to "/banned_users", notice: "El usuario #{params[:banned_user][:email]} ya estaba baneado" }
 			end
 		else
-			render json: {error: "No posees los permisos para banear un usuario"}
+			begin
+				@banned_user = BannedUser.new(banned_user_params)
+				user = User.find_by_email(params[:banned_user][:email])
+				if user != nil
+					if user.admin != true
+						user.destroy
+					end
+				end
+				@banned_user.save
+				respond_to do |format|
+					format.json { render json: @banned_user, status: :created }
+					format.html { redirect_to "/banned_users", notice: 'Email baneado correctamente' }
+				end
+			rescue Exception => e
+				respond_to do |format|
+					format.json { render json: {error: "No se pudo banear el email, #{e}"}, status: 400 }
+					format.html { redirect_to "/banned_users", notice: "No se pudo banear el email, #{e}" }
+				end
+			end
 		end
 	end
 
@@ -70,22 +74,18 @@ class BannedUsersController < ApplicationController
 	# DELETE /banned_users/1
 	# DELETE /banned_users/1.json
 	def destroy
-		if current_user.admin == true
-			@banned_user = BannedUser.find_by_email(params[:banned_user][:email])
-			if @banned_user == nil
-				respond_to do |format|
-					format.json { render json: {error: "El usuario '#{params[:banned_user][:email]}' no estaba baneado"}, status: 404 }
-					format.html { redirect_to "/banned_users" }
-				end
-			else
-				@banned_user.destroy
-				respond_to do |format|
-					format.json { render json: {destroyed: "Email '#{@banned_user.email}' desbaneado correctamente"} }
-					format.html { redirect_to "/banned_users", notice: "Email '#{@banned_user.email}' desbaneado correctamente" }
-				end
+		@banned_user = BannedUser.find_by_email(params[:banned_user][:email])
+		if @banned_user == nil
+			respond_to do |format|
+				format.json { render json: {error: "El usuario '#{params[:banned_user][:email]}' no estaba baneado"}, status: 404 }
+				format.html { redirect_to "/banned_users" }
 			end
 		else
-			render json: {error: "No posees los permisos para banear un usuario"}
+			@banned_user.destroy
+			respond_to do |format|
+				format.json { render json: {destroyed: "Email '#{@banned_user.email}' desbaneado correctamente"} }
+				format.html { redirect_to "/banned_users", notice: "Email '#{@banned_user.email}' desbaneado correctamente" }
+			end
 		end
 	end
 

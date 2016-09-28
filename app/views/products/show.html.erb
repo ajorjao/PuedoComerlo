@@ -36,4 +36,4 @@
 <%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar'), "/products/#{@product.id}", method: :delete, data: { confirm: '¿Estas seguro que desaeas eliminar este producto?' }, class: "btn btn-xs btn-danger", style: "color:#fff" %>
 
 <br><br>
-<%= link_to raw(('<i class="fa fa-fw fa-arrow-circle-left"></i>')+' Volver'), :back, class: "btn btn-sm btn-primary", style: "color:#fff" %>
+<%= link_to raw(('<i class="fa fa-fw fa-arrow-circle-left"></i>')+' Volver'), '/products/page/1' , class: "btn btn-sm btn-primary", style: "color:#fff" %>

@@ -13,18 +13,24 @@ class Comment < ActiveRecord::Base
 	private
 		def is_critical
 			if self.prom_likes<-14
-				notificacion = Notification.find_by(from_type: 0, from_id: self.id)
-				if notificacion==nil
+				notification = Notification.find_by(from_type: 0, from_id: self.id)
+				if notification==nil
 					Notification.create(from_type: 0, from_id: self.id)
 				else
-					notificacion.readed = false
-					notificacion.save
+					notification.readed = false
+					notification.save
+				end
+			elsif self.prom_likes >= -14
+				notification = Notification.find_by(from_type: 0, from_id: self.id)
+				ap notification
+				if notification != nil
+					notification.destroy 
 				end
 			end
 		end
 
 		def delnotify
-			notificacion = Notification.find_by(from_id: self.id)
-			notificacion.delete if notificacion
+			notification = Notification.find_by(from_id: self.id)
+			notification.delete if notification
 		end
 end

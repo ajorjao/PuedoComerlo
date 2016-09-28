@@ -26,5 +26,5 @@
 
 
 
-<%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar Mensaje') , "messages/#{@notification.id}", method: :delete, data: { confirm: "Estas seguro de borrar este mensaje?"}, class: "btn btn-xs btn-danger", style: "color:#fff"  %><br><br>
+<%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar Mensaje') , "/notifications/#{@notification.id}", method: :delete, data: { confirm: "Estas seguro de borrar este mensaje?"}, class: "btn btn-xs btn-danger", style: "color:#fff"  %><br><br>
 <%= link_to raw(('<i class="fa fa-fw fa-arrow-circle-left"></i>')+' Volver'), :back, class: "btn btn-sm btn-primary", style: "color:#fff" %>

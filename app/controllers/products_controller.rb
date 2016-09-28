@@ -359,6 +359,8 @@ class ProductsController < ApplicationController
     @product = Product.find_by(id: params[:product][:id])
     respond_to do |format|
       if @product.update(name: params[:product][:name], id: params[:product][:id], ingredients: params[:product][:ingredients], denounced: params[:product][:denounced])
+        @product.image_from_url(params[:url]) if !params[:url].blank?
+        @product.save
         format.json { render json: {updated: @product}, status: :ok, location: @product }
         format.html { redirect_to "/products/"+params[:id].to_s, notice: 'Producto modificado correctamente' }
       else

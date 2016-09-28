@@ -20,6 +20,12 @@
     </div>
   </div>
   <div class="form-group">
+    <%= label_tag "","Link de la Imagen:", class: "control-label col-sm-2" %>
+    <div class="col-sm-10">
+      <%= text_field_tag :url, "", class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
     <%= label_tag "","Denuncias", class: "control-label col-sm-2" %>
     <div class="col-sm-10">
       <%= f.text_field :denounced, class: "form-control" %>
@@ -31,37 +37,40 @@
 
 
 <h2>Editar Intolerancias</h2>
-<table class="table" style="width: auto;">
-  <thead>
-    <tr>
-      <th>Intolerancias</th>
-      <th></th>
-    </tr>
-  </thead>
-  <% if @product.intolerances != [] %>
-  	<% @product.intolerances.each do |intolerancia| %>
-  	  <tr>
-  		  <td><%= intolerancia.name %></td>
-        <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar'), "/products/intolerance?product_id=#{@product.id}&intolerance_id=#{intolerancia.id}", method: :delete, data: { confirm: '¿Estas seguro de desligar esta intolrancia del producto?' }, class: "btn btn-xs btn-danger", style: "color:#fff" %></td>
-  		</tr>
+<div style="text-align: center;">
+  <table class="table" style="width: auto;" align="left">
+    <thead>
+      <tr>
+        <th>Intolerancias</th>
+        <th></th>
+      </tr>
+    </thead>
+    <% if @product.intolerances != [] %>
+    	<% @product.intolerances.each do |intolerancia| %>
+    	  <tr>
+    		  <td><%= intolerancia.name %></td>
+          <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar'), "/products/intolerance?product_id=#{@product.id}&intolerance_id=#{intolerancia.id}", method: :delete, data: { confirm: '¿Estas seguro de desligar esta intolrancia del producto?' }, class: "btn btn-xs btn-danger", style: "color:#fff" %></td>
+    		</tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td><i style="margin-left: 20px;">Este producto no posee intolerancias registradas</i></td>
+      </tr>
     <% end %>
-  <% else %>
     <tr>
-      <td><i style="margin-left: 20px;">Este producto no posee intolerancias registradas</i></td>
+      <td>
+        <button data-toggle="modal" class="btn btn-default btn-sm" data-target="#intolerancia-modal" type="button">
+          <i class="fa fa-fw fa-plus-circle"></i> Agregar una intolerancia
+        </button>
+      </td>
     </tr>
-  <% end %>
-  <tr>
-    <td>
-      <button data-toggle="modal" class="btn btn-default btn-sm" data-target="#intolerancia-modal" type="button">
-        <i class="fa fa-fw fa-plus-circle"></i> Agregar una intolerancia
-      </button>
-    </td>
-  </tr>
-</table>
+  </table>
+</div>
 
-<%= link_to raw(('<i class="fa fa-fw fa-arrow-circle-left"></i>')+' Volver'), "/products/#{@product.id}", class: "btn btn-sm btn-primary", style: "color:#fff" %>
-
-
+<div class="col-xs-12">
+  <%= link_to raw(('<i class="fa fa-fw fa-arrow-circle-left"></i>')+' Volver'), "/products/#{@product.id}", class: "btn btn-sm btn-primary", style: "color:#fff" %>
+   <br>&nbsp;
+</div>
 
   <!-- Modal Nueva Intolerancia-->
   <div class="modal fade" id="intolerancia-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

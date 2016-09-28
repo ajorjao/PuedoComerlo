@@ -23,7 +23,7 @@
   <tbody>
     <% @notifications.each do |notification| %>
       <tr>
-    		<td><%= notification.created_at %></td>
+    		<td><%= notification.created_at.in_time_zone("America/Santiago") %></td>
         <% if notification.from_type == "comment"%>
           <td>Commentario denunciado</td>
           <% comentario = Comment.find_by_id(notification.from_id) %>

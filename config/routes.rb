@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   get 'banned_users' => 'banned_users#index'
   get 'banned_users/new' => 'banned_users#new', as: 'new_banned_user'
   post 'banned_users' => 'banned_users#create'
-  delete 'banned_users' => 'banned_users#destroy'
+  delete 'banned_users/:id' => 'banned_users#destroy'
 
   resources :families
   get 'families/page/:page' => 'families#index'

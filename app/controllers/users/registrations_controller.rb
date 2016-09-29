@@ -38,7 +38,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           expire_data_after_sign_in!
           #respond_with resource, location: after_inactive_sign_up_path_for(resource)
           respond_to do |format|
-            format.json { render json: {error: 'tiempo de registro expirado'}, status: 408 }
+            format.json { render json: {error: 'Tiempo de registro expirado'}, status: 408 }
             format.html { respond_with resource, location: after_inactive_sign_up_path_for(resource) }
           end
         end
@@ -48,12 +48,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
         #respond_with resource
         @error = ''
         if /.+@.+\..+/.match(params['user']['email']) == nil
-          @error = 'email incorrecto'
+          @error = 'Email incorrecto.'
         else
           if User.find_by_email(params['user']['email']) != nil
-            @error = 'email existente'
+            @error = 'Email existente.'
           else
-            @error = 'passwords incorrectos'
+            @error = 'Passwords incorrectos.'
           end
         end
         respond_to do |format|
@@ -78,7 +78,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def user_edit
     if current_user == nil
-      render json: {error: 'No estas logeado'}, status: 401
+      render json: {error: 'No estas logeado.'}, status: 401
     else
       if current_user.update(account_update_params)
         current_user.avatar_file_name = URI.join(request.url, current_user.avatar.url).path
@@ -109,8 +109,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
     else
       respond_to do |format|
-        format.json { render json: {error: 'Permisos insuficientes'} }
-        format.html { redirect_to root_path, notice: 'Permisos insuficientes' }
+        format.json { render json: {error: 'Permisos insuficientes.'} }
+        format.html { redirect_to root_path, notice: 'Permisos insuficientes.' }
       end
     end
   end
@@ -128,14 +128,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if current_user.id == params[:id].to_i or current_user.admin == true
       @user = User.where(id: params[:id])
       if @user == []
-        render json: {error: 'Usuario inexistente'}, status: 404
+        render json: {error: 'Usuario inexistente.'}, status: 404
       elsif User.delete(params[:id])
-        render json: {success: 'Eliminacion exitosa'}
+        render json: {success: 'Eliminacion exitosa.'}
       else
-        render json: {error: 'Problema de eliminacion'}, status: 401
+        render json: {error: 'Problema de eliminación.'}, status: 401
       end
     else
-      render json: {error: 'No posees los permisos para eliminar este usuario'}, status: 403
+      render json: {error: 'No posees los permisos para eliminar este usuario.'}, status: 403
     end
   end
 

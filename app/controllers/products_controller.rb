@@ -129,7 +129,8 @@ class ProductsController < ApplicationController
 
   def denounced_products
     if current_user.admin == true
-      @products = Product.where("denounced > ?", 0)
+      @products = Product.where("denounced > ?", 0).order(denounced: :desc)
+      # @notificacions = Notificacion.where(from_id: 1)
     else
       redirect_to root_path
     end

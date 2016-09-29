@@ -125,8 +125,7 @@ comentarioOK = Comment.create(title: "Me gusta", description: "buen producto, me
 comentarioNO = Comment.create(title: "Lo odio", description: "Mal, mal, mal, todo mal, no me gusta ese sabor! esto esta super mal, si no me gusta a mi a nadie le tiene que gustar!! >.<", likes: 1, dislikes: 16, user_id: usuarioComun.id, product_id: triton.id)
 
 
-# ap Notification.create(from_type: "comment", from_id: 1)
-Notification.create(from_type: "comment", from_id: comentarioNO.id)
-Notification.create(from_type: "comment", from_id: comentarioOK.id)
-Notification.create(from_type: "product", from_id: triton.id)
-Notification.create(from_type: "contact", from_id: usuarioComun.id, message: "NoSoyJorge:Hola! quisiera saber cuando sera el lanzamiento de esta hermosa aplicacion")
+# Notification.create(from_type: "comment", from_id: comentarioNO.id)
+# Notification.create(from_type: "comment", from_id: comentarioOK.id)
+# Notification.create(from_type: "product", from_id: triton.id)
+# Notification.create(from_type: "contact", from_id: usuarioComun.id, message: "NoSoyJorge:Hola! quisiera saber cuando sera el lanzamiento de esta hermosa aplicacion")

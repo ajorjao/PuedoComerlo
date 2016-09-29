@@ -4,7 +4,9 @@
   <thead>
     <tr>
       <th>Nombre</th>
-      <th colspan="3"></th>
+      <th>Likes</th>
+      <th>Denuncias</th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -12,6 +14,8 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= product.name %></td>
+        <td><%= product.likes %></td>
+        <td><%= product.denounced %></td>
         <td><%= button_to 'Ver', "products/#{product.id.to_s}", method: :get %></td>
         <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar') , "product/#{product.id.to_s}", method: :delete, data: { confirm: "Estas seguro de borrar #{product.name}?"}, class: "btn btn-xs btn-danger", style: "color:#fff"  %></td>
       </tr>

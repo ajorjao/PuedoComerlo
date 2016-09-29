@@ -48,12 +48,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
         #respond_with resource
         @error = ''
         if /.+@.+\..+/.match(params['user']['email']) == nil
-          @error = 'email incorrecto'
+          @error = 'El formato del email es incorrecto'
         else
           if User.find_by_email(params['user']['email']) != nil
-            @error = 'email existente'
+            @error = 'El email ya existe en nuestros registros'
           else
-            @error = 'passwords incorrectos'
+            @error = 'El password debe poseer mas de 8 caracteres'
           end
         end
         respond_to do |format|

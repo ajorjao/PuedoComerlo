@@ -37,7 +37,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.3)
-    autoprefixer-rails (6.5.0)
+    autoprefixer-rails (6.5.0.1)
       execjs
     awesome_print (1.7.0)
     bcrypt (3.1.11)
@@ -200,7 +200,7 @@ GEM
     turbolinks-source (5.0.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2016.6)
+    tzinfo-data (1.2016.7)
       tzinfo (>= 1.0.0)
     uglifier (3.0.2)
       execjs (>= 0.3.0, < 3)

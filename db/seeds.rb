@@ -16,7 +16,7 @@ apio = Intolerance.create(name: "Apio", minor_symptom: "", medium_symptom: "Vóm
 
 mostaza = Intolerance.create(name: "Mostaza", minor_symptom: "", medium_symptom: "Urticaria, Eccema, Asma bronquial, Dolor gástrico, Shock anafiláctico", major_symptom: "", key_components: ["mostaza","mustard"])
 
-huevo = Intolerance.create(name: "Huevo", minor_symptom: "", medium_symptom: "Reacciones cutáneas, Síntomas gastrointestinales agudos y respiratorios, Reacción generalizada de anafilaxia (Junto con hipotensión, colapso vascular y disrritmias cardiacas)", major_symptom: "", key_components: ["egg","huevo", "lecitina", "lisozima", "albúmina", "coagulante", "emulsificante", "gloubina", "livetina", "ovoalbúmina", "ovomucina", "ovomucoide", "otransferrina", "ovovitelina", "vitelina", "e-16b,luteína", "pigmento amarillo"])
+huevo = Intolerance.create(name: "Huevo", minor_symptom: "", medium_symptom: "Reacciones cutáneas, Síntomas gastrointestinales agudos y respiratorios, Reacción generalizada de anafilaxia (Junto con hipotensión, colapso vascular y disrritmias cardiacas)", major_symptom: "", key_components: ["egg","huevo", "lisozima", "albúmina", "coagulante", "emulsificante", "gloubina", "livetina", "ovoalbúmina", "ovomucina", "ovomucoide", "otransferrina", "ovovitelina", "vitelina", "e-16b,luteína", "pigmento amarillo"])
 
 sesamo = Intolerance.create(name: "Sesamo", minor_symptom: "", medium_symptom: "Dermatitis de contacto, Urticaria, Rinitis alérgica, Asma, Dermatitis atópica, Anafilaxia", major_symptom: "", key_components: ["sésamo","ajonjolí","sesame"])
 
@@ -121,8 +121,8 @@ listaProductos.each do |producto|
 	end
 end
 
-comentarioOK = Comment.create(title: "Me gusta", description: "buen producto, me ha servido mucho", likes: 16, dislikes: 1, user_id: usuarioComun.id, product_id: triton.id)
-comentarioNO = Comment.create(title: "Lo odio", description: "tu mal, yo mal... Mal, mal, mal, todo mal", likes: 1, dislikes: 16, user_id: usuarioComun.id, product_id: triton.id)
+comentarioOK = Comment.create(title: "Me gusta", description: "buen producto, me ha servido mucho y nunca me ha echo mal", likes: 16, dislikes: 1, user_id: usuarioComun.id, product_id: triton.id)
+comentarioNO = Comment.create(title: "Lo odio", description: "Mal, mal, mal, todo mal, no me gusta ese sabor! esto esta super mal, si no me gusta a mi a nadie le tiene que gustar!! >.<", likes: 1, dislikes: 16, user_id: usuarioComun.id, product_id: triton.id)
 
 
 # ap Notification.create(from_type: "comment", from_id: 1)

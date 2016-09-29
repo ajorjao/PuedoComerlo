@@ -89,6 +89,7 @@ class FamiliesController < ApplicationController
     @family = Family.new(family_params)
     if current_user.families.count == 0
       current_user.username = @family.name
+      current_user.save
     end
 
     respond_to do |format|

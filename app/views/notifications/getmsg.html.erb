@@ -11,13 +11,18 @@
   </thead>
 
   <tbody>
-    <% @message.each do |kek| %>
+    <% @message.each do |msg| %>
       <tr>
-      <% usuario = User.find_by_id(kek.from_id) %>
+      <% usuario = User.find_by_id(msg.from_id) %>
       <td><%= usuario.email %></td>
-      <td><%= kek.message.split(":")[0] %></td>
-      <td><%= kek.message.split(":")[1] %></td>
-      <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar') , "messages/#{kek.id}", method: :delete, data: { confirm: "Estas seguro de borrar este mensaje?"}, class: "btn btn-xs btn-danger", style: "color:#fff"  %></td>
+      <td><%= msg.message.split(":")[0] %></td>
+      <td><%= msg.message.split(":")[1] %></td>
+      <% if msg.readed %>
+        <td style="text-align: center;"><span class="label label-success"><i class="fa fa-fw fa-check"></i></span></td>
+      <% else%>
+        <td style="text-align: center;"><span class="label label-danger"><i class="fa fa-fw fa-times"></i></span></td>
+      <% end %>
+      <td><%= button_to 'Ver', msg , method: :get %></td>
       </tr>
     <% end %>
   </tbody>

@@ -40,22 +40,22 @@ class ProductsController < ApplicationController
 
   # POST /product/intolerance    //con parametros= {product_id: ###, intolerance_id: ###}
   def add_intolerance
-    producto = Product.find_by_id(params[:product_id])
-    intolerancia = Intolerance.find_by_id(params[:intolerance_id])
+    @product = Product.find_by_id(params[:product_id])
+    @intolerance = Intolerance.find_by_id(params[:intolerance_id])
     respond_to do |format|
-      if producto == nil
+      if @product == nil
         format.json { render json: {error: "No existe el producto en nuestra base de datos"}, status: 404 }
         format.html { redirect_to "products/page/1", notice: "No existe el producto en nuestra base de datos" }
-      elsif intolerancia == nil
+      elsif @intolerance == nil
         format.json { render json: {error: "No existe la intolerancia en nuestra base de datos"}, status: 404 }
         format.html { redirect_to "products/page/1", notice: "No existe la intolerancia en nuestra base de datos" }
-      elsif producto.intolerances.include?(intolerancia)
+      elsif @product.intolerances.include?(@intolerance)
         format.json { render json: {error: 'El producto ya posee la intolerancia seleccionada'}, status: 400 }
         format.html { redirect_to :back, notice: "El producto ya posee la intolerancia seleccionada" }
       else
-        producto.intolerances << intolerancia
+        @product.intolerances << @intolerance
         format.json { render json: {product: producto, intolerances: producto.intolerances} }
-        format.html { redirect_to :back, notice: "Intolerancia agregada correctamente" }
+        format.html { redirect_to "products/page/1", notice: "Intolerancia agregada correctamente" }
       end
     end
   end
@@ -67,18 +67,18 @@ class ProductsController < ApplicationController
         if current_user == nil
           render json: {error: 'No estas logeado'}, status: 401
         elsif current_user.admin == true
-          producto = Product.find_by_id(params[:product_id])
-          if producto == nil
+          @product = Product.find_by_id(params[:product_id])
+          if @product == nil
             render json: {error: "No existe el producto en nuestra base de datos"}, status: 404
           # elsif intolerancia == nil
           #   render json: {error: "No existe la intolerancia en nuestra base de datos"}, status: 404
           else
             #si se posee la intlerancia que se quiere borrar
-            intolerancia = Intolerance.find_by_id(params[:intolerance_id])
-            if producto.intolerances.include?(intolerancia)
+            @intolerance = Intolerance.find_by_id(params[:intolerance_id])
+            if @product.intolerances.include?(@intolerance)
               # intolerancia = producto.intolerances.find_by_id(params[:intolerance_id])
-              producto.intolerances.delete(params[:intolerance_id])
-              render json: {success: "Intolerancia '#{intolerancia.name}' eliminada del producto #{producto.name}"}
+              @product.intolerances.delete(params[:intolerance_id])
+              render json: {success: "Intolerancia '#{@intolerance.name}' eliminada del producto #{@product.name}"}
             else
               render json: {error: 'No posees esa intolerancia'}, status: 404
             end
@@ -88,12 +88,12 @@ class ProductsController < ApplicationController
         end
       }
       format.html{
-        producto = Product.find_by_id(params[:product_id])
-        intolerancia = Intolerance.find_by_id(params[:intolerance_id])
-        if producto.intolerances.include?(intolerancia)
-          producto.intolerances.delete(params[:intolerance_id])
+        @product = Product.find_by_id(params[:product_id])
+        @intolerance = Intolerance.find_by_id(params[:intolerance_id])
+        if @product.intolerances.include?(@intolerance)
+          @product.intolerances.delete(params[:intolerance_id])
         end
-        redirect_to "/products/#{producto.id}/edit", notice: "Intolerancia eliminada correctamente"
+        redirect_to "/products/#{@product.id}/edit", notice: "Intolerancia eliminada correctamente"
       }
     end
   end

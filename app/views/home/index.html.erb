@@ -45,7 +45,7 @@
         <% end %>
 
         <% if notification.from_type == "comment"%>
-          <td><%= button_to 'Ver', "/comments/#{comentario.id}", method: :get %></td>
+          <td><%= button_to 'Ver', "/denounced_comments", method: :get %></td>
         <% elsif notification.from_type == "product"%>
           <td><%= button_to 'Ver', "/products/#{producto.id}", method: :get %></td>
         <% elsif notification.from_type == "contact"%>

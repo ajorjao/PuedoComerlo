@@ -298,7 +298,7 @@ ul.banner-social-buttons {
 	}
 }
 footer {
-	padding: 50px 0;
+	padding: 10px 0;
 }
 footer p {
 	margin: 0;
@@ -322,3 +322,5 @@ img::-moz-selection {
 body {
 	webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
 }
+
+

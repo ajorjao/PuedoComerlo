@@ -122,7 +122,7 @@ listaProductos.each do |producto|
 end
 
 comentarioOK = Comment.create(title: "Me gusta", description: "buen producto, me ha servido mucho y nunca me ha echo mal", likes: 16, dislikes: 1, user_id: usuarioComun.id, product_id: triton.id)
-comentarioNO = Comment.create(title: "Lo odio", description: "Mal, mal, mal, todo mal, no me gusta ese sabor! esto esta super mal, si no me gusta a mi a nadie le tiene que gustar!! >.<", likes: 1, dislikes: 16, user_id: usuarioComun.id, product_id: triton.id)
+comentarioNO = Comment.create(title: "Lo odio", description: "Mal, mal, mal, todo mal, no me gusta ese sabor! esto esta super mal, si no me gusta a mi a nadie le tiene que gustar!! >.<", likes: 1, dislikes: 14, user_id: usuarioComun.id, product_id: triton.id)
 
 
 # Notification.create(from_type: "comment", from_id: comentarioNO.id)

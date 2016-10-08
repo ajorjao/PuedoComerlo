@@ -66,7 +66,7 @@ body {
 .top-nav>.open>a:hover,
 .top-nav>.open>a:focus {
     color: #fff;
-    background-color: #000;
+    background-color: #01072f;
 }
 
 .top-nav>.open>.dropdown-menu {
@@ -135,7 +135,7 @@ ul.alert-dropdown {
     .side-nav li a:hover,
     .side-nav li a:focus {
         outline: none;
-        background-color: #000 !important;
+        background-color: #01072f !important;
     }
 }
 
@@ -224,4 +224,16 @@ ul.alert-dropdown {
 
 .panel-yellow > a:hover {
     color: #df8a13;
+}
+
+.navbar-nav.side-nav i{
+    font-size: 16px;
+}
+
+.nav li.active a{
+    background-color: #01072f !important;
+}
+
+.nav.navbar-nav.side-nav li a:hover{
+    background-color: #01072f !important;
 }

@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.order(from_type: "asc", readed: "asc")
+    @all_notifications = Notification.order(from_type: "asc", readed: "asc")
   end
 
   # GET /notifications/1
@@ -27,7 +27,7 @@ class NotificationsController < ApplicationController
   end
 
   def getmsg
-    ap @message
+    # ap @message
     if current_user.admin == true
       @message = Notification.where(from_type: 2)
     else
@@ -46,8 +46,9 @@ class NotificationsController < ApplicationController
 
   # POST /notifications
   # POST /notifications.json
+  # crear un mensaje de contactanos
   def create
-    @recived = {nombre: params[:nombre], email: params[:mail], mensaje: params[:mensaje] }
+    # @recived = {nombre: params[:nombre], email: params[:mail], mensaje: params[:mensaje] }
     user = User.find_by_email(params[:mail])
     if user
       @notification = Notification.new(from_type: "contact", from_id: user.id, message:"#{params[:nombre]}:#{params[:mensaje]}")

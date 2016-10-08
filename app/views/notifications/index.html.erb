@@ -17,7 +17,7 @@
   </thead>
 
   <tbody>
-    <% @notifications.each do |notification| %>
+    <% @all_notifications.each do |notification| %>
       <tr>
         <% if notification.from_type == "comment"%>
           <td>Commentario denunciado</td>
@@ -25,6 +25,10 @@
           <td><%= comentario.title %></td>
         <% elsif notification.from_type == "product"%>
           <td>Producto denunciado</td>
+          <% producto = Product.find_by_id(notification.from_id) %>
+          <td><%= producto.name %></td>
+        <% elsif notification.from_type == "suggest"%>
+          <td>Producto sugerido</td>
           <% producto = Product.find_by_id(notification.from_id) %>
           <td><%= producto.name %></td>
         <% elsif notification.from_type == "contact"%>
@@ -41,13 +45,13 @@
 
         <% if notification.from_type == "comment"%>
           <td><%= button_to 'Ver', "/comments/#{comentario.id}", method: :get %></td>
-        <% elsif notification.from_type == "product"%>
+        <% elsif notification.from_type == "product" or notification.from_type == "suggest"%>
           <td><%= button_to 'Ver', "/products/#{producto.id}", method: :get %></td>
         <% elsif notification.from_type == "contact"%>
           <td><%= button_to 'Ver', notification, method: :get %></td>
         <% end %>
         <!-- <td><%#= link_to 'Eliminar', notification, method: :delete, data: { confirm: 'Estas seguro que deseas eliminar la notificacion?' } %></td> -->
-        <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar'), notification, method: :delete, data: { confirm: '¿Estas seguro que desaeas eliminar esta notificacion?' }, class: "btn btn-xs btn-danger", style: "color:#fff" %></td>
+        <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar notificacion'), notification, method: :delete, data: { confirm: '¿Estas seguro que desaeas eliminar esta notificacion?' }, class: "btn btn-xs btn-danger", style: "color:#fff" %></td>
       </tr>
     <% end %>
   </tbody>

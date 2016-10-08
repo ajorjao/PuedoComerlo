@@ -3,13 +3,13 @@ require 'similar_text'
 # require 'rtesseract'
 
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :ask_admin, only: [ :add_intolerance, :del_intolerance, :create ]
+  before_action :set_product, only: [ :show, :edit, :update, :destroy ]
+  before_action :ask_admin, only: [ :add_intolerance, :del_intolerance, :create, :update, :destroy, :denounced_products ]
 
   # GET /products
   # GET /products.json
   def index
-    @products = Product.paginate(page: params[:page])
+    @products = Product.where.not(ingredients: nil).paginate(page: params[:page])
     respond_to do |format|
       format.json{ render json: @products }
       format.html{}
@@ -37,6 +37,49 @@ class ProductsController < ApplicationController
     end
   end
 
+  #PUT /recomended_products
+  def recomended_products
+    user_intolerances = params[:user_intolerances].split(",").map { |id| id.to_i }
+    @products = []
+    # se buca entre los productos que posean ingredientes
+    Product.where.not(ingredients: nil).order(likes: "desc").each do |producto|
+      if producto.intolerances.map{ |i| i.id } & user_intolerances == []
+        @products.push(producto)
+      end
+    end
+    respond_to do |format|
+      format.json { render json: @products }
+      format.html {  }
+    end
+  end
+
+  # POST /suggest_product
+  # se crea la ruta para sugerir un producto a un administrador
+  def suggest_product
+    # hay q hacer que el usuario pueda sacar una foto
+    @suggested_product = Product.new(id: params[:barcode], name: params[:name], image: params[:image])
+    # para usar el producto sugerido se puede usar eval(@suggested_product)
+    @notification = Notification.new(from_type: "suggest", from_id: @suggested_product.id)
+    if existe = Product.find_by_id(@suggested_product.id)==nil
+      if @suggested_product.save
+        @notification.save
+        render json: {sended: @suggested_product}
+      else
+        render json: {error: "El producto no se pudo sugerir correctamente"}, status: :unprocessable_entity
+      end
+    else
+      render json: {error: "El producto ya fue sugerido anteriormente como '#{existe.name}'"}, status: :unprocessable_entity
+    end
+  end
+
+  # GET /suggested_products
+  def suggested_products
+    @suggested_products = Product.where(ingredients: nil)
+    respond_to do |format|
+      format.json { render json: @suggested_products }
+      format.html {  }
+    end
+  end
 
   # POST /product/intolerance    //con parametros= {product_id: ###, intolerance_id: ###}
   def add_intolerance
@@ -107,16 +150,16 @@ class ProductsController < ApplicationController
         format.json { render json: {error: "El producto no se encuentra disponible en nuestra base de datos"}, status: :not_found }
         format.html { redirect_to root_path, notice: "El producto no se encuentra disponible en nuestra base de datos" }
       else
-        # @comments = Comment.where("product_id::text LIKE ?::text", "%#{params[:id]}%") if params[:id]!=nil
         @comments = @product.comments
         @product.image_file_name = URI.join(request.url, @product.image.url).path
-        format.json { render json: {product: @product, intolerances: @product.intolerances, comments: @comments}, status: :ok }
-        #format.json { render json: {product: @product, intolerances: @product.intolerances}, status: :ok }        
+        if @product.ingredients.blank?
+          format.json { render json: {error: "El producto fue recientemente sugerido pero no se encuentra disponible"}, status: :not_found }
+        else
+          format.json { render json: {product: @product, intolerances: @product.intolerances, comments: @comments}, status: :ok }
+        end
         format.html {
-          notificacion = Notification.find_by(from_type: 1, from_id: @product.id)
-          if notificacion!=nil
-            notificacion.update(readed: true)
-          end
+          notificacion = Notification.find_by(from_type: [1,3], from_id: @product.id)
+          notificacion.update(readed: true) if notificacion != nil
         }
       end
     end
@@ -128,12 +171,7 @@ class ProductsController < ApplicationController
   end
 
   def denounced_products
-    if current_user.admin == true
-      @products = Product.where("denounced > ?", 0).order(denounced: :desc)
-      # @notificacions = Notificacion.where(from_id: 1)
-    else
-      redirect_to root_path
-    end
+    @denounced_products = Product.where("denounced > ?", 0).order(denounced: :desc)
   end
 
   def denounce_product
@@ -376,7 +414,7 @@ class ProductsController < ApplicationController
   def destroy
     @product.destroy
     respond_to do |format|
-      format.html { redirect_to '/denounced_products', notice: 'Producto eliminado correctamente' }
+      format.html { redirect_to '/products/page/1', notice: 'Producto eliminado correctamente' }
       format.json { head :no_content }
     end
   end

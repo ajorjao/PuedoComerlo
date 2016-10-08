@@ -56,7 +56,10 @@ Rails.application.routes.draw do
   # delete 'products/:id/intolerance' => 'products#del_intolerance'
   post 'migrate_txt_products' => 'products#migrate_new_products'
   post 'migrate_txt_intolerances' => 'products#migrate_txt_intolerances'
+  put 'recomended_products' => 'products#recomended_products'
+  get 'suggested_products' => 'products#suggested_products'
   get 'denounced_products' => 'products#denounced_products'
+  post 'suggest_product' => 'products#suggest_product'
   post 'denounce_product' => 'products#denounce_product'
   put 'update' => 'products#update'
 

@@ -1,21 +1,19 @@
-<h1>Productos denunciados</h1>
+<h1>Productos sugeridos</h1>
 
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Nombre</th>
-      <th>Likes</th>
-      <th>Denuncias</th>
+      <th>Codigo de Barras</th>
       <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @denounced_products.each do |product| %>
+    <% @suggested_products.each do |product| %>
       <tr>
         <td><%= product.name %></td>
-        <td><%= product.likes %></td>
-        <td><%= product.denounced %></td>
+        <td><%= product.id %></td>
         <td><%= button_to 'Ver', "products/#{product.id.to_s}", method: :get %></td>
         <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar') , "product/#{product.id.to_s}", method: :delete, data: { confirm: "Estas seguro de borrar #{product.name}?"}, class: "btn btn-xs btn-danger", style: "color:#fff"  %></td>
       </tr>

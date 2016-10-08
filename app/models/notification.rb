@@ -1,5 +1,5 @@
 class Notification < ActiveRecord::Base
-	enum from_type: [ :comment, :product, :contact ]
+	enum from_type: [ :comment, :product, :contact, :suggest ]
 
 	# before_save :not_readed
 	validate :not_readed, on: :create

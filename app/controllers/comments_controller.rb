@@ -61,7 +61,7 @@ class CommentsController < ApplicationController
 
   def denounced_comments
     if current_user.admin == true
-      @comments = Comment.where("(likes - dislikes) < ?", -14)
+      @denounced_comments = Comment.where("(likes - dislikes) < ?", -14)
     else
       redirect_to root_path
     end

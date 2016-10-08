@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     post 'register' => 'users/registrations#create'
+    post 'social' => 'users/registrations#social'
     get 'delete_avatar' => 'users/registrations#delete_avatar'
     get 'users/page/:page' => 'users/registrations#users'
     get 'user/:id' => 'users/registrations#user'
@@ -59,6 +60,7 @@ Rails.application.routes.draw do
   put 'recomended_products' => 'products#recomended_products'
   get 'suggested_products' => 'products#suggested_products'
   get 'denounced_products' => 'products#denounced_products'
+  put 'recommend_product/:id' => 'products#recommend_product'
   post 'suggest_product' => 'products#suggest_product'
   post 'denounce_product' => 'products#denounce_product'
   put 'update' => 'products#update'

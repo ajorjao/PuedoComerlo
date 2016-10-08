@@ -37,6 +37,17 @@ class ProductsController < ApplicationController
     end
   end
 
+  # PUT /recommend_product/:id
+  def recommend_product
+    @product = Product.find_by_id(params[:id])
+    if @product
+      @product.update(likes: @product.likes+1)
+      render json: @product
+    else
+      render json: {error: "El producto no existe"}, status: :not_found
+    end
+  end
+
   #PUT /recomended_products
   def recomended_products
     user_intolerances = params[:user_intolerances].split(",").map { |id| id.to_i }
@@ -54,7 +65,7 @@ class ProductsController < ApplicationController
   end
 
   # POST /suggest_product
-  # se crea la ruta para sugerir un producto a un administrador
+  # se crea la ruta para que un usuario sugiera un producto
   def suggest_product
     # hay q hacer que el usuario pueda sacar una foto
     @suggested_product = Product.new(id: params[:barcode], name: params[:name], image: params[:image])

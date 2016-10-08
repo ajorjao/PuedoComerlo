@@ -19,7 +19,7 @@ class FamiliesController < ApplicationController
       elsif current_user.families.include?(@family)==false
         format.json { render json: {error: 'No posees permisos para ver a esta persona'}, status: 401 }
       else
-        format.json { render json: {family: @family, intolerances: @family.intolerances}, status: :ok }
+        format.json { render json: {family: @family, intolerances: @family.intolerances} }
       end
       format.html {}
     end

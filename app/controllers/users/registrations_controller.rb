@@ -1,8 +1,10 @@
+require 'rest_client'
+
 class Users::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
   prepend_before_filter :require_no_authentication, :only => [ :get ]
-  skip_before_action :ask_loged, only: [:create]
+  skip_before_action :ask_loged, only: [ :create, :social ]
 
   # GET /resource/sign_up
   # def new
@@ -152,6 +154,55 @@ class Users::RegistrationsController < Devise::RegistrationsController
     current_user.avatar=nil
     current_user.save
     redirect_to root_path
+  end
+
+  # registro mediante redes sociales
+  def social
+    provider = params[:provider]
+    token = params[:token]
+
+    if provider == "facebook"
+      first_name = RestClient.get 'https://graph.facebook.com/me', {:params => {"fields" => "first_name", 'access_token' => token}, :accept => :json}
+      first_name = JSON.parse(first_name)["first_name"]
+      last_name = RestClient.get 'https://graph.facebook.com/me', {:params => {"fields" => "last_name", 'access_token' => token}, :accept => :json}
+      last_name = JSON.parse(last_name)["last_name"]
+      email = RestClient.get 'https://graph.facebook.com/me', {:params => {"fields" => "email", 'access_token' => token}, :accept => :json}
+      email = JSON.parse(email)["email"]
+      picture = RestClient.get 'https://graph.facebook.com/v2.6/me/picture', {:params => {"type" => "large", "redirect" => "false", 'access_token' => token }, :accept => :json}
+      picture = JSON.parse(picture)["data"]["url"]
+    else
+      data = first_name = RestClient.get 'https://www.googleapis.com/oauth2/v2/userinfo', {:params => {'access_token' => token}, :accept => :json}
+      data = JSON.parse(data)
+      first_name = data["given_name"]
+      last_name = data["family_name"]
+      # gender = data["gender"]
+      email = data["email"]
+      picture = data["picture"]
+    end
+
+    @user = User.find_by_email(email)
+    if @user == nil
+      pass = Devise.friendly_token[0,20]
+      @user = User.new(username: first_name+" "+last_name, email: email, password: pass, password_confirmation: pass)
+      @user.avatar = picture
+      @user.admin = false
+      @user.save
+    else
+      @user.avatar = picture
+      @user.save
+    end
+
+    #logger.debug "Logger: " + LoginSerializer.new(@user).as_json.to_s
+    if @user.persisted? then
+      @user.reload
+
+      sign_in :user, @user
+      @user.avatar_file_name = URI.join(request.url, @user.avatar.url).path if current_user!=nil
+      render json: {logged_as: @user}#, serializer: LoginSerializer
+    else
+      logger.debug "Error durante el login social: #{@user.errors.full_messages.to_sentence}"
+      render json: { error: @user.errors.full_messages.to_sentence }, status: :unprocessable_entity
+    end
   end
 
   # protected

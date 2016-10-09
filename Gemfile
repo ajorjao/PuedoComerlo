@@ -63,15 +63,13 @@ gem 'similar_text', '~> 0.0.4'
 gem 'rtesseract', '~> 2.0', '>= 2.0.1'
 gem 'rmagick'
 
-# #Google BigQuery
-# gem 'google-api-client', '0.8.3'
-# gem 'bigquery'
-# gem 'gcloud', '0.6.0'
 
-# # Login con facebook
-# gem "omniauth"
+# # Login con Facebook
+gem "omniauth"
 # gem "omniauth-facebook"
 
+# #Login con Google
+# gem 'google-api-client', '0.8.3'
 
 
 

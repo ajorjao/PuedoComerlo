@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get 'messages' => 'notifications#getmsg'
   delete 'messages/:id' => 'notifications#destroy'
   
-  devise_for :users, path: '', controllers: { registrations: "users/registrations", sessions: "users/sessions"}
+  devise_for :users, path: '', controllers: { registrations: "users/registrations", sessions: "users/sessions", omniauth_callbacks: 'omniauth_callbacks'}
   root 'home#index'
 
   devise_scope :user do

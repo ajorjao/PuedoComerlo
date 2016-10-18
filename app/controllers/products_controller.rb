@@ -1,6 +1,7 @@
 require 'rest_client'
 require 'similar_text'
 # require 'rtesseract'
+require 'will_paginate/array'
 
 class ProductsController < ApplicationController
   before_action :set_product, only: [ :show, :edit, :update, :destroy ]
@@ -54,12 +55,12 @@ class ProductsController < ApplicationController
     @products = []
     # se buca entre los productos que posean ingredientes
     Product.where.not(ingredients: nil).order(likes: "desc").each do |producto|
-      if producto.intolerances.map{ |i| i.id } & user_intolerances == []
+      if (producto.intolerances.map{ |i| i.id } & user_intolerances) == []
         @products.push(producto)
       end
     end
     respond_to do |format|
-      format.json { render json: @products }
+      format.json { render json: @products.paginate(page: params[:page], per_page: 5) }
       format.html {  }
     end
   end
@@ -178,10 +179,12 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
+
     @product = Product.new
   end
 
   def denounced_products
+
     @denounced_products = Product.where("denounced > ?", 0).order(denounced: :desc)
   end
 
@@ -429,6 +432,38 @@ class ProductsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  def ask_database
+    user_intolerances = params[:user_intolerances].split(",").map { |id| id.to_i }
+    n_products = 0
+    # se buca entre los productos que posean ingredientes
+    Product.where.not(ingredients: nil).each do |producto|
+      # si el producto posee alguna de las intolerancias
+      if (producto.intolerances.map{ |i| i.id } & user_intolerances) != []
+        n_products += 1
+      end
+    end
+    render json: {n_products: n_products}
+  end
+
+
+  def download_database
+    user_intolerances = params[:user_intolerances].split(",").map { |id| id.to_i }
+    @products = []
+    # se buca entre los productos que posean ingredientes
+    Product.where.not(ingredients: nil).each do |producto|
+      product_intolerances = producto.intolerances.map{ |i| i.id }
+      # si el producto posee alguna de las intolerancias
+      if (product_intolerances & user_intolerances) != []
+        hash_product = {id: producto.id, name: producto.name, ingredients: producto.ingredients, intolerances: product_intolerances}
+        @products.push(hash_product)
+      end
+    end
+    # @products.map {|product| {id: product.id, name: product.name, ingredients: product.ingredients}}
+    render json: @products
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

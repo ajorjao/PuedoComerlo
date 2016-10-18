@@ -64,6 +64,8 @@ Rails.application.routes.draw do
   post 'suggest_product' => 'products#suggest_product'
   post 'denounce_product' => 'products#denounce_product'
   put 'update' => 'products#update'
+  put 'ask_database' => 'products#ask_database'
+  put 'download_database' => 'products#download_database'
 
   
   post 'testing' => 'products#testing'

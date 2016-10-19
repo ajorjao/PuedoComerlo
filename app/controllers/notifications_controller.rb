@@ -105,7 +105,12 @@ class NotificationsController < ApplicationController
         format.json { head :no_content }
         format.html { redirect_to messages_path, notice: 'Notificacion eliminada correctamente' }
       end
-
+    elsif @notification.from_type == "suggest"
+      @notification.destroy
+      respond_to do |format|
+        format.json { head :no_content }
+        format.html {redirect_to suggested_products_path, notice: 'Notificacion eliminada correctamente'}
+      end
     else
       @notification.destroy
       respond_to do |format|

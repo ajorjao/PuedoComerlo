@@ -143,7 +143,7 @@ yogurfrutilla_calan.save
 
 
 manjarcolun = Product.new(id: 7802920777511 ,name:"Manjar Colun Pote 200g",image_file_name: nil, image_content_type: nil,image_file_size: nil,image_updated_at: nil,likes: nil,denounced: nil,ingredients:"Leche fluida natural, azúcar, glucosa, espesante (agar-agar), sorbato de potasio, bicarbonato de sodio, enzima (lactasa) y saborizante idéntico a natural.")
-manjarcolun.image_from_url("www.colun.cl/resources/upload/31ec2fed8cf48cd28b4b35ebbc42ef38.png")
+#manjarcolun.image_from_url("www.colun.cl/resources/upload/31ec2fed8cf48cd28b4b35ebbc42ef38.png")
 manjarcolun.save
 
 
@@ -228,7 +228,7 @@ andinanectar_damasco.save
 
 
 andinapinha_nectar = Product.new(id: 7802820700275 ,name:"ANDINA® Piña Nectar 1L",image_file_name: nil, image_content_type: nil,image_file_size: nil,image_updated_at: nil,likes: nil,denounced: nil,ingredients:"Agua, azúcar, pulpa de damasco, ácido cítrico, carboximetilcelulosa, saborizante idéntico natural, sorbato de potasio, ácido ascórbico, pectina, EDTA disódico cálcico, dimetilpolisiloxano.")
-andinapinha_nectar.image_from_url("http://www.cocacoladechile.cl/wp-content/uploads/sites/15/Andina-BA-300-Piña-150px1-89x250.jpg")
+#andinapinha_nectar.image_from_url("http://www.cocacoladechile.cl/wp-content/uploads/sites/15/Andina-BA-300-Piña-150px1-89x250.jpg")
 andinapinha_nectar.save
 
 

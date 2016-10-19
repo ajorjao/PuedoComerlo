@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
   end
 
   #PUT /recomended_products
-  def recomended_products
+  def recomended_products 
     user_intolerances = params[:user_intolerances].split(",").map { |id| id.to_i }
     @products = []
     # se buca entre los productos que posean ingredientes
@@ -69,18 +69,19 @@ class ProductsController < ApplicationController
   # se crea la ruta para que un usuario sugiera un producto
   def suggest_product
     # hay q hacer que el usuario pueda sacar una foto
-    @suggested_product = Product.new(id: params[:barcode], name: params[:name], image: params[:image])
+    @suggested_product = Product.new(id: params[:barcode], name: params[:name])
     # para usar el producto sugerido se puede usar eval(@suggested_product)
     @notification = Notification.new(from_type: "suggest", from_id: @suggested_product.id)
     if existe = Product.find_by_id(@suggested_product.id)==nil
       if @suggested_product.save
         @notification.save
-        render json: {sended: @suggested_product}
-      else
+        #format.html { }
+        render json: {sended: @suggested_product} #sent no sended
+      else 
         render json: {error: "El producto no se pudo sugerir correctamente"}, status: :unprocessable_entity
       end
     else
-      render json: {error: "El producto ya fue sugerido anteriormente como '#{existe.name}'"}, status: :unprocessable_entity
+      render json: {error: "El producto ya fue sugerido anteriormente como '#{existe.name}'"}, status: :unprocessable_entity  #modificar(?)
     end
   end
 

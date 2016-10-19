@@ -437,15 +437,22 @@ class ProductsController < ApplicationController
 
   def ask_database
     user_intolerances = params[:user_intolerances].split(",").map { |id| id.to_i }
-    n_products = 0
-    # se buca entre los productos que posean ingredientes
+
+    # la variable esta en KB. Se empieza con 2 por el inicio y cierre de corchetes []
+    # size_products = 2*2.0/1024
+    size_products = 2
+
     Product.where.not(ingredients: nil).each do |producto|
-      # si el producto posee alguna de las intolerancias
+      product_intolerances = producto.intolerances.map{ |i| i.id }
       if (producto.intolerances.map{ |i| i.id } & user_intolerances) != []
-        n_products += 1
+        this_product = {id: producto.id, name: producto.name, ingredients: producto.ingredients, intolerances: product_intolerances}.to_s
+        # se resta 4 porque los "algo:" se combierten en "algo=>" al usar .to_s
+        # y se suma 1 ya que con cada producto agregado se agrega una coma
+        # size_products += (this_product.length - 4 + 1)*2.0/1024
+        size_products += (this_product.length - 4 + 1)
       end
     end
-    render json: {n_products: n_products}
+    render json: {size_products: size_products}
   end
 
 

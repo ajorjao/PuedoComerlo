@@ -164,31 +164,52 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if provider == "facebook"
       first_name = RestClient.get 'https://graph.facebook.com/me', {:params => {"fields" => "first_name", 'access_token' => token}, :accept => :json}
       first_name = JSON.parse(first_name)["first_name"]
+
       last_name = RestClient.get 'https://graph.facebook.com/me', {:params => {"fields" => "last_name", 'access_token' => token}, :accept => :json}
       last_name = JSON.parse(last_name)["last_name"]
+
       email = RestClient.get 'https://graph.facebook.com/me', {:params => {"fields" => "email", 'access_token' => token}, :accept => :json}
       email = JSON.parse(email)["email"]
+
       picture = RestClient.get 'https://graph.facebook.com/v2.6/me/picture', {:params => {"type" => "large", "redirect" => "false", 'access_token' => token }, :accept => :json}
       picture = JSON.parse(picture)["data"]["url"]
     else
-      data = first_name = RestClient.get 'https://www.googleapis.com/oauth2/v2/userinfo', {:params => {'access_token' => token}, :accept => :json}
+      data = RestClient.get 'https://www.googleapis.com/oauth2/v2/userinfo', {:params => {'access_token' => token}, :accept => :json}
       data = JSON.parse(data)
+
       first_name = data["given_name"]
       last_name = data["family_name"]
-      # gender = data["gender"]
-      email = data["email"]
       picture = data["picture"]
+      email = data["email"]
     end
 
     @user = User.find_by_email(email)
     if @user == nil
       pass = Devise.friendly_token[0,20]
       @user = User.new(username: first_name+" "+last_name, email: email, password: pass, password_confirmation: pass)
-      @user.avatar = picture
+      # p ""
+      # p ""
+      # p ""
+      # p ""
+      # p picture
+      # p ""
+      # p ""
+      # p ""
+      # p ""
+      @user.avatar_from_url(picture)
       @user.admin = false
       @user.save
     else
-      @user.avatar = picture
+      # p ""
+      # p ""
+      # p ""
+      # p ""
+      # p picture
+      # p ""
+      # p ""
+      # p ""
+      # p ""
+      @user.avatar_from_url(picture)
       @user.save
     end
 

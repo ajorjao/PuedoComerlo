@@ -78,7 +78,7 @@ class ProductsController < ApplicationController
       if @suggested_product.save
         @notification.save
         #format.html { }
-        render json: {sended: @suggested_product} #sent no sended
+        render json: {sent: @suggested_product} #sent no sended
       else 
         render json: {error: "El producto no se pudo sugerir correctamente"}, status: :unprocessable_entity
       end

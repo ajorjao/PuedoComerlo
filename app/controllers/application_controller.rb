@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     def ask_admin
       if current_user.admin != true
         respond_to do |format|
-          format.json { render json: {error: 'Permisos insuficientes'} }
+          format.json { render json: {error: 'Permisos insuficientes'}, status: 401 }
           format.html { redirect_to root_path, notice: 'Permisos insuficientes' }
         end
       end

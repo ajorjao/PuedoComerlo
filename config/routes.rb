@@ -66,8 +66,8 @@ Rails.application.routes.draw do
   put 'update' => 'products#update'
   put 'ask_database' => 'products#ask_database'
   put 'download_database' => 'products#download_database'
-  post 'recommend/:id' => 'products#recommend'
-  get '/get_recommended' => 'products#get_recommended'
+  # post 'recommend/:id' => 'products#recommend'
+  get 'get_recommended' => 'products#get_recommended'
 
   post 'testing' => 'products#testing'
   get 'ping' => 'home#ping'

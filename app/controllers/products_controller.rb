@@ -96,6 +96,111 @@ class ProductsController < ApplicationController
     end
   end
 
+  #Post /recommend/[:id], products#recommend_product
+  def recommend
+    @Product = Product.find_by_id(params[:id])
+    intols = [] 
+    current_user.families.each do |fam|
+      fam.intolerances.each do |intolerance|
+        if(!(intols.include?intolerance.id))
+          intols.push(intolerance.id)
+        end
+      end
+    end
+    ap intols
+    updt = []
+    (0..13).each do |i|
+      if (intols.include?(i+1))
+        ap "i"
+        ap i
+        @kek = @Product.intlikes[i]+1
+        ap @kek
+      else
+        @kek = @Product.intlikes[i]
+      end
+      ap @kek
+      updt.push(@kek)
+    end
+    ap updt
+    respond_to do |format|
+      if @Product.update(intlikes: updt)
+        format.json { render json: {product: @Product}}
+        format.html { redirect_to product_path}
+      else
+        format.json {render json: {error: "Error"}}
+        format.html {redirect_to product_path} #borrar si molesta
+      end
+    end
+  end
+
+  #get /get_recommended
+  #devuelve los 5 más recomendados por intolerancia presente en el usuario actual.
+  #EJ: el arreglo de 0-5 tiene el top 5 de la primera intolerancia del usuario, de 6-10 la segunda intoleracia, y así. 
+  def get_recommended
+   
+    intols = [] 
+    current_user.families.each do |fam|
+      fam.intolerances.each do |intolerance|
+        if(!(intols.include?intolerance.id))
+          intols.push(intolerance.id)
+        end
+      end
+    end
+    reco = []
+    @Product = Product.all
+    intols.each do |intol|
+      aux = []  
+      @Product.each do |pro|
+        #ap @Product.intlikes[intols[i]-1]
+        #"name ILIKE ?", "%#{params[:empresa]}%"
+        #@Product = Product.all.order('intlikes['+(intols[i]-1).to_s+'] DESC')
+        #@kek = @Product.sort_by(intlikes: :desc)
+        #ap @Product
+        #ap pro.intlikes[intol-1]
+        if (!(aux.include?pro.intlikes[intol-1]))
+          aux.push(pro.intlikes[intol-1])
+        end
+        #@kek[0..4].each do |prod|
+          #reco.push(prod)
+      end
+      reco.push(aux.sort().reverse)
+    end
+    #ap reco
+
+    res = []
+    reco.each do |rec|  
+      aux2 = []
+      rec.each do |rec1|
+        aux2.push(@Product.where("intlikes @> ARRAY[?]::bigint[]" , [rec1]))
+      end
+      @max = 5
+      aux2.each do |k|
+        if k.length >= 5
+          k[0..@max-1].each do |j|
+          #ap k[0..(@max-1)]
+            res.push(j)
+          end
+        else
+          k.each do |j|
+            res.push(j)
+          end
+          @max = @max - k.length
+        end
+      end
+    end
+
+    ap res.length 
+    respond_to do |format|
+      if reco != nil
+        format.json { render json: {product: res}}
+        format.html { redirect_to product_path}
+      else
+        format.json {render json: {error: "Error"}}
+        format.html {}
+      end
+    end
+  end
+
   # POST /product/intolerance    //con parametros= {product_id: ###, intolerance_id: ###}
   def add_intolerance
     @product = Product.find_by_id(params[:product_id])

@@ -183,7 +183,7 @@ class ProductsController < ApplicationController
       recomendados.push(aux.sort().reverse)
     end
     # p 'recomendados'
-    ap recomendados
+    # ap recomendados
 
     cant_recomendaciones = (recomendados.map {|elem| elem.sum}).sum
 
@@ -198,11 +198,12 @@ class ProductsController < ApplicationController
         aux2.each do |k|
           if k.length >= 5
             k[0..@max-1].each do |j|
-            #ap k[0..(@max-1)]
+              j.image_file_name = URI.join(request.url, j.image.url).path
               res.push(j)
             end
           else
             k.each do |j|
+              j.image_file_name = URI.join(request.url, j.image.url).path
               res.push(j)
             end
             @max = @max - k.length

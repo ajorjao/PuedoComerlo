@@ -56,6 +56,8 @@ class ProductsController < ApplicationController
     # se buca entre los productos que posean ingredientes
     Product.where.not(ingredients: nil).order(likes: "desc").each do |producto|
       if (producto.intolerances.map{ |i| i.id } & user_intolerances) == []
+        producto.image_file_name = URI.join(request.url, producto.image.url).path
+
         @products.push(producto)
       end
     end

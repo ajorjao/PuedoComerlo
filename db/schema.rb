@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20160913032257) do
 
   create_table "products", id: :bigserial, force: :cascade do |t|
     t.string   "name"
+    t.integer  "intlikes",           limit: 8, default: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], array: true
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"

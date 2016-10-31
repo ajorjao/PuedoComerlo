@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
   end
 
   #PUT /recomended_products
-  def recomended_products 
+  def recomended_products
     user_intolerances = params[:user_intolerances].split(",").map { |id| id.to_i }
     @products = []
     # se buca entre los productos que posean ingredientes
@@ -62,7 +62,7 @@ class ProductsController < ApplicationController
       end
     end
     respond_to do |format|
-      format.json { render json: @products.paginate(page: params[:page], per_page: 5) }
+      format.json { render json: @products.paginate(page: params[:page], per_page: 10) }
       format.html {  }
     end
   end

@@ -79,7 +79,8 @@ class ProductsController < ApplicationController
     @suggested_product = Product.new(id: params[:barcode], name: params[:name])
     # para usar el producto sugerido se puede usar eval(@suggested_product)
     @notification = Notification.new(from_type: "suggest", from_id: @suggested_product.id)
-    if existe = Product.find_by_id(@suggested_product.id)==nil
+    existe = Product.find_by_id(@suggested_product.id)
+    if !existe
       if @suggested_product.save
         @notification.save
         #format.html { }
@@ -299,7 +300,7 @@ class ProductsController < ApplicationController
         @comments = @product.comments
         @product.image_file_name = URI.join(request.url, @product.image.url).path
         if @product.ingredients.blank?
-          format.json { render json: {error: "El producto fue recientemente sugerido pero no se encuentra disponible"}, status: :not_found }
+          format.json { render json: {error: "El producto fue recientemente sugerido como '#{@product.name}' pero aun no se encuentra disponible para ser escaneado, lamentamos las inconveniencias"}, status: :unprocessable_entity } # error 422
         else
           format.json { render json: {product: @product, intolerances: @product.intolerances, comments: @comments}, status: :ok }
         end

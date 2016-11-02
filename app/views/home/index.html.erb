@@ -49,13 +49,13 @@
         <% end %>
 
         <% if notification.from_type == "comment"%>
-          <td><%= button_to 'Ver', "/denounced_comments", method: :get %></td>
+          <td><%= button_to 'Ver', "/denounced_comments", method: :get, class: "btn btn-xs btn-default" %></td>
         <% elsif notification.from_type == "product" or notification.from_type == "suggest" %>
-          <td><%= button_to 'Ver', "/products/#{producto.id}", method: :get %></td>
+          <td><%= button_to 'Ver', "/products/#{producto.id}", method: :get, class: "btn btn-xs btn-default" %></td>
         <% elsif notification.from_type == "contact"%>
-          <td><%= button_to 'Ver', notification, method: :get %></td>
+          <td><%= button_to 'Ver', notification, method: :get, class: "btn btn-xs btn-default" %></td>
         <% end %>
-        <!-- <td><%#= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar'), notification, method: :delete, data: { confirm: '¿Estas seguro que desaeas eliminar esta notificacion?' }, class: "btn btn-xs btn-danger", style: "color:#fff" %></td> -->
+        <!-- <td><%#= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar'), notification, method: :delete, data: { confirm: '¿Estas seguro que deseas eliminar esta notificacion?' }, class: "btn btn-xs btn-danger", style: "color:#fff" %></td> -->
       </tr>
     <% end %>
   </tbody>

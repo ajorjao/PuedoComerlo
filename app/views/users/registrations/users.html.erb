@@ -24,7 +24,7 @@
         <% if user.admin %>
           <td><span class="label label-success"> Admin </span></td>
         <% else %>
-          <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar'), "/user/#{user.id}", method: :delete, data: { confirm: '¿Estas seguro que desaeas eliminar este usuario?' }, class: "btn btn-xs btn-danger", style: "color:#fff" %></td>
+          <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar'), "/user/#{user.id}", method: :delete, data: { confirm: '¿Estas seguro que deseas eliminar este usuario?' }, class: "btn btn-xs btn-danger", style: "color:#fff" %></td>
         <% end %>
       </tr>
     <% end %>

@@ -1,8 +1,8 @@
 <h3>
+  <strong>Producto: </strong><%= @product.name %><br>
   <%= image_tag @product.image.url(:medium) %>
-  <strong>Producto:</strong>
-  <%= @product.name %><br>
 </h3><br>
+
 <p>
   <strong>Likes:</strong>
   <%= @product.likes %> &nbsp;
@@ -32,8 +32,8 @@
 <br>
 
 
-<%= link_to raw(('<i class="fa fa-fw fa-edit"></i>')+' Editar'), edit_product_path(@product), class: "btn btn-xs btn-primary", style: "color:#fff" %>
-<%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar'), "/product/#{@product.id}", method: :delete, data: { confirm: '¿Estas seguro que desaeas eliminar este producto?' }, class: "btn btn-xs btn-danger", style: "color:#fff" %>
+<%= link_to raw(('<i class="fa fa-fw fa-edit"></i>')+' Editar'), edit_product_path(@product), class: "btn btn-sm btn-primary", style: "color:#fff" %>
+<%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar'), "/product/#{@product.id}", method: :delete, data: { confirm: '¿Estas seguro que deseas eliminar este producto?' }, class: "btn btn-sm btn-danger", style: "color:#fff" %>
 
 <br><br>
 <%= link_to raw(('<i class="fa fa-fw fa-arrow-circle-left"></i>')+' Volver'), '/products/page/1' , class: "btn btn-sm btn-primary", style: "color:#fff" %>

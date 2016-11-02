@@ -22,7 +22,7 @@
         <td><%= product.name %></td>
         <td style="text-align: center;"><%= product.likes %></td>
         <td style="text-align: center;"><%= product.denounced %></td>
-        <td><%= button_to 'Ver', "/products/#{product.id}", method: :get %></td>
+        <td><%= button_to 'Ver', "/products/#{product.id}", method: :get, class: "btn btn-sm btn-default" %></td>
       </tr>
     <% end %>
   </tbody>

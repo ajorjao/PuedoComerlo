@@ -12,7 +12,7 @@
     <% @banned_users.each do |banned_user| %>
       <tr>
         <td><%= banned_user.email %></td>
-        <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar'), "/banned_users/#{banned_user.id}", method: :delete, data: { confirm: '¿Estas seguro que desaeas desbanear este usuario?' }, class: "btn btn-xs btn-danger", style: "color:#fff" %></td>
+        <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar'), "/banned_users/#{banned_user.id}", method: :delete, data: { confirm: '¿Estas seguro que deseas desbanear este usuario?' }, class: "btn btn-xs btn-danger", style: "color:#fff" %></td>
       </tr>
     <% end %>
   </tbody>

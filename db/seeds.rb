@@ -228,13 +228,13 @@ spritelata.save
 p "subiendo spritelata"
 
 
-cocacolalightlata = Product.new(id: 7801610022122 ,name:"COCA-COLA LIGHT® Lata 350 cc",image_file_name: nil, image_content_type: nil,image_file_size: nil,image_updated_at: nil,likes: nil,denounced: nil,ingredients:"Agua carbonatada, color caramelo, ácido fosfórico, saborizantes naturales, Aspartamo, Benzoato de Sodio, Acesulfamo de Potasio, cafeína y ácido cítrico. Fenilcetonúricos: contiene fenilalanina.")
+cocacolalightlata = Product.new(id: 7801610022122 ,name:"COCA-COLA LIGHT® 350 cc",image_file_name: nil, image_content_type: nil,image_file_size: nil,image_updated_at: nil,likes: nil,denounced: nil,ingredients:"Agua carbonatada, color caramelo, ácido fosfórico, saborizantes naturales, Aspartamo, Benzoato de Sodio, Acesulfamo de Potasio, cafeína y ácido cítrico. Fenilcetonúricos: contiene fenilalanina.")
 cocacolalightlata.image_from_url("http://www.cocacoladechile.cl/wp-content/uploads/sites/15/botella1-78x250.jpg")
 cocacolalightlata.save
 p "subiendo cocacolalightlata"
 
 
-cocacolazerolata = Product.new(id: 7801610350355 ,name:"COCA-COLA ZERO® Lata 350 cc",image_file_name: nil, image_content_type: nil,image_file_size: nil,image_updated_at: nil,likes: nil,denounced: nil,ingredients:"Agua carbonatada, color caramelo, ácido fosfórico, aspartamo, saborizantes naturales, benzoato de sodio, acesulfamo de potasio, citrato de sodio, cafeína, ácido cítrico. Fenilcetonúricos: contiene fenilalanina.")
+cocacolazerolata = Product.new(id: 7801610350355 ,name:"COCA-COLA ZERO® 350 cc",image_file_name: nil, image_content_type: nil,image_file_size: nil,image_updated_at: nil,likes: nil,denounced: nil,ingredients:"Agua carbonatada, color caramelo, ácido fosfórico, aspartamo, saborizantes naturales, benzoato de sodio, acesulfamo de potasio, citrato de sodio, cafeína, ácido cítrico. Fenilcetonúricos: contiene fenilalanina.")
 cocacolazerolata.image_from_url("http://www.cocacoladechile.cl/wp-content/uploads/sites/15/botella2-78x250.jpg")
 cocacolazerolata.save
 p "subiendo cocacolazerolata"

@@ -14,7 +14,7 @@
       <tr>
         <td><%= product.name %></td>
         <td><%= product.id %></td>
-        <td><%= button_to 'Crear Producto', "products/#{product.id.to_s}/edit", method: :get %></td>
+        <td><%= button_to 'Crear Producto', "products/#{product.id.to_s}/edit", method: :get, class: "btn btn-xs btn-default" %></td>
         <td><%= link_to raw(('<i class="fa fa-fw fa-trash-o"></i>')+' Eliminar') , "product/#{product.id.to_s}", method: :delete, data: { confirm: "Estas seguro de borrar #{product.name}?"}, class: "btn btn-xs btn-danger", style: "color:#fff"  %></td>
       </tr>
     <% end %>

@@ -55,9 +55,10 @@ class ProductsController < ApplicationController
     @products = []
     # se buca entre los productos que posean ingredientes
     Product.where.not(ingredients: nil).order(likes: "desc").each do |producto|
+    # Product.where.not(ingredients: nil).each do |producto|
       if (producto.intolerances.map{ |i| i.id } & user_intolerances) == []
         producto.image_file_name = URI.join(request.url, producto.image.url).path
-
+        # producto.intlikes = producto.intlikes.sum
         @products.push(producto)
       end
     end
@@ -66,6 +67,7 @@ class ProductsController < ApplicationController
         format.json { render json: {error: "Lamentamos informarte que no poseemos productos que puedas consumir en nuestra base de datos"}, status: 404}
         format.html { redirect_to product_path, notice: "Lamentamos informarte que no poseemos productos que puedas consumir en nuestra base de datos" }
       else
+        # @products.sort_by {|elem| elem[:intlikes]}.reverse!
         format.json { render json: @products.paginate(page: params[:page], per_page: 10) }
         format.html {  }
       end
@@ -104,47 +106,38 @@ class ProductsController < ApplicationController
 
   #Post /recommend/[:id], products#recommend_product
   def recommend_product
-
-    # @product = Product.find_by_id(params[:id])
-    # if @product
-    #   @product.update(likes: @product.likes+1)
-    #   render json: @product
-    # else
-    #   render json: {error: "El producto no existe"}, status: :not_found
-    # end
-
-    @Product = Product.find_by_id(params[:id])
-    user_intolerances = [] 
-    current_user.families.each do |fam|
-      fam.intolerances.each do |intolerance|
-        if(!(user_intolerances.include?intolerance.id))
-          user_intolerances.push(intolerance.id)
+    @product = Product.find_by_id(params[:id])
+    if @product
+      user_intolerances = []
+      current_user.families.each do |fam|
+        fam.intolerances.each do |intolerance|
+          if(!(user_intolerances.include?intolerance.id))
+            user_intolerances.push(intolerance.id)
+          end
         end
       end
-    end
-    # ap user_intolerances
-    updt = []
-    (0..13).each do |i|
-      if (user_intolerances.include?(i+1))
-        # ap "i"
-        # ap i
-        @kek = @Product.intlikes[i]+1
+      # ap user_intolerances
+      updt = []
+      (0..13).each do |i|
+        if (user_intolerances.include?(i+1))
+          # ap "i"
+          # ap i
+          @kek = @product.intlikes[i]+1
+          # ap @kek
+        else
+          @kek = @product.intlikes[i]
+        end
         # ap @kek
-      else
-        @kek = @Product.intlikes[i]
+        updt.push(@kek)
       end
-      # ap @kek
-      updt.push(@kek)
-    end
-    # ap updt
-    respond_to do |format|
-      if @Product.update(intlikes: updt)
-        format.json { render json: {product: @Product}}
-        format.html { redirect_to product_path}
+      # ap updt
+      if @product.update(intlikes: updt, likes: @product.likes+1)
+        render json: {product: @product}
       else
-        format.json {render json: {error: "Error"}}
-        format.html {redirect_to product_path} #borrar si molesta
+        render json: {error: "Hay un error con nuestra base de datos para este producto"}
       end
+    else
+      render json: {error: "El producto no existe"}, status: :not_found
     end
   end
 
@@ -165,26 +158,16 @@ class ProductsController < ApplicationController
     end
 
     recomendados = []
-    @Product = Product.all
+    @products = Product.where.not(ingredients: nil).order(likes: "desc")
     user_intolerances.each do |intol|
       aux = []
-      @Product.each do |pro|
-        #ap @Product.intlikes[user_intolerances[i]-1]
-        #"name ILIKE ?", "%#{params[:empresa]}%"
-        #@Product = Product.all.order('intlikes['+(user_intolerances[i]-1).to_s+'] DESC')
-        #@kek = @Product.sort_by(intlikes: :desc)
-        # ap @Product
-        # ap pro.intlikes[intol-1]
+      @products.each do |pro|
         if (!(aux.include?(pro.intlikes[intol-1])))
           aux.push(pro.intlikes[intol-1])
         end
-        #@kek[0..4].each do |prod|
-          #recomendados.push(prod)
       end
       recomendados.push(aux.sort().reverse)
     end
-    # p 'recomendados'
-    # ap recomendados
 
     cant_recomendaciones = (recomendados.map {|elem| elem.sum}).sum
 
@@ -193,19 +176,19 @@ class ProductsController < ApplicationController
       recomendados.each do |rec|  
         aux2 = []
         rec.each do |rec1|
-          aux2.push(@Product.where("intlikes @> ARRAY[?]::bigint[]" , [rec1]))
+          aux2.push(@products.where("intlikes @> ARRAY[?]::bigint[]" , [rec1]))
         end
         @max = 5
         aux2.each do |k|
           if k.length >= 5
             k[0..@max-1].each do |j|
               j.image_file_name = URI.join(request.url, j.image.url).path
-              res.push(j)
+              res.push(j) if !res.include?(j)
             end
           else
             k.each do |j|
               j.image_file_name = URI.join(request.url, j.image.url).path
-              res.push(j)
+              res.push(j) if !res.include?(j)
             end
             @max = @max - k.length
           end
@@ -219,7 +202,7 @@ class ProductsController < ApplicationController
         format.json { render json: {error: "No existen recomendaciones con tus intolerancias aun"}, status: 404}
         format.html { redirect_to product_path, notice: "No existen recomendaciones con tus intolerancias aun"}
       elsif recomendados != nil
-        format.json { render json: {product: res}}
+        format.json { render json: {product: res.paginate(page: params[:page], per_page: 10)}}
         format.html { }
       else
         format.json { render json: {error: "Error"} }

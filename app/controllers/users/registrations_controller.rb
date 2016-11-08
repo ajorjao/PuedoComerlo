@@ -184,31 +184,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     @user = User.find_by_email(email)
-    if @user == nil
+    if @user == nil #se crea un nuevo usuario
       pass = Devise.friendly_token[0,20]
       @user = User.new(username: first_name+" "+last_name, email: email, password: pass, password_confirmation: pass)
-      # p ""
-      # p ""
-      # p ""
-      # p ""
-      # p picture
-      # p ""
-      # p ""
-      # p ""
-      # p ""
       @user.avatar_from_url(picture)
       @user.admin = false
       @user.save
-    else
-      # p ""
-      # p ""
-      # p ""
-      # p ""
-      # p picture
-      # p ""
-      # p ""
-      # p ""
-      # p ""
+
+      @family = Family.create(name: @user.username, user_id: @user.id)
+
+    else #se modifica la foto del usuario anterior
       @user.avatar_from_url(picture)
       @user.save
     end

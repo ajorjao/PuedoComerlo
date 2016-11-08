@@ -18,6 +18,22 @@ class Product < ActiveRecord::Base
 		self.image = open(url, :allow_redirections => :safe)
 	end
 
+	def update_intolerances(new_ingredients)
+		#borrar las antiguas intolerancias
+		self.intolerances.delete_all
+
+		Intolerance.all.each do |intolerancia|
+			#se recorre cada key compoent desde las intolerancias
+			intolerancia.key_components.each do |component|
+				#si posee un key_component en los ingredientes, se agrega la intolerancia al producto
+				new_ingredients.split(" ").each do |palabra_ingrediente|
+					if palabra_ingrediente.downcase.similar(component.downcase) > 80
+						self.intolerances << intolerancia if !self.intolerances.include?(intolerancia)
+					end
+				end
+			end
+		end
+	end
 
 	private
 		def add_intolerances

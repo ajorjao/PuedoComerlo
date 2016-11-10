@@ -4,7 +4,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # GET /resource/sign_in
   def new
-#    super
+   # super
     if params[:user]!=nil
       if User.find_by_email(params[:user][:email])!=nil
         self.resource = resource_class.new(sign_in_params)

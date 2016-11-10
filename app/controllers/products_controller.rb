@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
     # GET /products
     # GET /products.json
     def index
-      @products = Product.where.not(ingredients: nil).paginate(page: params[:page])
+      @products = Product.where.not(ingredients: nil).order(name: "asc").paginate(page: params[:page])
       respond_to do |format|
         format.json{ render json: @products }
         format.html{}
@@ -49,11 +49,13 @@ class ProductsController < ApplicationController
           format.html { redirect_to root_path, notice: "El producto no se encuentra disponible en nuestra base de datos" }
         else
           @comments = @product.comments
-          @product.image_file_name = URI.join(request.url, @product.image.url).path
           if @product.ingredients.blank?
             format.json { render json: {error: "El producto fue recientemente sugerido como '#{@product.name}' pero aun no se encuentra disponible para ser escaneado, lamentamos las inconveniencias"}, status: :unprocessable_entity } # error 422
           else
-            format.json { render json: {product: @product, intolerances: @product.intolerances, comments: @comments}, status: :ok }
+            format.json {
+              @product.image_file_name = URI.join(request.url, @product.image.url).path
+              render json: {product: @product, intolerances: @product.intolerances, comments: @comments}, status: :ok
+            }
           end
           format.html {
             notificacion = Notification.find_by(from_type: [1,3], from_id: @product.id)
@@ -107,7 +109,7 @@ class ProductsController < ApplicationController
   ################# END BUSQUEDAS DE PRODUCTOS ###################
 
 
-  #################### RECOMENDACIONES Y DENUNCIAS ####################
+  #################### RECOMENDACIONES, DENUNCIAS Y SUGERENCIAS ####################
     # PUT /recomended_products
     def recomended_products
       user_intolerances = params[:user_intolerances].split(",").map { |id| id.to_i }
@@ -138,6 +140,7 @@ class ProductsController < ApplicationController
     def suggest_product
       # hay q hacer que el usuario pueda sacar una foto
       @suggested_product = Product.new(id: params[:barcode], name: params[:name])
+      @suggested_product.image = params[:image]
       # para usar el producto sugerido se puede usar eval(@suggested_product)
       @notification = Notification.new(from_type: "suggest", from_id: @suggested_product.id)
       existe = Product.find_by_id(@suggested_product.id)

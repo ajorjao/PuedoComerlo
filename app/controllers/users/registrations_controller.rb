@@ -29,6 +29,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
           else
             current_user.admin = false
           end
+
+          similitud = params[:user][:username].split(" ")[0].similar("Familia")
+          if similitud < 80
+            params[:user][:username] = "Familia "+params[:user][:username]
+          end
+          current_user.username = params[:user][:username]
+
           current_user.save
           #respond_with resource, location: after_sign_up_path_for(resource)
           respond_to do |format|
@@ -82,6 +89,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if current_user == nil
       render json: {error: 'No estas logeado.'}, status: 401
     else
+      if params[:user][:username]
+        similitud = params[:user][:username].split(" ")[0].similar("Familia")
+        if similitud < 80
+          params[:user][:username] = "Familia "+params[:user][:username]
+        end
+      end
       if current_user.update(account_update_params)
         current_user.avatar_file_name = URI.join(request.url, current_user.avatar.url).path
         render json: {edited: current_user}
@@ -186,12 +199,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.find_by_email(email)
     if @user == nil #se crea un nuevo usuario
       pass = Devise.friendly_token[0,20]
-      @user = User.new(username: first_name+" "+last_name, email: email, password: pass, password_confirmation: pass)
+      @user = User.new(username: "Familia de "+first_name, email: email, password: pass, password_confirmation: pass)
       @user.avatar_from_url(picture)
       @user.admin = false
       @user.save
 
-      @family = Family.create(name: @user.username, user_id: @user.id)
+      @family = Family.create(name: first_name+' '+last_name, user_id: @user.id)
 
     else #se modifica la foto del usuario anterior
       @user.avatar_from_url(picture)
@@ -241,6 +254,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
     def account_update_params
       params[:user].delete_if {|k,v| v.blank? }
-      params.require(:user).permit(:email, :avatar, :password)
+      params.require(:user).permit(:email, :username, :avatar, :password)
     end
 end

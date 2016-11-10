@@ -1,33 +1,70 @@
+<script type="text/javascript">
+	function abrir_ventana(){
+		imagen = $("#myImage")
+
+		// max_multiplier = 743/imagen.height();
+		// max_multiplier = (screen.height-79)/imagen.height();
+		max_multiplier = (screen.height-157)/imagen.height();
+
+		ancho = imagen.width()*max_multiplier;
+		console.log(ancho);
+
+		alto = imagen.height()*max_multiplier;
+		console.log(alto);
+
+		string="toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=1,width="+ancho+",height="+alto+",left=0,top=0";
+
+	  // console.log('window.open('+imagen.attr("src").replace('medium','original')+',"",'+string+')');
+	  fin=window.open(imagen.attr("src").replace('medium','original'),"",string);
+	}
+</script>
+
 <h3>
   <strong>Producto: </strong><%= @product.name %><br>
-  <%= image_tag @product.image.url(:medium) %>
-</h3><br>
+  <strong>Codigo de barras: </strong><%= @product.id %><br>
+</h3>
+<div style="display: inline-block; margin: 20px; vertical-align: middle;">
+	<%= image_tag @product.image.url(:medium), id: "myImage", onclick: "abrir_ventana();" %>
+</div>
+	
+<div style="display: inline-block; max-width: calc(100% - 400px); margin: 20px; vertical-align: middle;">
+	<!-- <div> -->
+	  <strong>Likes:</strong>
+	  <%= @product.likes %> &nbsp;
+	  <strong>Denuncias:</strong>
+	  <%= @product.denounced %><br><br>
+	<!-- </div> -->
 
-<p>
-  <strong>Likes:</strong>
-  <%= @product.likes %> &nbsp;
-  <strong>Denuncias:</strong>
-  <%= @product.denounced %><br><br>
-
-	<h4>
-	  <strong>Ingredientes:</strong>
-	</h4>
-  <%= @product.ingredients %>
-
-	<h4>
-	  <strong>Intolerancias:</strong>
-	</h4>
-	<% if @product.intolerances != [] %>
-		<ul>
-		<% @product.intolerances.each do |intolerancia| %>
-			<li> <%= intolerancia.name %> </li>
+	<!-- <div> -->
+		<h4>
+		  <strong>Ingredientes:</strong>
+		</h4>
+		<% if @product.ingredients %>
+			<%= @product.ingredients %>
+		<% else %>
+			<i style="margin-left: 10px;">A este producto no se le han registrado ingredientes</i>
 		<% end %>
+	<!-- </div> -->
 
-		</ul>
-	<% else %>
-		<i style="margin-left: 10px;">Este producto no posee intolerancias registradas</i>
-	<% end %>
-</p>
+	<!-- <div> -->
+		<h4>
+		  <strong>Intolerancias:</strong>
+		</h4>
+		<% if @product.intolerances != [] %>
+			<ul>
+			<% @product.intolerances.each do |intolerancia| %>
+				<li> <%= intolerancia.name %> </li>
+			<% end %>
+
+			</ul>
+		<% else %>
+			<i style="margin-left: 10px;">Este producto no posee intolerancias registradas</i>
+		<% end %>
+	<!-- </div> -->
+</div>
+
+
+
 
 <br>
 

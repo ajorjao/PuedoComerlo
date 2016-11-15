@@ -86,6 +86,7 @@ class FamiliesController < ApplicationController
   # POST /families.json
   def create
     params[:family][:user_id] = current_user.id if params[:family][:user_id]==nil
+    params[:family][:name] = params[:family][:name].split(" ").map{|a| a.capitalize}.join(" ")
     @family = Family.new(family_params)
     # if current_user.families.count == 0
     #   current_user.username = @family.name
@@ -107,6 +108,7 @@ class FamiliesController < ApplicationController
   # PATCH/PUT /families/1.json
   def update
     respond_to do |format|
+      params[:family][:name] = params[:family][:name].split(" ").map{|a| a.capitalize}.join(" ")
       if @family.update(family_params)
         format.json { render :show, status: :ok, location: @family }
         format.html { redirect_to @family, notice: 'Family was successfully updated.' }

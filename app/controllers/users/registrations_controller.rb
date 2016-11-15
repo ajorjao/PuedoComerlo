@@ -34,7 +34,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           if similitud < 80
             params[:user][:username] = "Familia "+params[:user][:username]
           end
-          current_user.username = params[:user][:username]
+          current_user.username = params[:user][:username].split(" ").map{|a| a.capitalize}.join(" ")
 
           current_user.save
           #respond_with resource, location: after_sign_up_path_for(resource)
@@ -95,6 +95,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           params[:user][:username] = "Familia "+params[:user][:username]
         end
       end
+      params[:user][:username] = params[:user][:username].split(" ").map{|a| a.capitalize}.join(" ")
       if current_user.update(account_update_params)
         current_user.avatar_file_name = URI.join(request.url, current_user.avatar.url).path
         render json: {edited: current_user}
@@ -199,7 +200,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.find_by_email(email)
     if @user == nil #se crea un nuevo usuario
       pass = Devise.friendly_token[0,20]
-      @user = User.new(username: "Familia de "+first_name, email: email, password: pass, password_confirmation: pass)
+      @user = User.new(username: "Familia de "+first_name.capitalize, email: email, password: pass, password_confirmation: pass)
       @user.avatar_from_url(picture)
       @user.admin = false
       @user.save
